@@ -42,9 +42,7 @@ public class KqglDao extends BaseJdbcDao {
 			}
 		}, keyHolder);
 		int id = keyHolder.getKey().intValue();
-
 		int ts = (int) kqxx.get("ts");
-		
 		for (int i = 1; i <= ts; i++) {
 			String zbq = null, zbz = null, wbq = null, wbz = null, ybq = null, ybz = null;
 			String rq = (String) kqxx.get("rq" + i);
