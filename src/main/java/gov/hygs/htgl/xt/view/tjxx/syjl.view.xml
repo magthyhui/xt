@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+  <Arguments/>
+  <Context/>
+  <Model>
+    <DataType name="dataType1">
+      <PropertyDef name="kh">
+        <Property></Property>
+        <Property name="label">客户名称</Property>
+      </PropertyDef>
+      <PropertyDef name="ddBh">
+        <Property></Property>
+        <Property name="label">订单编号</Property>
+      </PropertyDef>
+      <PropertyDef name="fkdjsj">
+        <Property name="dataType">Date</Property>
+        <Property name="label">付款定金时间</Property>
+      </PropertyDef>
+      <PropertyDef name="khjq">
+        <Property name="dataType">Date</Property>
+        <Property name="label">客户交期</Property>
+      </PropertyDef>
+      <PropertyDef name="hyjq">
+        <Property name="dataType">Date</Property>
+        <Property name="label">回应交期</Property>
+      </PropertyDef>
+      <PropertyDef name="cpMc">
+        <Property></Property>
+        <Property name="label">产品信息</Property>
+      </PropertyDef>
+      <PropertyDef name="cpBh">
+        <Property></Property>
+        <Property name="label">产品编号</Property>
+      </PropertyDef>
+      <PropertyDef name="cdsl">
+        <Property name="label">出单数量</Property>
+      </PropertyDef>
+      <PropertyDef name="cdrq">
+        <Property name="dataType">Date</Property>
+        <Property name="label">出单日期</Property>
+      </PropertyDef>
+    </DataType>
+    <DataType name="dtCondition">
+      <PropertyDef name="cdq">
+        <Property name="dataType">Date</Property>
+        <Property name="label">出单日期起</Property>
+      </PropertyDef>
+      <PropertyDef name="cdz">
+        <Property name="dataType">Date</Property>
+        <Property name="label">出单日期止</Property>
+      </PropertyDef>
+      <PropertyDef name="kh">
+        <Property name="label">客户名称</Property>
+      </PropertyDef>
+      <PropertyDef name="ddbh">
+        <Property name="label">订单编号</Property>
+      </PropertyDef>
+    </DataType>
+  </Model>
+  <View>
+    <DataSet id="dataSet1">
+      <Property name="dataType">[dataType1]</Property>
+      <Property name="dataProvider">tjController#getDdhz</Property>
+      <Property name="loadMode">manual</Property>
+    </DataSet>
+    <DataSet id="dsCondition">
+      <ClientEvent name="onReady">self.insert();&#xD;
+</ClientEvent>
+      <Property name="dataType">dtCondition</Property>
+    </DataSet>
+    <AutoForm>
+      <Property name="dataSet">dsCondition</Property>
+      <AutoFormElement>
+        <Property name="name">cdq</Property>
+        <Property name="property">cdq</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">cdz</Property>
+        <Property name="property">cdz</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">kh</Property>
+        <Property name="property">kh</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">ddbh</Property>
+        <Property name="property">ddbh</Property>
+        <Editor/>
+      </AutoFormElement>
+      <Button>
+        <ClientEvent name="onClick">var dataSet1 = view.get(&quot;#dataSet1&quot;);&#xD;
+var dsCondition = view.get(&quot;#dsCondition&quot;).getData(&quot;#&quot;);&#xD;
+dataSet1.set(&quot;parameter&quot;,dsCondition).flushAsync();&#xD;
+</ClientEvent>
+        <Property name="caption">查询</Property>
+      </Button>
+    </AutoForm>
+    <DataGrid>
+      <Property name="dataSet">dataSet1</Property>
+      <Property name="readOnly">true</Property>
+      <Property name="showFooter">true</Property>
+      <DataColumn name="kh">
+        <Property name="property">kh</Property>
+      </DataColumn>
+      <DataColumn name="ddBh">
+        <Property name="property">ddBh</Property>
+      </DataColumn>
+      <DataColumn name="fkdjsj">
+        <Property name="property">fkdjsj</Property>
+      </DataColumn>
+      <DataColumn name="khjq">
+        <Property name="property">khjq</Property>
+      </DataColumn>
+      <DataColumn name="hyjq">
+        <Property name="property">hyjq</Property>
+      </DataColumn>
+      <DataColumn name="cpMc">
+        <Property name="property">cpMc</Property>
+      </DataColumn>
+      <DataColumn name="cpBh">
+        <Property name="property">cpBh</Property>
+      </DataColumn>
+      <DataColumn name="cdsl">
+        <Property name="property">cdsl</Property>
+        <Property name="summaryType">sum</Property>
+      </DataColumn>
+      <DataColumn name="cdrq">
+        <Property name="property">cdrq</Property>
+      </DataColumn>
+    </DataGrid>
+  </View>
+</ViewConfig>

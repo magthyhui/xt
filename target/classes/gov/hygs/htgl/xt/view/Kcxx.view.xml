@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+  <Arguments/>
+  <Context/>
+  <Model>
+    <DataType name="dtKcxx">
+      <Property name="creationType">gov.hygs.htgl.xt.entity.Kcxx</Property>
+      <PropertyDef name="id">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="clMc">
+        <Property></Property>
+        <Property name="label">材料名称</Property>
+      </PropertyDef>
+      <PropertyDef name="clBh">
+        <Property></Property>
+        <Property name="label">材料编号</Property>
+      </PropertyDef>
+      <PropertyDef name="ghs">
+        <Property></Property>
+        <Property name="label">供货商</Property>
+      </PropertyDef>
+      <PropertyDef name="clmd">
+        <Property name="dataType">Double</Property>
+        <Property name="label">材料密度</Property>
+        <Property name="defaultValue">0</Property>
+      </PropertyDef>
+      <PropertyDef name="hd">
+        <Property name="dataType">Double</Property>
+        <Property name="label">厚度</Property>
+        <Property name="defaultValue">0</Property>
+      </PropertyDef>
+      <PropertyDef name="lk">
+        <Property name="dataType">Double</Property>
+        <Property name="label">料宽</Property>
+        <Property name="defaultValue">0</Property>
+      </PropertyDef>
+      <PropertyDef name="bj">
+        <Property name="dataType">Double</Property>
+        <Property name="label">步距</Property>
+        <Property name="defaultValue">0</Property>
+      </PropertyDef>
+      <PropertyDef name="ms">
+        <Property name="dataType">Double</Property>
+        <Property name="label">模数</Property>
+        <Property name="defaultValue">0</Property>
+        <Validator name="validator1" type="range">
+          <Property name="minValue">0</Property>
+          <Property name="minValueValidateMode">notAllowEquals</Property>
+        </Validator>
+      </PropertyDef>
+      <PropertyDef name="dgjz">
+        <Property name="dataType">Double</Property>
+        <Property name="label">单个净重</Property>
+        <Property name="defaultValue">0</Property>
+      </PropertyDef>
+      <PropertyDef name="dgcpmj">
+        <Property name="dataType">Double</Property>
+        <Property name="label">单个产品面积</Property>
+        <Property name="defaultValue">0</Property>
+      </PropertyDef>
+      <PropertyDef name="cldj">
+        <Property name="dataType">Double</Property>
+        <Property name="label">材料单价/KG</Property>
+        <Property name="defaultValue">0</Property>
+      </PropertyDef>
+      <PropertyDef name="sh">
+        <Property name="dataType">Double</Property>
+        <Property name="label">损耗%</Property>
+        <Property name="defaultValue">0</Property>
+      </PropertyDef>
+      <PropertyDef name="dqkc">
+        <Property name="dataType">Double</Property>
+        <Property name="label">当前库存数/kg</Property>
+        <Property name="defaultValue">0</Property>
+      </PropertyDef>
+      <PropertyDef name="zkc">
+        <Property name="dataType">Double</Property>
+        <Property name="label">总库存数/Kg</Property>
+        <Property name="defaultValue">0</Property>
+      </PropertyDef>
+      <PropertyDef name="bz">
+        <Property></Property>
+        <Property name="label">备注</Property>
+      </PropertyDef>
+      <PropertyDef name="dgmz">
+        <Property name="dataType">Double</Property>
+        <Property name="label">单个毛重</Property>
+        <Property name="displayFormat">#0.##</Property>
+      </PropertyDef>
+      <PropertyDef name="dgfl">
+        <Property name="dataType">Double</Property>
+        <Property name="label">单个废料</Property>
+        <Property name="displayFormat">#0.##</Property>
+      </PropertyDef>
+      <PropertyDef name="cllyl">
+        <Property name="dataType">Double</Property>
+        <Property name="label">材料利用率</Property>
+        <Property name="displayFormat">#0.##</Property>
+      </PropertyDef>
+      <PropertyDef name="dj">
+        <Property name="dataType">Double</Property>
+        <Property name="label">单价/PCS</Property>
+        <Property name="displayFormat">#0.####</Property>
+      </PropertyDef>
+    </DataType>
+  </Model>
+  <View>
+    <DataSet id="dsKcxx">
+      <Property name="dataType">[dtKcxx]</Property>
+      <Property name="dataProvider">xtController#getKcxx</Property>
+      <Property name="pageSize">40</Property>
+    </DataSet>
+    <Container>
+      <GroupBox>
+        <Property name="caption">信息表</Property>
+        <Buttons/>
+        <Children>
+          <ToolBar>
+            <DataPilot>
+              <Property name="dataSet">dsKcxx</Property>
+              <Property name="itemCodes">pages</Property>
+            </DataPilot>
+            <Button>
+              <ClientEvent name="onClick">view.get(&quot;#dsKcxx&quot;).insert();&#xD;
+view.get(&quot;#dialog&quot;).show();&#xD;
+</ClientEvent>
+              <Property name="caption">增加</Property>
+              <Property name="icon"> url(>skin>common/icons.gif) -120px -0px</Property>
+            </Button>
+            <Button>
+              <ClientEvent name="onClick">var currentData = view.get(&quot;#dsKcxx&quot;).getData(&quot;#&quot;);&#xD;
+if(currentData != undefined){&#xD;
+	dorado.MessageBox.confirm(&quot;删除当前节点数据？&quot;,function(){&#xD;
+	currentData.remove();&#xD;
+	view.get(&quot;#updateAction&quot;).execute();&#xD;
+	//view.get(&quot;#dsSysprop&quot;).flush();&#xD;
+	});	&#xD;
+}&#xD;
+&#xD;
+</ClientEvent>
+              <Property name="caption">删除</Property>
+              <Property name="icon">url(>skin>common/icons.gif) -140px -0px</Property>
+            </Button>
+            <Button>
+              <ClientEvent name="onClick">view.get(&quot;#dialog&quot;).show();&#xD;
+</ClientEvent>
+              <Property name="caption">修改</Property>
+              <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
+            </Button>
+          </ToolBar>
+          <DataGrid>
+            <Property name="dataSet">dsKcxx</Property>
+            <Property name="readOnly">true</Property>
+            <DataColumn name="clMc">
+              <Property name="property">clMc</Property>
+              <Property name="width">100</Property>
+            </DataColumn>
+            <DataColumn name="clBh">
+              <Property name="property">clBh</Property>
+              <Property name="width">100</Property>
+            </DataColumn>
+            <DataColumn name="ghs">
+              <Property name="property">ghs</Property>
+              <Property name="width">100</Property>
+            </DataColumn>
+            <DataColumn name="clmd">
+              <Property name="property">clmd</Property>
+              <Property name="width">100</Property>
+            </DataColumn>
+            <DataColumn name="hd">
+              <Property name="property">hd</Property>
+              <Property name="width">100</Property>
+            </DataColumn>
+            <DataColumn name="lk">
+              <Property name="property">lk</Property>
+              <Property name="width">100</Property>
+            </DataColumn>
+            <DataColumn name="bj">
+              <Property name="property">bj</Property>
+              <Property name="width">100</Property>
+            </DataColumn>
+            <DataColumn name="ms">
+              <Property name="property">ms</Property>
+              <Property name="width">100</Property>
+            </DataColumn>
+            <DataColumn name="dgmz">
+              <Property name="property">dgmz</Property>
+              <Property name="width">100</Property>
+            </DataColumn>
+            <DataColumn name="dgjz">
+              <Property name="property">dgjz</Property>
+              <Property name="width">100</Property>
+            </DataColumn>
+            <DataColumn name="dgfl">
+              <Property name="property">dgfl</Property>
+              <Property name="width">100</Property>
+            </DataColumn>
+            <DataColumn name="dgcpmj">
+              <Property name="property">dgcpmj</Property>
+              <Property name="width">100</Property>
+            </DataColumn>
+            <DataColumn name="cllyl">
+              <Property name="property">cllyl</Property>
+              <Property name="width">100</Property>
+            </DataColumn>
+            <DataColumn name="cldj">
+              <Property name="property">cldj</Property>
+              <Property name="width">100</Property>
+            </DataColumn>
+            <DataColumn name="dj">
+              <Property name="property">dj</Property>
+              <Property name="width">100</Property>
+            </DataColumn>
+            <DataColumn name="sh">
+              <Property name="property">sh</Property>
+              <Property name="width">100</Property>
+            </DataColumn>
+            <DataColumn name="dqkc">
+              <Property name="property">dqkc</Property>
+              <Property name="width">100</Property>
+            </DataColumn>
+            <DataColumn name="zkc">
+              <Property name="property">zkc</Property>
+              <Property name="width">100</Property>
+            </DataColumn>
+            <DataColumn name="bz">
+              <Property name="property">bz</Property>
+              <Property name="width">100</Property>
+            </DataColumn>
+          </DataGrid>
+        </Children>
+      </GroupBox>
+    </Container>
+    <Dialog id="dialog">
+      <Property name="width">700</Property>
+      <Property name="height">450</Property>
+      <Buttons/>
+      <Children>
+        <GroupBox layout="hbox pack:center">
+          <Property name="caption">信息</Property>
+          <Buttons>
+            <Button>
+              <ClientEvent name="onClick">view.get(&quot;#updateAction&quot;).execute(function(){&#xD;
+	view.get(&quot;#dialog&quot;).close();&#xD;
+	view.get(&quot;#dsKcxx&quot;).flush();&#xD;
+	/*var data = view.get(&quot;#dsSysprop&quot;).getData();&#xD;
+	data.each(function(entity){&#xD;
+		if(entity.get(&quot;id&quot;)==undefined){&#xD;
+			view.get(&quot;#dsSysprop&quot;).flush();&#xD;
+			view.get(&quot;#dsSysprop&quot;).getData().setCurrent(&quot;entity&quot;);&#xD;
+		}&#xD;
+	});&#xD;
+	*/&#xD;
+});&#xD;
+</ClientEvent>
+              <Property name="caption">提交</Property>
+              <Property name="icon">url(>skin>common/icons.gif) -20px -0px</Property>
+            </Button>
+            <Button>
+              <ClientEvent name="onClick">view.get(&quot;#dialog&quot;).close();&#xD;
+view.get(&quot;#dsKcxx&quot;).getData(&quot;#&quot;).cancel();&#xD;
+</ClientEvent>
+              <Property name="caption">取消</Property>
+              <Property name="icon">url(>skin>common/icons.gif) -40px -0px</Property>
+            </Button>
+          </Buttons>
+          <Children>
+            <AutoForm id="autoForm">
+              <Property name="dataSet">dsKcxx</Property>
+              <Property name="width">680</Property>
+              <Property name="cols">*,*,*</Property>
+              <Property name="labelWidth">100</Property>
+              <AutoFormElement>
+                <Property name="name">clMc</Property>
+                <Property name="property">clMc</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">clBh</Property>
+                <Property name="property">clBh</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">ghs</Property>
+                <Property name="property">ghs</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">clmd</Property>
+                <Property name="property">clmd</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">hd</Property>
+                <Property name="property">hd</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">lk</Property>
+                <Property name="property">lk</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">bj</Property>
+                <Property name="property">bj</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">ms</Property>
+                <Property name="property">ms</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">dgjz</Property>
+                <Property name="property">dgjz</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">dgcpmj</Property>
+                <Property name="property">dgcpmj</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">cldj</Property>
+                <Property name="property">cldj</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">sh</Property>
+                <Property name="property">sh</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">dqkc</Property>
+                <Property name="property">dqkc</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">zkc</Property>
+                <Property name="property">zkc</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement layoutConstraint="colSpan:3">
+                <Property name="name">bz</Property>
+                <Property name="property">bz</Property>
+                <Property name="editorType">TextArea</Property>
+                <Editor/>
+              </AutoFormElement>
+            </AutoForm>
+          </Children>
+        </GroupBox>
+      </Children>
+      <Tools/>
+    </Dialog>
+    <UpdateAction id="updateAction">
+      <Property name="dataResolver">xtController#updateKcxx</Property>
+      <UpdateItem>
+        <Property name="dataSet">dsKcxx</Property>
+      </UpdateItem>
+    </UpdateAction>
+  </View>
+</ViewConfig>

@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+  <Arguments/>
+  <Context/>
+  <Model>
+    <DataType name="dtCgxx">
+      <Property name="creationType">gov.hygs.htgl.xt.entity.Cgxx</Property>
+      <PropertyDef name="id">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="cgBh">
+        <Property></Property>
+        <Property name="label">采购编号</Property>
+      </PropertyDef>
+      <PropertyDef name="ddBh">
+        <Property></Property>
+        <Property name="label">订单编号</Property>
+      </PropertyDef>
+      <PropertyDef name="zj">
+        <Property name="dataType">Double</Property>
+        <Property name="label">总价</Property>
+      </PropertyDef>
+      <Reference name="clxxs">
+        <Property name="dataType">[dtCgclxx]</Property>
+        <Property name="dataProvider">xtController#getCgclxx</Property>
+        <Property name="parameter">
+          <Entity>
+            <Property name="id">$${this.id}</Property>
+          </Entity>
+        </Property>
+      </Reference>
+    </DataType>
+    <DataType name="dtCgclxx">
+      <Property name="creationType">gov.hygs.htgl.xt.entity.Cgclxx</Property>
+      <PropertyDef name="id">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="cgBh">
+        <Property></Property>
+        <Property name="label">采购编号</Property>
+      </PropertyDef>
+      <PropertyDef name="clBh">
+        <Property></Property>
+        <Property name="label">材料编号</Property>
+      </PropertyDef>
+      <PropertyDef name="sl">
+        <Property name="dataType">Double</Property>
+        <Property name="label">需要数量/个</Property>
+      </PropertyDef>
+      <PropertyDef name="pid">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="clMc">
+        <Property></Property>
+        <Property name="label">材料名称</Property>
+      </PropertyDef>
+      <PropertyDef name="cgsl">
+        <Property name="dataType">Double</Property>
+        <Property name="label">数量/Kg</Property>
+        <Property name="displayFormat">#0.##</Property>
+      </PropertyDef>
+      <PropertyDef name="zj">
+        <Property name="dataType">Double</Property>
+        <Property name="label">总价</Property>
+        <Property name="displayFormat">#0.##</Property>
+      </PropertyDef>
+      <PropertyDef name="sjcgl">
+        <Property name="label">实际采购量/Kg</Property>
+        <Property name="dataType">Double</Property>
+        <Property name="displayFormat">#0.##</Property>
+      </PropertyDef>
+    </DataType>
+    <DataType name="dtDropDown">
+      <PropertyDef name="dm">
+        <Property name="label">编号</Property>
+      </PropertyDef>
+      <PropertyDef name="mc">
+        <Property name="label">名称</Property>
+      </PropertyDef>
+    </DataType>
+  </Model>
+  <View>
+    <DataSet id="dsCgxx">
+      <Property name="dataType">[dtCgxx]</Property>
+      <Property name="dataProvider">xtController#getCgxx</Property>
+      <Property name="pageSize">20</Property>
+    </DataSet>
+    <DataSet id="dsDropDown">
+      <Property name="dataProvider">dropDownController#getClxx</Property>
+      <Property name="dataType">[dtDropDown]</Property>
+    </DataSet>
+    <DataSetDropDown id="dataSetDropDown1">
+      <Property name="dataSet">dsDropDown</Property>
+      <Property name="assignmentMap">clBh=dm</Property>
+      <Property name="property">mc</Property>
+      <Property name="editable">false</Property>
+      <DataColumn>
+        <Property name="property">dm</Property>
+        <Editor/>
+      </DataColumn>
+      <DataColumn>
+        <Property name="property">mc</Property>
+        <Editor/>
+      </DataColumn>
+    </DataSetDropDown>
+    <Container>
+      <GroupBox>
+        <Property name="caption">信息表</Property>
+        <Buttons/>
+        <Children>
+          <SplitPanel>
+            <Property name="position">55%</Property>
+            <Property name="direction">left</Property>
+            <MainControl>
+              <Container>
+                <ToolBar>
+                  <Button>
+                    <ClientEvent name="onClick">var dsCgxx = view.get(&quot;#dsCgxx&quot;).getData(&quot;#&quot;);&#xD;
+dsCgxx.get(&quot;clxxs&quot;).insert({cgBh:dsCgxx.get(&quot;cgBh&quot;),pid:dsCgxx.get(&quot;id&quot;)});&#xD;
+//view.get(&quot;#dialogClxx&quot;).show();&#xD;
+</ClientEvent>
+                    <Property name="caption">增加</Property>
+                    <Property name="icon"> url(>skin>common/icons.gif) -120px -0px</Property>
+                  </Button>
+                  <Button>
+                    <ClientEvent name="onClick">&#xD;
+	view.get(&quot;#dsCgxx&quot;).getData(&quot;#&quot;).get(&quot;clxxs&quot;).remove();&#xD;
+&#xD;
+</ClientEvent>
+                    <Property name="caption">删除</Property>
+                    <Property name="icon">url(>skin>common/icons.gif) -140px -0px</Property>
+                  </Button>
+                  <Button>
+                    <ClientEvent name="onClick">//view.get(&quot;#dialogClxx&quot;).show();&#xD;
+&#xD;
+dorado.MessageBox.confirm(&quot;确认保存数据？&quot;,function(){&#xD;
+	view.get(&quot;#updateAction&quot;).execute(function(){&#xD;
+//	view.get(&quot;#dialogClxx&quot;).close();&#xD;
+	view.get(&quot;#dsCgxx&quot;).flushAsync();&#xD;
+});&#xD;
+});	&#xD;
+&#xD;
+</ClientEvent>
+                    <Property name="caption">保存</Property>
+                    <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
+                  </Button>
+                </ToolBar>
+                <DataGrid>
+                  <Property name="dataSet">dsCgxx</Property>
+                  <Property name="dataPath">#.clxxs</Property>
+                  <Property name="readOnly">false</Property>
+                  <DataColumn name="clBh">
+                    <Property name="property">clBh</Property>
+                    <Property name="readOnly">true</Property>
+                    <Property name="width">110</Property>
+                  </DataColumn>
+                  <DataColumn name="clMc">
+                    <Property name="property">clMc</Property>
+                    <Property name="trigger">dataSetDropDown1</Property>
+                    <Property name="width">250</Property>
+                  </DataColumn>
+                  <DataColumn name="sl">
+                    <Property name="property">sl</Property>
+                    <Property name="width">110</Property>
+                  </DataColumn>
+                  <DataColumn name="cgsl">
+                    <Property name="property">cgsl</Property>
+                    <Property name="width">110</Property>
+                  </DataColumn>
+                  <DataColumn name="zj">
+                    <Property name="property">zj</Property>
+                    <Property name="width">110</Property>
+                  </DataColumn>
+                </DataGrid>
+              </Container>
+            </MainControl>
+            <SideControl>
+              <Container>
+                <ToolBar>
+                  <DataPilot>
+                    <Property name="dataSet">dsCgxx</Property>
+                    <Property name="itemCodes">pages</Property>
+                  </DataPilot>
+                  <Button>
+                    <ClientEvent name="onClick">view.get(&quot;#dsCgxx&quot;).insert();&#xD;
+view.get(&quot;#dialog&quot;).show();&#xD;
+</ClientEvent>
+                    <Property name="caption">增加</Property>
+                    <Property name="icon"> url(>skin>common/icons.gif) -120px -0px</Property>
+                  </Button>
+                  <Button>
+                    <ClientEvent name="onClick">var currentData = view.get(&quot;#dsCgxx&quot;).getData(&quot;#&quot;);&#xD;
+if(currentData != undefined){&#xD;
+	dorado.MessageBox.confirm(&quot;删除当前节点数据？&quot;,function(){&#xD;
+	currentData.remove();&#xD;
+	view.get(&quot;#updateAction&quot;).execute();&#xD;
+	//view.get(&quot;#dsSysprop&quot;).flush();&#xD;
+	});	&#xD;
+}&#xD;
+&#xD;
+</ClientEvent>
+                    <Property name="caption">删除</Property>
+                    <Property name="icon">url(>skin>common/icons.gif) -140px -0px</Property>
+                  </Button>
+                  <Button>
+                    <ClientEvent name="onClick">view.get(&quot;#dialog&quot;).show();&#xD;
+</ClientEvent>
+                    <Property name="caption">修改</Property>
+                    <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
+                  </Button>
+                  <ToolBarButton>
+                    <ClientEvent name="onClick">view.get(&quot;#dialogCg&quot;).show();</ClientEvent>
+                    <Property name="caption">商品采购</Property>
+                  </ToolBarButton>
+                </ToolBar>
+                <DataGrid>
+                  <Property name="dataSet">dsCgxx</Property>
+                  <Property name="readOnly">true</Property>
+                  <DataColumn name="ddBh">
+                    <Property name="property">ddBh</Property>
+                  </DataColumn>
+                  <DataColumn name="zj">
+                    <Property name="property">zj</Property>
+                  </DataColumn>
+                </DataGrid>
+              </Container>
+            </SideControl>
+          </SplitPanel>
+        </Children>
+      </GroupBox>
+    </Container>
+    <Dialog id="dialog">
+      <Property name="width">700</Property>
+      <Property name="height">300</Property>
+      <Buttons/>
+      <Children>
+        <GroupBox layout="hbox pack:center">
+          <Property name="caption">信息</Property>
+          <Buttons>
+            <Button>
+              <ClientEvent name="onClick">view.get(&quot;#updateAction&quot;).execute(function(){&#xD;
+	view.get(&quot;#dialog&quot;).close();&#xD;
+	view.get(&quot;#dsCgxx&quot;).flushAsync();&#xD;
+});&#xD;
+</ClientEvent>
+              <Property name="caption">提交</Property>
+              <Property name="icon">url(>skin>common/icons.gif) -20px -0px</Property>
+            </Button>
+            <Button>
+              <ClientEvent name="onClick">view.get(&quot;#dialog&quot;).close();&#xD;
+view.get(&quot;#dsCgxx&quot;).getData(&quot;#&quot;).cancel();&#xD;
+</ClientEvent>
+              <Property name="caption">取消</Property>
+              <Property name="icon">url(>skin>common/icons.gif) -40px -0px</Property>
+            </Button>
+          </Buttons>
+          <Children>
+            <AutoForm id="autoForm">
+              <Property name="dataSet">dsCgxx</Property>
+              <Property name="width">680</Property>
+              <AutoFormElement>
+                <Property name="name">cgBh</Property>
+                <Property name="property">cgBh</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">ddBh</Property>
+                <Property name="property">ddBh</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">zj</Property>
+                <Property name="property">zj</Property>
+                <Editor/>
+              </AutoFormElement>
+            </AutoForm>
+          </Children>
+        </GroupBox>
+      </Children>
+      <Tools/>
+    </Dialog>
+    <UpdateAction id="updateAction">
+      <Property name="dataResolver">xtController#updateCgxx</Property>
+      <UpdateItem>
+        <Property name="dataSet">dsCgxx</Property>
+      </UpdateItem>
+    </UpdateAction>
+    <Dialog id="dialogClxx">
+      <Property name="width">600</Property>
+      <Property name="height">300</Property>
+      <Buttons/>
+      <Children>
+        <GroupBox layout="hbox pack:center">
+          <Property name="caption">信息</Property>
+          <Buttons>
+            <Button>
+              <ClientEvent name="onClick">view.get(&quot;#updateAction&quot;).execute(function(){&#xD;
+	view.get(&quot;#dialogClxx&quot;).close();&#xD;
+	view.get(&quot;#dsCgxx&quot;).flushAsync();&#xD;
+});&#xD;
+</ClientEvent>
+              <Property name="caption">提交</Property>
+              <Property name="icon">url(>skin>common/icons.gif) -20px -0px</Property>
+            </Button>
+            <Button>
+              <ClientEvent name="onClick">view.get(&quot;#dialogClxx&quot;).close();&#xD;
+view.get(&quot;#dsCgxx&quot;).getData(&quot;#&quot;).get(&quot;clxxs&quot;).cancel();</ClientEvent>
+              <Property name="caption">取消</Property>
+              <Property name="icon">url(>skin>common/icons.gif) -40px -0px</Property>
+            </Button>
+          </Buttons>
+          <Children>
+            <AutoForm id="autoForm1">
+              <Property name="dataSet">dsCgxx</Property>
+              <Property name="width">100%</Property>
+              <Property name="dataPath">#.#clxxs</Property>
+              <Property name="cols">*</Property>
+              <AutoFormElement>
+                <Property name="name">clBh</Property>
+                <Property name="property">clBh</Property>
+                <Property name="readOnly">true</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">clMc</Property>
+                <Property name="property">clMc</Property>
+                <Property name="trigger">dataSetDropDown1</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">sl</Property>
+                <Property name="property">sl</Property>
+                <Editor/>
+              </AutoFormElement>
+            </AutoForm>
+          </Children>
+        </GroupBox>
+      </Children>
+      <Tools/>
+    </Dialog>
+    <Dialog id="dialogCg">
+      <Property name="height">350</Property>
+      <Property name="width">900</Property>
+      <Buttons/>
+      <Children>
+        <GroupBox layout="hbox pack:center">
+          <Property name="caption">信息</Property>
+          <Buttons>
+            <Button>
+              <ClientEvent name="onClick">var dsCgxx = view.get(&quot;#dsCgxx&quot;).getData(&quot;#&quot;);&#xD;
+view.get(&quot;#ajaxActionCg&quot;).set(&quot;parameter&quot;,{&#xD;
+	id:dsCgxx.get(&quot;id&quot;),&#xD;
+	clxxs:dsCgxx.get(&quot;clxxs&quot;)&#xD;
+})&#xD;
+view.get(&quot;#ajaxActionCg&quot;).execute(function(returnValue){&#xD;
+	if(returnValue.status==&quot;0&quot;){&#xD;
+		view.get(&quot;#dialogCg&quot;).hide();&#xD;
+	}else if(returnValue.status==&quot;1&quot;){&#xD;
+		dorado.MessageBox.alert(&quot;该采购单已经采购过了！&quot;);&#xD;
+	}&#xD;
+});&#xD;
+</ClientEvent>
+              <Property name="icon">url(>skin>common/icons.gif) -20px -0px</Property>
+              <Property name="caption">完成</Property>
+            </Button>
+            <Button>
+              <ClientEvent name="onClick">view.get(&quot;#dialogCg&quot;).close();&#xD;
+view.get(&quot;#dsCgsl&quot;).clear();&#xD;
+</ClientEvent>
+              <Property name="caption">取消</Property>
+              <Property name="icon">url(>skin>common/icons.gif) -40px -0px</Property>
+            </Button>
+          </Buttons>
+          <Children>
+            <DataGrid>
+              <Property name="dataSet">dsCgxx</Property>
+              <Property name="dataPath">#.clxxs</Property>
+              <Property name="readOnly">false</Property>
+              <DataColumn name="clBh">
+                <Property name="property">clBh</Property>
+                <Property name="readOnly">true</Property>
+                <Property name="width">110</Property>
+              </DataColumn>
+              <DataColumn name="clMc">
+                <Property name="property">clMc</Property>
+                <Property name="trigger">dataSetDropDown1</Property>
+                <Property name="width">250</Property>
+                <Property name="readOnly">true</Property>
+              </DataColumn>
+              <DataColumn name="sl">
+                <Property name="property">sl</Property>
+                <Property name="width">110</Property>
+                <Property name="readOnly">true</Property>
+              </DataColumn>
+              <DataColumn name="cgsl">
+                <Property name="property">cgsl</Property>
+                <Property name="width">110</Property>
+                <Property name="readOnly">true</Property>
+              </DataColumn>
+              <DataColumn name="zj">
+                <Property name="property">zj</Property>
+                <Property name="width">110</Property>
+                <Property name="readOnly">true</Property>
+              </DataColumn>
+              <DataColumn name="sjcgl">
+                <Property name="property">sjcgl</Property>
+              </DataColumn>
+            </DataGrid>
+          </Children>
+        </GroupBox>
+      </Children>
+      <Tools/>
+    </Dialog>
+    <AjaxAction id="ajaxActionCg">
+      <Property name="service">xtController#wcCg</Property>
+    </AjaxAction>
+  </View>
+</ViewConfig>

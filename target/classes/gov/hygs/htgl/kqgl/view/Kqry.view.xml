@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+  <Arguments/>
+  <Context/>
+  <Model>
+    <DataType name="dtKqry">
+      <Property name="creationType">gov.hygs.htgl.kqgl.entity.Kqry</Property>
+      <PropertyDef name="id">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="gh">
+        <Property/>
+        <Property name="label">工号</Property>
+      </PropertyDef>
+      <PropertyDef name="xm">
+        <Property/>
+        <Property name="label">姓名</Property>
+      </PropertyDef>
+      <PropertyDef name="bm">
+        <Property/>
+        <Property name="label">部门</Property>
+      </PropertyDef>
+    </DataType>
+  </Model>
+  <View>
+    <DataSet id="dsKqry">
+      <Property name="dataType">[dtKqry]</Property>
+      <Property name="dataProvider">kqryController#getKqry</Property>
+      <Property name="pageSize">40</Property>
+    </DataSet>
+    <Container>
+      <GroupBox>
+        <Property name="caption">信息表</Property>
+        <Buttons/>
+        <Children>
+          <ToolBar>
+            <DataPilot>
+              <Property name="dataSet">dsKqry</Property>
+              <Property name="itemCodes">pages</Property>
+            </DataPilot>
+            <Button>
+              <ClientEvent name="onClick">view.get(&quot;#dsKqry&quot;).insert();&#xD;
+view.get(&quot;#dialog&quot;).show();&#xD;
+</ClientEvent>
+              <Property name="caption">增加</Property>
+              <Property name="icon"> url(>skin>common/icons.gif) -120px -0px</Property>
+            </Button>
+            <Button>
+              <ClientEvent name="onClick">var currentData = view.get(&quot;#dsKqry&quot;).getData(&quot;#&quot;);&#xD;
+if(currentData != undefined){&#xD;
+	dorado.MessageBox.confirm(&quot;删除当前节点数据？&quot;,function(){&#xD;
+	currentData.remove();&#xD;
+	view.get(&quot;#updateAction&quot;).execute();&#xD;
+	//view.get(&quot;#dsSysprop&quot;).flush();&#xD;
+	});	&#xD;
+}&#xD;
+&#xD;
+</ClientEvent>
+              <Property name="caption">删除</Property>
+              <Property name="icon">url(>skin>common/icons.gif) -140px -0px</Property>
+            </Button>
+            <Button>
+              <ClientEvent name="onClick">view.get(&quot;#dialog&quot;).show();&#xD;
+</ClientEvent>
+              <Property name="caption">修改</Property>
+              <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
+            </Button>
+          </ToolBar>
+          <DataGrid>
+            <Property name="dataSet">dsKqry</Property>
+            <Property name="readOnly">true</Property>
+            <DataColumn name="gh">
+              <Property name="property">gh</Property>
+            </DataColumn>
+            <DataColumn name="xm">
+              <Property name="property">xm</Property>
+            </DataColumn>
+            <DataColumn name="bm">
+              <Property name="property">bm</Property>
+            </DataColumn>
+          </DataGrid>
+        </Children>
+      </GroupBox>
+    </Container>
+    <Dialog id="dialog">
+      <Property name="width">700</Property>
+      <Property name="height">450</Property>
+      <Buttons/>
+      <Children>
+        <GroupBox layout="hbox pack:center">
+          <Property name="caption">信息</Property>
+          <Buttons>
+            <Button>
+              <ClientEvent name="onClick">view.get(&quot;#updateAction&quot;).execute(function(){&#xD;
+	view.get(&quot;#dialog&quot;).close();&#xD;
+	view.get(&quot;#dsKqry&quot;).flush();&#xD;
+	/*var data = view.get(&quot;#dsSysprop&quot;).getData();&#xD;
+	data.each(function(entity){&#xD;
+		if(entity.get(&quot;id&quot;)==undefined){&#xD;
+			view.get(&quot;#dsSysprop&quot;).flush();&#xD;
+			view.get(&quot;#dsSysprop&quot;).getData().setCurrent(&quot;entity&quot;);&#xD;
+		}&#xD;
+	});&#xD;
+	*/&#xD;
+});&#xD;
+</ClientEvent>
+              <Property name="caption">提交</Property>
+              <Property name="icon">url(>skin>common/icons.gif) -20px -0px</Property>
+            </Button>
+            <Button>
+              <ClientEvent name="onClick">view.get(&quot;#dialog&quot;).close();&#xD;
+view.get(&quot;#dsKqry&quot;).getData(&quot;#&quot;).cancel();&#xD;
+</ClientEvent>
+              <Property name="caption">取消</Property>
+              <Property name="icon">url(>skin>common/icons.gif) -40px -0px</Property>
+            </Button>
+          </Buttons>
+          <Children>
+            <AutoForm id="autoForm">
+              <Property name="dataSet">dsKqry</Property>
+              <Property name="width">680</Property>
+              <Property name="cols">*,*,*</Property>
+              <Property name="labelWidth">100</Property>
+              <AutoFormElement>
+                <Property name="name">gh</Property>
+                <Property name="property">gh</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">xm</Property>
+                <Property name="property">xm</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">bm</Property>
+                <Property name="property">bm</Property>
+                <Editor/>
+              </AutoFormElement>
+            </AutoForm>
+          </Children>
+        </GroupBox>
+      </Children>
+      <Tools/>
+    </Dialog>
+    <UpdateAction id="updateAction">
+      <Property name="dataResolver">kqryController#updateKqry</Property>
+      <UpdateItem>
+        <Property name="dataSet">dsKqry</Property>
+      </UpdateItem>
+    </UpdateAction>
+  </View>
+</ViewConfig>
