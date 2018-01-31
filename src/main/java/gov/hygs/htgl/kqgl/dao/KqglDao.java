@@ -19,14 +19,16 @@ import com.gdky.restfull.dao.BaseJdbcDao;
 @Repository
 public class KqglDao extends BaseJdbcDao {
 
-	public void saveKqjl(String kqsj, Map<String, Object> kqxx) {
+	/**
+	 * 保存导入数据时间并返回ID
+	 * @param kqsj
+	 * @return
+	 */
+	public int saveKqsj(String kqsj) {
 		// TODO Auto-generated method stub
 		final String kqq = kqsj.substring(0, 10);
 		final String kqz = kqsj.substring(13, 23);
-		final String gh = (String) kqxx.get("gh");
-		final String xm = (String) kqxx.get("xm");
-		final String bm = (String) kqxx.get("bm");
-		final String sql = "insert into xt_kqjl(kqq,kqz,gh,xm,bm) values (?,?,?,?,?) ";
+		final String sql = "insert into xt_kqjl(kqq,kqz) values (?,?) ";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(
@@ -35,13 +37,20 @@ public class KqglDao extends BaseJdbcDao {
 						Statement.RETURN_GENERATED_KEYS);
 				ps.setString(1, kqq);
 				ps.setString(2, kqz);
-				ps.setString(3, gh);
-				ps.setString(4, xm);
-				ps.setString(5, bm);
 				return ps;
 			}
 		}, keyHolder);
 		int id = keyHolder.getKey().intValue();
+		return id;
+	}
+
+	
+	public void saveKqjl(int kqsjId, Map<String, Object> kqxx) {
+		// TODO Auto-generated method stub
+		String gh = (String) kqxx.get("gh");
+		String xm = (String) kqxx.get("xm");
+		String bm = (String) kqxx.get("bm");
+		
 		int ts = (int) kqxx.get("ts");
 		for (int i = 1; i <= ts; i++) {
 			String zbq = null, zbz = null, wbq = null, wbz = null, ybq = null, ybz = null;
@@ -95,8 +104,8 @@ public class KqglDao extends BaseJdbcDao {
 				
 			}
 
-			String mxsql = "insert into xt_kqjl_mx(kq_id,ts,zbq,zbz,wbq,wbz,ybq,ybz) values (?,?,?,?,?,?,?,?) ";
-			this.jdbcTemplate.update(mxsql, new Object[] {id,i,zbq,zbz,wbq,wbz,ybq,ybz});
+			String mxsql = "insert into xt_kqjl_mx(kq_id,gh,ts,zbq,zbz,wbq,wbz,ybq,ybz) values (?,?,?,?,?,?,?,?,?) ";
+			this.jdbcTemplate.update(mxsql, new Object[] {kqsjId,gh,i,zbq,zbz,wbq,wbz,ybq,ybz});
 		}
 	}
 
@@ -108,10 +117,10 @@ public class KqglDao extends BaseJdbcDao {
 		String xm = (String) para.get("xm");
 		List<Object> args = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select a.id,a.kqq,a.kqz,a.gh,a.xm,a.bm,b.id mxid ,b.ts,zbq,zbz,wbq,wbz,ybq,ybz,");
+		sql.append(" select a.id,a.kqq,a.kqz,c.gh,c.xm,c.bm,b.id mxid ,b.ts,zbq,zbz,wbq,wbz,ybq,ybz,");
 		sql.append(" case DAYOFWEEK(date_format(date_add(a.kqq, interval ts-1 day),'%Y-%m-%d'))  when 1 then '星期日' when 2 then '星期一' when 3 then '星期二' when 4 then '星期三' when 5 then '星期四' when 6 then '星期五' when 7 then '星期六' end xq");
-		sql.append(" from xt_kqjl a, xt_kqjl_mx b ");
-		sql.append(" where a.id=b.kq_id ");
+		sql.append(" from xt_kqjl a, xt_kqjl_mx b,xt_kqry c ");
+		sql.append(" where a.id=b.kq_id and b.gh=c.gh ");
 		if(xm!=null&&xm!=""){
 			sql.append("  and a.xm like ? ");
 			args.add("%"+xm+"%");

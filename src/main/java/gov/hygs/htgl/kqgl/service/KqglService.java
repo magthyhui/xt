@@ -39,12 +39,14 @@ public class KqglService {
 			String kqsj = null;
 			HSSFRow row = sheet.getRow(2);
 			HSSFCell cell = row.getCell(2);
+			//获取考勤时间
 			if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 				kqsj = cell.getStringCellValue();
 			}
 			row = sheet.getRow(3);
 			int ts = 0;
 			int sjts = 0;
+			//获取表格最后一天日期
 			for (; ts < row.getLastCellNum(); ts++) {
 				if (row.getCell(ts).getCellType() == HSSFCell.CELL_TYPE_BLANK) {
 					break;
@@ -52,9 +54,11 @@ public class KqglService {
 					sjts = (int) row.getCell(ts).getNumericCellValue();
 				}
 			}
+			int kqsjId = kqglDao.saveKqsj(kqsj);
+			//遍历每个人的信息
 			for (int rownum = 4; rownum <= sheet.getLastRowNum(); rownum += 2) {
 				kqxx = getKqxx(rownum, sheet, sjts);
-				kqglDao.saveKqjl(kqsj, kqxx);
+				kqglDao.saveKqjl(kqsjId, kqxx);
 			}
 
 		}
@@ -80,6 +84,7 @@ public class KqglService {
 		}
 		row = sheet.getRow(rownum + 1);
 		int ts = 0;
+		//遍历每天的打表时间
 		for (int cellnum = 0; cellnum < sjts; cellnum++) {
 			cell = row.getCell(cellnum);
 			// if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
