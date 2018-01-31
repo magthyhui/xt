@@ -126,11 +126,11 @@ public class KqglDao extends BaseJdbcDao {
 			args.add("%"+xm+"%");
 		}
 		sql.append("  and  ( ");
-		sql.append(" date_format(CONCAT('2017-01-01 ',zbq,':00'), '%Y-%m-%d %H:%i:%s')>date_format('2017-01-01 08:00:00', '%Y-%m-%d %H:%i:%s') ");
+		sql.append(" date_format(CONCAT('2017-01-01 ',zbq,':00'), '%Y-%m-%d %H:%i:%s')>date_format('2017-01-01 07:55:00', '%Y-%m-%d %H:%i:%s') ");
 		sql.append(" or  ");
 		sql.append(" date_format(CONCAT('2017-01-01 ',zbz,':00'), '%Y-%m-%d %H:%i:%s')<date_format('2017-01-01 12:00:00', '%Y-%m-%d %H:%i:%s') ");
 		sql.append(" or "); 
-		sql.append(" date_format(CONCAT('2017-01-01 ',wbq,':00'), '%Y-%m-%d %H:%i:%s') > date_format('2017-01-01 14:00:00', '%Y-%m-%d %H:%i:%s') ");
+		sql.append(" date_format(CONCAT('2017-01-01 ',wbq,':00'), '%Y-%m-%d %H:%i:%s') > date_format('2017-01-01 13:55:00', '%Y-%m-%d %H:%i:%s') ");
 		sql.append(" or "); 
 		sql.append(" date_format(CONCAT('2017-01-01 ',wbz,':00'), '%Y-%m-%d %H:%i:%s') < date_format('2017-01-01 18:00:00', '%Y-%m-%d %H:%i:%s') ");
 		sql.append(" or  ");
@@ -199,7 +199,7 @@ public class KqglDao extends BaseJdbcDao {
 	public List<Map<String, Object>> getKqhz(Map<String, Object> para) {
 		// TODO Auto-generated method stub
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select 2 lx,kq_id id, ");
+		sql.append(" select 2 lx,kq_id id,gh, ");
 		sql.append(" 		MAX(CASE ts WHEN 1 THEN CONCAT_WS('',bz,zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '1', ");
 		sql.append(" 		MAX(CASE ts WHEN 2 THEN CONCAT_WS('',bz,zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '2', ");
 		sql.append(" 		MAX(CASE ts WHEN 3 THEN CONCAT_WS('',bz,zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '3', ");
@@ -233,10 +233,10 @@ public class KqglDao extends BaseJdbcDao {
 		sql.append(" 		MAX(CASE ts WHEN 31 THEN CONCAT_WS('',bz,zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '31' ");
 		sql.append(" 		from xt_kqjl a, xt_kqjl_mx b ");
 		sql.append(" 		WHERE a.id=b.kq_id  ");
-		sql.append(" 		group by b.kq_id ");
+		sql.append(" 		group by b.kq_id,b.gh ");
 		sql.append(" 		union all  ");
-		sql.append(" 		select 1 lx,id , '工号：' ,null '2',a.gh '3',null '4',null '5',null '6',null '7',null '8','姓名：',null '10',a.xm '11',null '12',null '13',null '14',null '15',null '16',null '17',null '18','部门：' ,null '20',a.bm '21',null '22',null '23',null '24',null '25',null '26',null '27',null '28',null '29',null '30',null '31' from xt_kqjl a ");
-		sql.append(" 		order by id,lx ");
+		sql.append(" 		select 1 lx,'' ,gh, '工号：' ,null '2',a.gh '3',null '4',null '5',null '6',null '7',null '8','姓名：',null '10',a.xm '11',null '12',null '13',null '14',null '15',null '16',null '17',null '18','部门：' ,null '20',a.bm '21',null '22',null '23',null '24',null '25',null '26',null '27',null '28',null '29',null '30',null '31' from xt_kqry a ");
+		sql.append(" 		order by gh,lx ");
 		
 
 		return this.jdbcTemplate.queryForList(sql.toString());
