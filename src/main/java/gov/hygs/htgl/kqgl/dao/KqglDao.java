@@ -242,4 +242,19 @@ public class KqglDao extends BaseJdbcDao {
 		return this.jdbcTemplate.queryForList(sql.toString());
 	}
 
+
+	public List<Map<String, Object>> getKqwtsj(Map<String, Object> para) {
+		// TODO Auto-generated method stub
+		StringBuffer sql = new StringBuffer();
+		sql.append(" 	select 1 lx,'' id,gh, ");
+		sql.append(" 	 '工号：' 1t ,a.gh '2t',null '3t','姓名：' 4t,a.xm '5t',null '6t','部门：' 7t,a.bm '8t',null 9t,null '10t',null '11t',null '12t',null '13t',null '14t',null '15t',null '16t',null '17t',null '18t',null 19t ,null '20t',null  '21t',null '22t',null '23t',null '24t',null '25t',null '26t',null '27t',null '28t',null '29t',null '30t',null '31t', ");
+		sql.append(" 	  null '1s' ,null '2s',null '3s',null '4s',null '5s',null '6s',null '7s',null '8s',null '9s',null '10s',null '11s',null '12s',null '13s',null '14s',null '15s',null '16s',null '17s',null '18s',null '19s' ,null '20s',null '21s',null '22s',null '23s',null '24s',null '25s',null '26s',null '27s',null '28s',null '29s',null '30s',null '31s' ");
+		sql.append(" 	 from xt_kqry a  ");
+		sql.append(" 	union all  ");
+		sql.append(" 	select * from xt_kqwtsj  ");
+		sql.append(" 			order by gh,lx "); 
+		return this.jdbcTemplate.queryForList(sql.toString());
+	}
+
+	
 }

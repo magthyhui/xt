@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+  <Arguments/>
+  <Context/>
+  <Model>
+    <DataType name="dtKqhz">
+      <PropertyDef name="lx"/>
+      <PropertyDef name="id"/>
+      <PropertyDef name="gh"/>
+      <PropertyDef name="1t">
+        <Property name="label">1</Property>
+      </PropertyDef>
+      <PropertyDef name="2t">
+        <Property name="label">2</Property>
+      </PropertyDef>
+      <PropertyDef name="3t">
+        <Property name="label">3</Property>
+      </PropertyDef>
+      <PropertyDef name="4t">
+        <Property name="label">4</Property>
+      </PropertyDef>
+      <PropertyDef name="5t">
+        <Property name="label">5</Property>
+      </PropertyDef>
+      <PropertyDef name="6t">
+        <Property name="label">6</Property>
+      </PropertyDef>
+      <PropertyDef name="7t">
+        <Property name="label">7</Property>
+      </PropertyDef>
+      <PropertyDef name="8t">
+        <Property name="label">8</Property>
+      </PropertyDef>
+      <PropertyDef name="9t">
+        <Property name="label">9</Property>
+      </PropertyDef>
+      <PropertyDef name="10t">
+        <Property name="label">10</Property>
+      </PropertyDef>
+      <PropertyDef name="11t">
+        <Property name="label">11</Property>
+      </PropertyDef>
+      <PropertyDef name="12t">
+        <Property name="label">12</Property>
+      </PropertyDef>
+      <PropertyDef name="13t">
+        <Property name="label">13</Property>
+      </PropertyDef>
+      <PropertyDef name="14t">
+        <Property name="label">14</Property>
+      </PropertyDef>
+      <PropertyDef name="15t">
+        <Property name="label">15</Property>
+      </PropertyDef>
+      <PropertyDef name="16t">
+        <Property name="label">16</Property>
+      </PropertyDef>
+      <PropertyDef name="17t">
+        <Property name="label">17</Property>
+      </PropertyDef>
+      <PropertyDef name="18t">
+        <Property name="label">18</Property>
+      </PropertyDef>
+      <PropertyDef name="19t">
+        <Property name="label">19</Property>
+      </PropertyDef>
+      <PropertyDef name="20t">
+        <Property name="label">20</Property>
+      </PropertyDef>
+      <PropertyDef name="21t">
+        <Property name="label">21</Property>
+      </PropertyDef>
+      <PropertyDef name="22t">
+        <Property name="label">22</Property>
+      </PropertyDef>
+      <PropertyDef name="23t">
+        <Property name="label">23</Property>
+      </PropertyDef>
+      <PropertyDef name="24t">
+        <Property name="label">24</Property>
+      </PropertyDef>
+      <PropertyDef name="25t">
+        <Property name="label">25</Property>
+      </PropertyDef>
+      <PropertyDef name="26t">
+        <Property name="label">26</Property>
+      </PropertyDef>
+      <PropertyDef name="27t">
+        <Property name="label">27</Property>
+      </PropertyDef>
+      <PropertyDef name="28t">
+        <Property name="label">28</Property>
+      </PropertyDef>
+      <PropertyDef name="29t">
+        <Property name="label">29</Property>
+      </PropertyDef>
+      <PropertyDef name="30t">
+        <Property name="label">30</Property>
+      </PropertyDef>
+      <PropertyDef name="31t">
+        <Property name="label">31</Property>
+      </PropertyDef>
+      <PropertyDef name="1s"/>
+      <PropertyDef name="2s"/>
+      <PropertyDef name="3s"/>
+      <PropertyDef name="4s"/>
+      <PropertyDef name="5s"/>
+      <PropertyDef name="6s"/>
+      <PropertyDef name="7s"/>
+      <PropertyDef name="8s"/>
+      <PropertyDef name="9s"/>
+      <PropertyDef name="10s"/>
+      <PropertyDef name="11s"/>
+      <PropertyDef name="12s"/>
+      <PropertyDef name="13s"/>
+      <PropertyDef name="14s"/>
+      <PropertyDef name="15s"/>
+      <PropertyDef name="16s"/>
+      <PropertyDef name="17s"/>
+      <PropertyDef name="18s"/>
+      <PropertyDef name="19s"/>
+      <PropertyDef name="20s"/>
+      <PropertyDef name="21s"/>
+      <PropertyDef name="22s"/>
+      <PropertyDef name="23s"/>
+      <PropertyDef name="24s"/>
+      <PropertyDef name="25s"/>
+      <PropertyDef name="26s"/>
+      <PropertyDef name="27s"/>
+      <PropertyDef name="28s"/>
+      <PropertyDef name="29s"/>
+      <PropertyDef name="30s"/>
+      <PropertyDef name="31s"/>
+    </DataType>
+    <DataType name="dtCondition">
+      <PropertyDef name="sjq">
+        <Property name="label">时间起</Property>
+        <Property name="dataType">Date</Property>
+      </PropertyDef>
+      <PropertyDef name="sjz">
+        <Property name="label">时间止</Property>
+        <Property name="dataType">Date</Property>
+      </PropertyDef>
+      <PropertyDef name="sfzm">
+        <Property name="label">是否忽略周末</Property>
+        <Property name="mapping">
+          <Property name="mapValues">
+            <Collection>
+              <Entity>
+                <Property name="key">1</Property>
+                <Property name="value">是</Property>
+              </Entity>
+              <Entity>
+                <Property name="key">0</Property>
+                <Property name="value">否</Property>
+              </Entity>
+            </Collection>
+          </Property>
+        </Property>
+        <Property name="defaultValue">1</Property>
+      </PropertyDef>
+      <PropertyDef name="xm">
+        <Property name="label">姓名</Property>
+      </PropertyDef>
+    </DataType>
+  </Model>
+  <View>
+    <DataSet id="dsKqhz">
+      <Property name="dataProvider">kqglController#getKqwtsj</Property>
+      <Property name="dataType">[dtKqhz]</Property>
+    </DataSet>
+    <DataSet id="dsCondition">
+      <ClientEvent name="onReady">var now = new Date();&#xD;
+var y = now.getFullYear();&#xD;
+var m = now.getMonth();&#xD;
+var sjq = now.setFullYear(y,m-1,1);&#xD;
+var sjz = now.setFullYear(y,m,1);&#xD;
+sjz= new Date((sjz/1000-86400)*1000)&#xD;
+&#xD;
+self.insert({&#xD;
+	sjq:sjq,&#xD;
+	sjz:sjz&#xD;
+});&#xD;
+</ClientEvent>
+      <Property name="dataType">dtCondition</Property>
+    </DataSet>
+    <AutoForm>
+      <Property name="dataSet">dsCondition</Property>
+      <Property name="cols">*,*</Property>
+      <Property name="labelWidth">100</Property>
+      <AutoFormElement>
+        <Property name="name">sjq</Property>
+        <Property name="property">sjq</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">sjz</Property>
+        <Property name="property">sjz</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">sfzm</Property>
+        <Property name="property">sfzm</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">xm</Property>
+        <Property name="property">xm</Property>
+        <Editor/>
+      </AutoFormElement>
+      <Button>
+        <ClientEvent name="onClick">var dsCondition = view.get(&quot;#dsCondition&quot;).getData(&quot;#&quot;);&#xD;
+view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync();&#xD;
+</ClientEvent>
+        <Property name="caption">查询</Property>
+      </Button>
+    </AutoForm>
+    <DataGrid>
+      <Property name="dataSet">dsKqhz</Property>
+      <Property name="readOnly">true</Property>
+      <Property name="dynaRowHeight">true</Property>
+      <DataColumn name="1t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;1s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">1t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="2t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;2s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">2t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="3t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;3s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">3t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="4t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;4s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">4t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="5t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;5s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">5t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="6t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;6s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">6t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="7t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;7s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">7t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="8t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;8s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">8t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="9t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;9s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">9t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="10t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;10s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">10t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="11t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;11s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">11t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="12t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;12s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">12t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="13t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;13s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">13t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="14t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;14s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">14t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="15t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;15s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">15t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="16t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;16s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">16t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="17t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;17s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">17t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="18t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;18s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">18t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="19t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;19s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">19t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="20t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;20s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">20t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="21t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;21s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">21t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="22t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;22s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">22t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="23t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;23s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">23t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="24t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;24s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">24t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="25t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;25s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">25t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="26t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;26s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">26t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="27t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;27s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">27t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="28t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;28s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">28t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="29t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;29s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">29t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="30t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;30s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">30t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="31t">
+        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;31s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	 &#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}</ClientEvent>
+        <Property name="property">31t</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+    </DataGrid>
+  </View>
+</ViewConfig>

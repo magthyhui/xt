@@ -192,4 +192,9 @@ public class KqglService {
 		return kqglDao.getKqhz(para);
 }
 
+	public List<Map<String, Object>> getKqwtsj(Map<String, Object> para) {
+		// TODO Auto-generated method stub
+		return kqglDao.getKqwtsj(para);
+	}
+
 }

@@ -62,4 +62,9 @@ public class KqglController {
 	public List<Map<String,Object>> getKqhz(Map<String,Object> para){
 		return kqglService.getKqhz(para);
 	}
+	
+	@DataProvider
+	public List<Map<String,Object>> getKqwtsj(Map<String,Object> para){
+		return kqglService.getKqwtsj(para);
+	}
 }
