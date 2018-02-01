@@ -219,6 +219,18 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
       <Property name="dataSet">dsKqhz</Property>
       <Property name="readOnly">true</Property>
       <Property name="dynaRowHeight">true</Property>
+      <DataColumn name="lx">
+        <ClientEvent name="onRenderCell">/*	if (arg.data.get(&quot;lx&quot;) == &quot;2&quot;) {&#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(&quot;早班&quot;);&#xD;
+	}else if (arg.data.get(&quot;lx&quot;) == &quot;3&quot;) {&#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(&quot;午班&quot;);&#xD;
+	}else if (arg.data.get(&quot;lx&quot;) == &quot;4&quot;) {&#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(&quot;晚班&quot;);&#xD;
+	}else{ &#xD;
+		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+	}*/</ClientEvent>
+        <Property name="property">lx</Property>
+      </DataColumn>
       <DataColumn name="1t">
         <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;1s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
