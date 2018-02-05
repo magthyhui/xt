@@ -131,6 +131,37 @@
       <PropertyDef name="29s"/>
       <PropertyDef name="30s"/>
       <PropertyDef name="31s"/>
+      <PropertyDef name="1w"/>
+      <PropertyDef name="2w"/>
+      <PropertyDef name="3w"/>
+      <PropertyDef name="4w"/>
+      <PropertyDef name="5w"/>
+      <PropertyDef name="6w"/>
+      <PropertyDef name="7w"/>
+      <PropertyDef name="8w"/>
+      <PropertyDef name="9w"/>
+      <PropertyDef name="10w"/>
+      <PropertyDef name="11w"/>
+      <PropertyDef name="12w"/>
+      <PropertyDef name="13w"/>
+      <PropertyDef name="14w"/>
+      <PropertyDef name="15w"/>
+      <PropertyDef name="16w"/>
+      <PropertyDef name="17w"/>
+      <PropertyDef name="18w"/>
+      <PropertyDef name="19w"/>
+      <PropertyDef name="20w"/>
+      <PropertyDef name="21w"/>
+      <PropertyDef name="22w"/>
+      <PropertyDef name="23w"/>
+      <PropertyDef name="24w"/>
+      <PropertyDef name="25w"/>
+      <PropertyDef name="26w"/>
+      <PropertyDef name="27w"/>
+      <PropertyDef name="28w"/>
+      <PropertyDef name="29w"/>
+      <PropertyDef name="30w"/>
+      <PropertyDef name="31w"/>
     </DataType>
     <DataType name="dtCondition">
       <PropertyDef name="sjq">
@@ -188,6 +219,7 @@ self.insert({&#xD;
       <Property name="dataSet">dsCondition</Property>
       <Property name="cols">*,*</Property>
       <Property name="labelWidth">100</Property>
+      <Property name="ignored">true</Property>
       <AutoFormElement>
         <Property name="name">sjq</Property>
         <Property name="property">sjq</Property>
@@ -214,36 +246,61 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
 </ClientEvent>
         <Property name="caption">查询</Property>
       </Button>
+      <Button>
+        <ClientEvent name="onClick">var action = view.get(&quot;#export2ReportActionResult&quot;);&#xD;
+&#xD;
+action.doDowloadReport = function(data) {&#xD;
+		var id = data.id;&#xD;
+		var name = data.name;&#xD;
+		if (id &amp;&amp; name) {&#xD;
+			var url = $url(&quot;>dorado/bdf2/export/doDownloadFile?id=&quot; + id + &quot;&amp;name=&quot; + name);&#xD;
+			window.open(url, &quot;_blank&quot;);&#xD;
+		}&#xD;
+};&#xD;
+if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
+	action.execute();&#xD;
+}&#xD;
+</ClientEvent>
+        <Property name="caption">导出</Property>
+      </Button>
     </AutoForm>
-    <DataGrid>
+    <DataGrid id="dataGridResult">
       <Property name="dataSet">dsKqhz</Property>
       <Property name="readOnly">true</Property>
       <Property name="dynaRowHeight">true</Property>
       <DataColumn name="lx">
-        <ClientEvent name="onRenderCell">/*	if (arg.data.get(&quot;lx&quot;) == &quot;2&quot;) {&#xD;
-		arg.dom.innerHTML = arg.cellRenderer.getText(&quot;早班&quot;);&#xD;
+        <ClientEvent name="onRenderCell">&#xD;
+&#xD;
+	if (arg.data.get(&quot;lx&quot;) == &quot;2&quot;) {&#xD;
+		arg.dom.innerText  = &quot;早班&quot;;&#xD;
 	}else if (arg.data.get(&quot;lx&quot;) == &quot;3&quot;) {&#xD;
-		arg.dom.innerHTML = arg.cellRenderer.getText(&quot;午班&quot;);&#xD;
+		arg.dom.innerText  = &quot;午班&quot;;&#xD;
 	}else if (arg.data.get(&quot;lx&quot;) == &quot;4&quot;) {&#xD;
-		arg.dom.innerHTML = arg.cellRenderer.getText(&quot;晚班&quot;);&#xD;
+		arg.dom.innerText  = &quot;晚班&quot;;&#xD;
 	}else{ &#xD;
-		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
-	}*/</ClientEvent>
+	arg.dom.innerText  = &quot;&quot;;&#xD;
+	}</ClientEvent>
         <Property name="property">lx</Property>
+        <Property name="width">50</Property>
       </DataColumn>
       <DataColumn name="1t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;1s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;1w&quot;) == &quot;1&quot;||arg.data.get(&quot;1w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;1s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
-	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
 	}</ClientEvent>
         <Property name="property">1t</Property>
-        <Property name="width">80</Property>
+        <Property name="width">50</Property>
       </DataColumn>
       <DataColumn name="2t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;2s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;2w&quot;) == &quot;1&quot;||arg.data.get(&quot;2w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;2s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -254,7 +311,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="3t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;3s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;3w&quot;) == &quot;1&quot;||arg.data.get(&quot;3w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;3s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -265,7 +325,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="4t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;4s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;4w&quot;) == &quot;1&quot;||arg.data.get(&quot;4w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;4s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -276,7 +339,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="5t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;5s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;5w&quot;) == &quot;1&quot;||arg.data.get(&quot;5w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;5s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -287,7 +353,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="6t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;6s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;6w&quot;) == &quot;1&quot;||arg.data.get(&quot;6w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;6s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -298,7 +367,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="7t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;7s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;7w&quot;) == &quot;1&quot;||arg.data.get(&quot;7w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;7s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -309,7 +381,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="8t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;8s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;8w&quot;) == &quot;1&quot;||arg.data.get(&quot;8w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;8s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -320,7 +395,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="9t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;9s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;9w&quot;) == &quot;1&quot;||arg.data.get(&quot;9w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;9s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -331,7 +409,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="10t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;10s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;10w&quot;) == &quot;1&quot;||arg.data.get(&quot;10w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;10s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -342,7 +423,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="11t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;11s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;11w&quot;) == &quot;1&quot;||arg.data.get(&quot;11w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;11s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -353,7 +437,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="12t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;12s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;12w&quot;) == &quot;1&quot;||arg.data.get(&quot;12w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;12s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -364,7 +451,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="13t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;13s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;13w&quot;) == &quot;1&quot;||arg.data.get(&quot;13w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;13s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -375,7 +465,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="14t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;14s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;14w&quot;) == &quot;1&quot;||arg.data.get(&quot;14w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;14s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -386,7 +479,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="15t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;15s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;15w&quot;) == &quot;1&quot;||arg.data.get(&quot;15w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;15s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -397,7 +493,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="16t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;16s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;16w&quot;) == &quot;1&quot;||arg.data.get(&quot;16w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;16s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -408,7 +507,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="17t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;17s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;17w&quot;) == &quot;1&quot;||arg.data.get(&quot;17w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;17s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -419,7 +521,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="18t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;18s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;18w&quot;) == &quot;1&quot;||arg.data.get(&quot;18w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;18s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -430,7 +535,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="19t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;19s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;19w&quot;) == &quot;1&quot;||arg.data.get(&quot;19w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;19s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -441,7 +549,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="20t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;20s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;20w&quot;) == &quot;1&quot;||arg.data.get(&quot;20w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;20s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -452,7 +563,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="21t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;21s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;21w&quot;) == &quot;1&quot;||arg.data.get(&quot;21w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;21s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -463,7 +577,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="22t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;22s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;22w&quot;) == &quot;1&quot;||arg.data.get(&quot;22w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;22s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -474,7 +591,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="23t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;23s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;23w&quot;) == &quot;1&quot;||arg.data.get(&quot;23w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;23s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -485,7 +605,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="24t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;24s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;24w&quot;) == &quot;1&quot;||arg.data.get(&quot;24w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;24s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -496,7 +619,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="25t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;25s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;25w&quot;) == &quot;1&quot;||arg.data.get(&quot;25w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;25s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -507,7 +633,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="26t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;26s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;26w&quot;) == &quot;1&quot;||arg.data.get(&quot;26w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;26s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -518,7 +647,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="27t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;27s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;27w&quot;) == &quot;1&quot;||arg.data.get(&quot;27w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;27s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -529,7 +661,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="28t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;28s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;28w&quot;) == &quot;1&quot;||arg.data.get(&quot;28w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;28s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -540,7 +675,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="29t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;29s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;29w&quot;) == &quot;1&quot;||arg.data.get(&quot;29w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;29s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -551,7 +689,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="30t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;30s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;30w&quot;) == &quot;1&quot;||arg.data.get(&quot;30w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;30s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -562,7 +703,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="31t">
-        <ClientEvent name="onRenderCell">	if (arg.data.get(&quot;31s&quot;) == &quot;1&quot;) {&#xD;
+        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;31w&quot;) == &quot;1&quot;||arg.data.get(&quot;31w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
+		 arg.processDefault = true;&#xD;
+	}else if (arg.data.get(&quot;31s&quot;) == &quot;1&quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
 		 arg.processDefault = true;&#xD;
 	 &#xD;
@@ -573,5 +717,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="width">80</Property>
       </DataColumn>
     </DataGrid>
+    <Export2ReportAction id="export2ReportActionResult">
+      <Property name="fileName">dcjg</Property>
+      <Property name="template">dataGridResult</Property>
+      <Property name="maxSize">10000</Property>
+    </Export2ReportAction>
   </View>
 </ViewConfig>
