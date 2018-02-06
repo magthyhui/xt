@@ -194,8 +194,31 @@
         <Property name="label">姓名</Property>
       </PropertyDef>
     </DataType>
+    <DataType name="dtSj">
+      <PropertyDef name="lx"/>
+      <PropertyDef name="id"/>
+      <PropertyDef name="gh"/>
+      <PropertyDef name="ts">
+        <Property name="label">天</Property>
+      </PropertyDef>
+      <PropertyDef name="sjq">
+        <Property name="label">时间起</Property>
+      </PropertyDef>
+      <PropertyDef name="sjz">
+        <Property name="label">时间止</Property>
+      </PropertyDef>
+    </DataType>
   </Model>
   <View>
+    <ClientEvent name="onCreate">&#xD;
+window.updateData = function(gh,lx,id,ts,sj){&#xD;
+	var words = sj.split(' - ');&#xD;
+	view.get(&quot;#dsSj&quot;).insert({&#xD;
+		gh:gh,lx:lx,id:id,ts:ts,sjq:words[0],sjz:words[1]&#xD;
+	})&#xD;
+	view.get(&quot;#dialogSj&quot;).show();&#xD;
+}&#xD;
+</ClientEvent>
     <DataSet id="dsKqhz">
       <Property name="dataProvider">kqglController#getKqwtsj</Property>
       <Property name="dataType">[dtKqhz]</Property>
@@ -214,6 +237,9 @@ self.insert({&#xD;
 });&#xD;
 </ClientEvent>
       <Property name="dataType">dtCondition</Property>
+    </DataSet>
+    <DataSet id="dsSj">
+      <Property name="dataType">dtSj</Property>
     </DataSet>
     <AutoForm>
       <Property name="dataSet">dsCondition</Property>
@@ -284,12 +310,17 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">50</Property>
       </DataColumn>
       <DataColumn name="1t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;1w&quot;) == &quot;1&quot;||arg.data.get(&quot;1w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;1t&quot;);&#xD;
+	if(arg.data.get(&quot;1w&quot;) == &quot;1&quot;||arg.data.get(&quot;1w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;1s&quot;) == &quot;1&quot;) {&#xD;
+		arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;1\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;1t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+&#xD;
+	}else if (arg.data.get(&quot;1s&quot;) == &quot;1&quot;||arg.data.get(&quot;1t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;1\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;1t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
 	}</ClientEvent>
@@ -297,13 +328,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">50</Property>
       </DataColumn>
       <DataColumn name="2t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;2w&quot;) == &quot;1&quot;||arg.data.get(&quot;2w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;2t&quot;);&#xD;
+	if(arg.data.get(&quot;2w&quot;) == &quot;1&quot;||arg.data.get(&quot;2w&quot;) == &quot;7&quot;){&#xD;
+		arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;2\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;2t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;2s&quot;) == &quot;1&quot;) {&#xD;
+	}else if (arg.data.get(&quot;2s&quot;) == &quot;1&quot;||arg.data.get(&quot;2t&quot;) == &quot; - &quot;) {&#xD;
+		arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;2\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;2t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
 	}</ClientEvent>
@@ -311,12 +345,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="3t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;3w&quot;) == &quot;1&quot;||arg.data.get(&quot;3w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;3t&quot;);&#xD;
+	if(arg.data.get(&quot;3w&quot;) == &quot;1&quot;||arg.data.get(&quot;3w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;3s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;3\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;3t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;3s&quot;) == &quot;1&quot;||arg.data.get(&quot;3t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;3\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;3t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -325,12 +363,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="4t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;4w&quot;) == &quot;1&quot;||arg.data.get(&quot;4w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;4t&quot;);&#xD;
+        	if(arg.data.get(&quot;4w&quot;) == &quot;1&quot;||arg.data.get(&quot;4w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;4s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;4\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;4t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;4s&quot;) == &quot;1&quot;||arg.data.get(&quot;4t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;4\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;4t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -339,12 +381,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="5t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;5w&quot;) == &quot;1&quot;||arg.data.get(&quot;5w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;5t&quot;);&#xD;
+        	if(arg.data.get(&quot;5w&quot;) == &quot;1&quot;||arg.data.get(&quot;5w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;5s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;5\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;5t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;5s&quot;) == &quot;1&quot;||arg.data.get(&quot;5t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;5\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;5t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -353,12 +399,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="6t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;6w&quot;) == &quot;1&quot;||arg.data.get(&quot;6w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;6t&quot;);&#xD;
+        	if(arg.data.get(&quot;6w&quot;) == &quot;1&quot;||arg.data.get(&quot;6w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;6s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;6\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;6t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;6s&quot;) == &quot;1&quot;||arg.data.get(&quot;6t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;6\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;6t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -367,12 +417,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="7t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;7w&quot;) == &quot;1&quot;||arg.data.get(&quot;7w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;7t&quot;);&#xD;
+        	if(arg.data.get(&quot;7w&quot;) == &quot;1&quot;||arg.data.get(&quot;7w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;7s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;7\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;7t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;7s&quot;) == &quot;1&quot;||arg.data.get(&quot;7t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;7\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;7t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -381,12 +435,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="8t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;8w&quot;) == &quot;1&quot;||arg.data.get(&quot;8w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;8t&quot;);&#xD;
+        	if(arg.data.get(&quot;8w&quot;) == &quot;1&quot;||arg.data.get(&quot;8w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;8s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;8\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;8t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;8s&quot;) == &quot;1&quot;||arg.data.get(&quot;8t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;8\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;8t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -395,12 +453,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="9t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;9w&quot;) == &quot;1&quot;||arg.data.get(&quot;9w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;9t&quot;);&#xD;
+        	if(arg.data.get(&quot;9w&quot;) == &quot;1&quot;||arg.data.get(&quot;9w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;9s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;9\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;9t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;9s&quot;) == &quot;1&quot;||arg.data.get(&quot;9t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;9\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;9t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -409,12 +471,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="10t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;10w&quot;) == &quot;1&quot;||arg.data.get(&quot;10w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;10t&quot;);&#xD;
+        	if(arg.data.get(&quot;10w&quot;) == &quot;1&quot;||arg.data.get(&quot;10w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;10s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;10\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;10t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;10s&quot;) == &quot;1&quot;||arg.data.get(&quot;10t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;10\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;10t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -423,12 +489,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="11t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;11w&quot;) == &quot;1&quot;||arg.data.get(&quot;11w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;11t&quot;);&#xD;
+        	if(arg.data.get(&quot;11w&quot;) == &quot;1&quot;||arg.data.get(&quot;11w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;11s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;11\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;11t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;11s&quot;) == &quot;1&quot;||arg.data.get(&quot;11t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;11\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;11t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -437,12 +507,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="12t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;12w&quot;) == &quot;1&quot;||arg.data.get(&quot;12w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;12t&quot;);&#xD;
+        	if(arg.data.get(&quot;12w&quot;) == &quot;1&quot;||arg.data.get(&quot;12w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;12s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;12\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;12t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;12s&quot;) == &quot;1&quot;||arg.data.get(&quot;12t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;12\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;12t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -451,12 +525,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="13t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;13w&quot;) == &quot;1&quot;||arg.data.get(&quot;13w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;13t&quot;);&#xD;
+        	if(arg.data.get(&quot;13w&quot;) == &quot;1&quot;||arg.data.get(&quot;13w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;13s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;13\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;13t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;13s&quot;) == &quot;1&quot;||arg.data.get(&quot;13t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;13\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;13t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -465,12 +543,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="14t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;14w&quot;) == &quot;1&quot;||arg.data.get(&quot;14w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;14t&quot;);&#xD;
+        	if(arg.data.get(&quot;14w&quot;) == &quot;1&quot;||arg.data.get(&quot;14w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;14s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;14\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;14t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;14s&quot;) == &quot;1&quot;||arg.data.get(&quot;14t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;14\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;14t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -479,12 +561,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="15t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;15w&quot;) == &quot;1&quot;||arg.data.get(&quot;15w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;15t&quot;);&#xD;
+        	if(arg.data.get(&quot;15w&quot;) == &quot;1&quot;||arg.data.get(&quot;15w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;15s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;15\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;15t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;15s&quot;) == &quot;1&quot;||arg.data.get(&quot;15t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;15\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;15t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -493,12 +579,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="16t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;16w&quot;) == &quot;1&quot;||arg.data.get(&quot;16w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;16t&quot;);&#xD;
+        	if(arg.data.get(&quot;16w&quot;) == &quot;1&quot;||arg.data.get(&quot;16w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;16s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;16\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;16t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;16s&quot;) == &quot;1&quot;||arg.data.get(&quot;16t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;16\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;16t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -507,12 +597,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="17t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;17w&quot;) == &quot;1&quot;||arg.data.get(&quot;17w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;17t&quot;);&#xD;
+        	if(arg.data.get(&quot;17w&quot;) == &quot;1&quot;||arg.data.get(&quot;17w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;17s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;17\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;17t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;17s&quot;) == &quot;1&quot;||arg.data.get(&quot;17t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;17\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;17t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -521,12 +615,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="18t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;18w&quot;) == &quot;1&quot;||arg.data.get(&quot;18w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;18t&quot;);&#xD;
+        	if(arg.data.get(&quot;18w&quot;) == &quot;1&quot;||arg.data.get(&quot;18w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;18s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;18\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;18t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;18s&quot;) == &quot;1&quot;||arg.data.get(&quot;18t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;18\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;18t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -535,12 +633,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="19t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;19w&quot;) == &quot;1&quot;||arg.data.get(&quot;19w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;19t&quot;);&#xD;
+        	if(arg.data.get(&quot;19w&quot;) == &quot;1&quot;||arg.data.get(&quot;19w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;19s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;19\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;19t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;19s&quot;) == &quot;1&quot;||arg.data.get(&quot;19t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;19\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;19t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -549,12 +651,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="20t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;20w&quot;) == &quot;1&quot;||arg.data.get(&quot;20w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;20t&quot;);&#xD;
+        	if(arg.data.get(&quot;20w&quot;) == &quot;1&quot;||arg.data.get(&quot;20w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;20s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;20\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;20t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;20s&quot;) == &quot;1&quot;||arg.data.get(&quot;20t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;20\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;20t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -563,12 +669,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="21t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;21w&quot;) == &quot;1&quot;||arg.data.get(&quot;21w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;21t&quot;);&#xD;
+        	if(arg.data.get(&quot;21w&quot;) == &quot;1&quot;||arg.data.get(&quot;21w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;21s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;21\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;21t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;21s&quot;) == &quot;1&quot;||arg.data.get(&quot;21t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;21\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;21t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -577,12 +687,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="22t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;22w&quot;) == &quot;1&quot;||arg.data.get(&quot;22w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;22t&quot;);&#xD;
+        	if(arg.data.get(&quot;22w&quot;) == &quot;1&quot;||arg.data.get(&quot;22w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;22s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;22\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;22t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;22s&quot;) == &quot;1&quot;||arg.data.get(&quot;22t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;22\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;22t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -591,12 +705,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="23t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;23w&quot;) == &quot;1&quot;||arg.data.get(&quot;23w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;23t&quot;);&#xD;
+        	if(arg.data.get(&quot;23w&quot;) == &quot;1&quot;||arg.data.get(&quot;23w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;23s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;23\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;23t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;23s&quot;) == &quot;1&quot;||arg.data.get(&quot;23t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;23\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;23t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -605,12 +723,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="24t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;24w&quot;) == &quot;1&quot;||arg.data.get(&quot;24w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;24t&quot;);&#xD;
+        	if(arg.data.get(&quot;24w&quot;) == &quot;1&quot;||arg.data.get(&quot;24w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;24s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;24\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;24t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;24s&quot;) == &quot;1&quot;||arg.data.get(&quot;24t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;24\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;24t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -619,12 +741,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="25t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;25w&quot;) == &quot;1&quot;||arg.data.get(&quot;25w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;25t&quot;);&#xD;
+        	if(arg.data.get(&quot;25w&quot;) == &quot;1&quot;||arg.data.get(&quot;25w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;25s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;25\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;25t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;25s&quot;) == &quot;1&quot;||arg.data.get(&quot;25t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;25\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;25t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -633,12 +759,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="26t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;26w&quot;) == &quot;1&quot;||arg.data.get(&quot;26w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;26t&quot;);&#xD;
+        	if(arg.data.get(&quot;26w&quot;) == &quot;1&quot;||arg.data.get(&quot;26w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;26s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;26\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;26t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;26s&quot;) == &quot;1&quot;||arg.data.get(&quot;26t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;26\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;26t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -647,12 +777,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="27t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;27w&quot;) == &quot;1&quot;||arg.data.get(&quot;27w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;27t&quot;);&#xD;
+        	if(arg.data.get(&quot;27w&quot;) == &quot;1&quot;||arg.data.get(&quot;27w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;27s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;27\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;27t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;27s&quot;) == &quot;1&quot;||arg.data.get(&quot;27t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;27\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;27t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -661,12 +795,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="28t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;28w&quot;) == &quot;1&quot;||arg.data.get(&quot;28w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;28t&quot;);&#xD;
+        	if(arg.data.get(&quot;28w&quot;) == &quot;1&quot;||arg.data.get(&quot;28w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;28s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;28\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;28t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;28s&quot;) == &quot;1&quot;||arg.data.get(&quot;28t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;28\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;28t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -675,12 +813,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="29t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;29w&quot;) == &quot;1&quot;||arg.data.get(&quot;29w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;29t&quot;);&#xD;
+        	if(arg.data.get(&quot;29w&quot;) == &quot;1&quot;||arg.data.get(&quot;29w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;29s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;29\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;29t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;29s&quot;) == &quot;1&quot;||arg.data.get(&quot;29t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;29\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;29t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -689,12 +831,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="30t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;30w&quot;) == &quot;1&quot;||arg.data.get(&quot;30w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;2t&quot;);&#xD;
+        	if(arg.data.get(&quot;30w&quot;) == &quot;1&quot;||arg.data.get(&quot;30w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;30s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;2\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;2t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;30s&quot;) == &quot;1&quot;||arg.data.get(&quot;2t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;2\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;2t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -703,12 +849,16 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="31t">
-        <ClientEvent name="onRenderCell">	if(arg.data.get(&quot;31w&quot;) == &quot;1&quot;||arg.data.get(&quot;31w&quot;) == &quot;7&quot;){&#xD;
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = arg.data.get(&quot;lx&quot;);&#xD;
+var id = arg.data.get(&quot;id&quot;);&#xD;
+var sj = arg.data.get(&quot;2t&quot;);&#xD;
+        	if(arg.data.get(&quot;31w&quot;) == &quot;1&quot;||arg.data.get(&quot;31w&quot;) == &quot;7&quot;){&#xD;
 		arg.dom.style.backgroundColor ='#7FFF00';&#xD;
-		 arg.processDefault = true;&#xD;
-	}else if (arg.data.get(&quot;31s&quot;) == &quot;1&quot;) {&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;2\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;2t&quot;)+&quot;&lt;/a>&quot;;&#xD;
+	}else if (arg.data.get(&quot;31s&quot;) == &quot;1&quot;||arg.data.get(&quot;2t&quot;) == &quot; - &quot;) {&#xD;
 		arg.dom.style.backgroundColor ='#FFFF00';&#xD;
-		 arg.processDefault = true;&#xD;
+		 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.updateData(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+id+&quot;\&quot;,\&quot;2\&quot;,\&quot;&quot;+sj+&quot;\&quot;)'>&quot;+arg.data.get(&quot;2t&quot;)+&quot;&lt;/a>&quot;;&#xD;
 	 &#xD;
 	}else{ &#xD;
 		arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
@@ -722,5 +872,30 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
       <Property name="template">dataGridResult</Property>
       <Property name="maxSize">10000</Property>
     </Export2ReportAction>
+    <Dialog id="dialogSj">
+      <Property name="closeable">false</Property>
+      <Buttons>
+        <Button/>
+        <Button/>
+        <Button/>
+        <Button/>
+      </Buttons>
+      <Children>
+        <AutoForm>
+          <Property name="dataSet">dsSj</Property>
+          <AutoFormElement>
+            <Property name="name">sjq</Property>
+            <Property name="property">sjq</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">sjz</Property>
+            <Property name="property">sjz</Property>
+            <Editor/>
+          </AutoFormElement>
+        </AutoForm>
+      </Children>
+      <Tools/>
+    </Dialog>
   </View>
 </ViewConfig>
