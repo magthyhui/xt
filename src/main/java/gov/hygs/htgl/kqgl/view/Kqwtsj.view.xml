@@ -207,14 +207,16 @@
       <PropertyDef name="sjz">
         <Property name="label">时间止</Property>
       </PropertyDef>
+      <PropertyDef name="jsjq"/>
+      <PropertyDef name="jsjz"/>
     </DataType>
   </Model>
   <View>
     <ClientEvent name="onCreate">&#xD;
 window.updateData = function(gh,lx,id,ts,sj){&#xD;
 	var words = sj.split(' - ');&#xD;
-	view.get(&quot;#dsSj&quot;).insert({&#xD;
-		gh:gh,lx:lx,id:id,ts:ts,sjq:words[0],sjz:words[1]&#xD;
+	view.get(&quot;#dsSj&quot;).setData({&#xD;
+		gh:gh,lx:lx,id:id,ts:ts,sjq:words[0],sjz:words[1],jsjq:words[0],jsjz:words[1]&#xD;
 	})&#xD;
 	view.get(&quot;#dialogSj&quot;).show();&#xD;
 }&#xD;
@@ -874,11 +876,44 @@ var sj = arg.data.get(&quot;2t&quot;);&#xD;
     </Export2ReportAction>
     <Dialog id="dialogSj">
       <Property name="closeable">false</Property>
+      <Property name="width">360</Property>
+      <Property name="height">200</Property>
       <Buttons>
-        <Button/>
-        <Button/>
-        <Button/>
-        <Button/>
+        <Button>
+          <ClientEvent name="onClick">&#xD;
+view.get(&quot;#ajaxActionSj&quot;).set(&quot;parameter&quot;,{&#xD;
+	sj:view.get(&quot;#dsSj&quot;).getData(&quot;#&quot;),&#xD;
+	lx:&quot;B&quot;&#xD;
+}).execute();&#xD;
+</ClientEvent>
+          <Property name="caption">补卡</Property>
+        </Button>
+        <Button>
+          <ClientEvent name="onClick">view.get(&quot;#ajaxActionSj&quot;).set(&quot;parameter&quot;,{&#xD;
+	sj:view.get(&quot;#dsSj&quot;).getData(&quot;#&quot;),&#xD;
+	lx:&quot;Q&quot;&#xD;
+}).execute();</ClientEvent>
+          <Property name="caption">请假</Property>
+        </Button>
+        <Button>
+          <ClientEvent name="onClick">view.get(&quot;#ajaxActionSj&quot;).set(&quot;parameter&quot;,{&#xD;
+	sj:view.get(&quot;#dsSj&quot;).getData(&quot;#&quot;),&#xD;
+	lx:&quot;W&quot;&#xD;
+}).execute();</ClientEvent>
+          <Property name="caption">外出</Property>
+        </Button>
+        <Button>
+          <ClientEvent name="onClick">view.get(&quot;#ajaxActionSj&quot;).set(&quot;parameter&quot;,{&#xD;
+	sj:view.get(&quot;#dsSj&quot;).getData(&quot;#&quot;),&#xD;
+	lx:&quot;S&quot;&#xD;
+}).execute();</ClientEvent>
+          <Property name="caption">数据修改</Property>
+        </Button>
+        <Button>
+          <ClientEvent name="onClick">view.get(&quot;#dsSj&quot;).getData(&quot;#&quot;).remove();&#xD;
+view.get(&quot;#dialogSj&quot;).hide();</ClientEvent>
+          <Property name="caption">取消</Property>
+        </Button>
       </Buttons>
       <Children>
         <AutoForm>
@@ -897,5 +932,12 @@ var sj = arg.data.get(&quot;2t&quot;);&#xD;
       </Children>
       <Tools/>
     </Dialog>
+    <AjaxAction id="ajaxActionSj">
+      <ClientEvent name="onSuccess">view.get(&quot;#dialogSj&quot;).hide();&#xD;
+view.get(&quot;#dsSj&quot;).getData(&quot;#&quot;).cancel();&#xD;
+view.get(&quot;#dsKqhz&quot;).flushAsync();&#xD;
+</ClientEvent>
+      <Property name="service">kqglController#updateSj</Property>
+    </AjaxAction>
   </View>
 </ViewConfig>

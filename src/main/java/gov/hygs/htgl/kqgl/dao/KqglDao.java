@@ -257,5 +257,33 @@ public class KqglDao extends BaseJdbcDao {
 		return this.jdbcTemplate.queryForList(sql.toString());
 	}
 
+
+	public String updateSj(Map<String, Object> para) {
+		// TODO Auto-generated method stub
+		Map<String,Object> sj = (Map<String, Object>) para.get("sj");
+		String lx = (String) para.get("lx");
+		String sjlx = (String) sj.get("lx");
+		String gh = (String) sj.get("gh");
+		String id = (String) sj.get("id");
+		String sjq = (String) sj.get("sjq");
+		String sjz = (String) sj.get("sjz");
+		String jsjq = (String) sj.get("jsjq");
+		String jsjz = (String) sj.get("jsjz");
+		String ts = (String) sj.get("ts");
+		String sql = null;
+		String sqllog = "insert into xt_kq_log(kq_id,gh,ts,sjq,sjz,lx,sjlx,jsjq,jsjz) values(?,?,?,?,?,?,?,?,?)";;
+		if(sjlx.equals("2")){
+			sql = "update xt_kqjl_mx set zbq = ? ,zbz = ?,bz = ? where kq_id = ? and gh = ? and ts = ? ";		
+		}else if(sjlx.equals("3")){
+			sql = "update xt_kqjl_mx set wbq = ? ,wbz = ?,bz = ? where kq_id = ? and gh = ? and ts = ? ";
+		}else if(sjlx.equals("4")){
+			sql = "update xt_kqjl_mx set ybq = ? ,ybz = ?,bz = ? where kq_id = ? and gh = ? and ts = ? ";
+		}
+		this.jdbcTemplate.update(sql,new Object[]{sjq,sjz,lx,id,gh,ts});
+		this.jdbcTemplate.update(sqllog,new Object[]{id,gh,ts,sjq,sjz,lx,sjlx,jsjq,jsjz});
+		this.jdbcTemplate.execute("call kqwtsj()");
+		return null;
+	}
+
 	
 }

@@ -197,4 +197,9 @@ public class KqglService {
 		return kqglDao.getKqwtsj(para);
 	}
 
+	public String updateSj(Map<String, Object> para) {
+		// TODO Auto-generated method stub
+		return kqglDao.updateSj(para);
+	}
+
 }

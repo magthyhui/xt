@@ -67,4 +67,11 @@ public class KqglController {
 	public List<Map<String,Object>> getKqwtsj(Map<String,Object> para){
 		return kqglService.getKqwtsj(para);
 	}
+	
+	@Transactional
+	@Expose
+	public String updateSj(Map<String,Object> para){
+		return kqglService.updateSj(para);
+	}
+	
 }
