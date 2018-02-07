@@ -119,8 +119,25 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
 </ClientEvent>
         <Property name="caption">查询</Property>
       </Button>
+      <Button>
+        <ClientEvent name="onClick">var action = view.get(&quot;#export2ReportActionResult&quot;);&#xD;
+&#xD;
+action.doDowloadReport = function(data) {&#xD;
+		var id = data.id;&#xD;
+		var name = data.name;&#xD;
+		if (id &amp;&amp; name) {&#xD;
+			var url = $url(&quot;>dorado/bdf2/export/doDownloadFile?id=&quot; + id + &quot;&amp;name=&quot; + name);&#xD;
+			window.open(url, &quot;_blank&quot;);&#xD;
+		}&#xD;
+};&#xD;
+if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
+	action.execute();&#xD;
+}&#xD;
+</ClientEvent>
+        <Property name="caption">导出</Property>
+      </Button>
     </AutoForm>
-    <DataGrid>
+    <DataGrid id="dataGridResult">
       <Property name="dataSet">dsKqhz</Property>
       <Property name="readOnly">true</Property>
       <Property name="dynaRowHeight">true</Property>
@@ -312,5 +329,10 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Editor/>
       </DataColumn>
     </DataGrid>
+    <Export2ReportAction id="export2ReportActionResult">
+      <Property name="fileName">dcjg</Property>
+      <Property name="template">dataGridResult</Property>
+      <Property name="maxSize">10000</Property>
+    </Export2ReportAction>
   </View>
 </ViewConfig>
