@@ -36,6 +36,12 @@
       <PropertyDef name="29"/>
       <PropertyDef name="30"/>
       <PropertyDef name="31"/>
+      <PropertyDef name="hj">
+        <Property name="label">合计</Property>
+      </PropertyDef>
+      <PropertyDef name="sj">
+        <Property name="label">迟到合计（小时）</Property>
+      </PropertyDef>
     </DataType>
     <DataType name="dtCondition">
       <PropertyDef name="sjq">
@@ -327,6 +333,14 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
         <Property name="width">38</Property>
         <Property name="wrappable">true</Property>
         <Editor/>
+      </DataColumn>
+      <DataColumn name="hj">
+        <Property name="property">hj</Property>
+        <Property name="width">38</Property>
+      </DataColumn>
+      <DataColumn name="sj">
+        <Property name="property">sj</Property>
+        <Property name="width">100</Property>
       </DataColumn>
     </DataGrid>
     <Export2ReportAction id="export2ReportActionResult">

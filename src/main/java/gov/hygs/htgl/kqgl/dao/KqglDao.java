@@ -199,43 +199,7 @@ public class KqglDao extends BaseJdbcDao {
 	public List<Map<String, Object>> getKqhz(Map<String, Object> para) {
 		// TODO Auto-generated method stub
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select 2 lx,kq_id id,gh, ");
-		sql.append(" 		MAX(CASE ts WHEN 1 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '1', ");
-		sql.append(" 		MAX(CASE ts WHEN 2 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '2', ");
-		sql.append(" 		MAX(CASE ts WHEN 3 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '3', ");
-		sql.append(" 		MAX(CASE ts WHEN 4 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '4', ");
-		sql.append(" 		MAX(CASE ts WHEN 5 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '5', ");
-		sql.append(" 		MAX(CASE ts WHEN 6 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '6', ");
-		sql.append(" 		MAX(CASE ts WHEN 7 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '7', ");
-		sql.append(" 		MAX(CASE ts WHEN 8 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '8', ");
-		sql.append(" 		MAX(CASE ts WHEN 9 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '9', ");
-		sql.append(" 		MAX(CASE ts WHEN 10 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '10', ");
-		sql.append(" 		MAX(CASE ts WHEN 11 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '11', ");
-		sql.append(" 		MAX(CASE ts WHEN 12 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '12', ");
-		sql.append(" 		MAX(CASE ts WHEN 13 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '13', ");
-		sql.append(" 		MAX(CASE ts WHEN 14 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '14', ");
-		sql.append(" 		MAX(CASE ts WHEN 15 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '15', ");
-		sql.append(" 		MAX(CASE ts WHEN 16 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '16', ");
-		sql.append(" 		MAX(CASE ts WHEN 17 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '17', ");
-		sql.append(" 		MAX(CASE ts WHEN 18 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '18', ");
-		sql.append(" 		MAX(CASE ts WHEN 19 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '19', ");
-		sql.append(" 		MAX(CASE ts WHEN 20 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '20', ");
-		sql.append(" 		MAX(CASE ts WHEN 21 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '21', ");
-		sql.append(" 		MAX(CASE ts WHEN 22 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '22', ");
-		sql.append(" 		MAX(CASE ts WHEN 23 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '23', ");
-		sql.append(" 		MAX(CASE ts WHEN 24 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '24', ");
-		sql.append(" 		MAX(CASE ts WHEN 25 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '25', ");
-		sql.append(" 		MAX(CASE ts WHEN 26 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '26', ");
-		sql.append(" 		MAX(CASE ts WHEN 27 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '27', ");
-		sql.append(" 		MAX(CASE ts WHEN 28 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '28', ");
-		sql.append(" 		MAX(CASE ts WHEN 29 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '29', ");
-		sql.append(" 		MAX(CASE ts WHEN 30 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '30', ");
-		sql.append(" 		MAX(CASE ts WHEN 31 THEN CONCAT_WS('',zbq,zbz,wbq,wbz,ybq,ybz) ELSE '' END ) '31' ");
-		sql.append(" 		from xt_kqjl a, xt_kqjl_mx b ");
-		sql.append(" 		WHERE a.id=b.kq_id  ");
-		sql.append(" 		group by b.kq_id,b.gh ");
-		sql.append(" 		union all  ");
-		sql.append(" 		select 1 lx,'' ,gh, '工号：' ,null '2',a.gh '3',null '4',null '5',null '6',null '7',null '8','姓名：',null '10',a.xm '11',null '12',null '13',null '14',null '15',null '16',null '17',null '18','部门：' ,null '20',a.bm '21',null '22',null '23',null '24',null '25',null '26',null '27',null '28',null '29',null '30',null '31' from xt_kqry a ");
+		sql.append(" select * from xt_kq_hz ");
 		sql.append(" 		order by gh,lx ");
 		
 
