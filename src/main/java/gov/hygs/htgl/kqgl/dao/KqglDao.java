@@ -44,7 +44,7 @@ public class KqglDao extends BaseJdbcDao {
 		return id;
 	}
 
-	
+	//bm qh xm  rq[i]
 	public void saveKqjl(int kqsjId, Map<String, Object> kqxx) {
 		// TODO Auto-generated method stub
 		String gh = (String) kqxx.get("gh");
@@ -56,8 +56,9 @@ public class KqglDao extends BaseJdbcDao {
 			String zbq = null, zbz = null, wbq = null, wbz = null, ybq = null, ybz = null;
 			String rq = (String) kqxx.get("rq" + i);
 			int bz = 1;
+			String kqbz="Y";
 			int rqlength = rq.length();
-			if (rqlength % 10 == 0) {
+			if (rqlength == 20||rqlength == 30) {
 				for (int j = 0; j + 5 <= rqlength; j += 5) {
 					String sj = rq.substring(j, j + 5);
 					if (bz == 1) {
@@ -76,36 +77,11 @@ public class KqglDao extends BaseJdbcDao {
 					bz++;
 				}
 			}else{
-				int zbbz=0;
-				int wbbz=0;
-				for (int j = 0; j + 5 <= rqlength; j += 5) {
-					String sj = rq.substring(j, j + 5);
-					int t = Integer.valueOf(rq.substring(j, j + 2));
-					int w =  Integer.valueOf(rq.substring(j + 3, j + 5));
-					// 0800 1200 1400 1800 1830 2130
-					//07:44 12:01 13:58
-					if (t<8||(t==8&&w==0)) {
-						zbq = sj;
-					} else if (t>8&&t<14&&zbbz==0) {
-						zbz = sj;
-						zbbz++;
-					} else if (t>=12&&t<14&&zbbz==1||(t==14&&w==0)) {
-						wbq = sj;
-					} else if (t>14&&t<18||(t==18&&w<30)&&wbbz==0) {
-						wbz = sj;
-						wbbz++;
-					} else if (t==18&&w>30||wbbz==1) {
-						ybq = sj;
-						wbbz++;
-					} else if (t==18&&w>30&&wbbz==2) {
-						ybq = sj;
-					}
-				}
-				
+				kqbz="N";
 			}
 
-			String mxsql = "insert into xt_kqjl_mx(kq_id,gh,ts,zbq,zbz,wbq,wbz,ybq,ybz) values (?,?,?,?,?,?,?,?,?) ";
-			this.jdbcTemplate.update(mxsql, new Object[] {kqsjId,gh,i,zbq,zbz,wbq,wbz,ybq,ybz});
+			String mxsql = "insert into xt_kqjl_mx(kq_id,gh,ts,zbq,zbz,wbq,wbz,ybq,ybz,xq,kqbz) values (?,?,?,?,?,?,?,?,?,?,?) ";
+			this.jdbcTemplate.update(mxsql, new Object[] {kqsjId,gh,i,zbq,zbz,wbq,wbz,ybq,ybz,rq,kqbz});
 		}
 	}
 
