@@ -4,6 +4,62 @@
   <Context/>
   <Model>
     <DataType name="dtKqjl">
+      <PropertyDef name="kq_id">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="gh">
+        <Property name="label">工号</Property>
+      </PropertyDef>
+      <PropertyDef name="xm">
+        <Property name="label">姓名</Property>
+      </PropertyDef>
+      <PropertyDef name="bm">
+        <Property name="label">部门</Property>
+      </PropertyDef>
+      <PropertyDef name="kqts">
+        <Property name="label">考勤天数</Property>
+      </PropertyDef>
+      <PropertyDef name="kqzc">
+        <Property name="label">早中晚正常数</Property>
+      </PropertyDef>
+      <PropertyDef name="kqzw">
+        <Property name="label">早午正常数</Property>
+      </PropertyDef>
+      <PropertyDef name="kqbzc">
+        <Property name="label">考勤有问题数</Property>
+      </PropertyDef>
+    </DataType>
+    <DataType name="dtCondition">
+      <PropertyDef name="id"/>
+      <PropertyDef name="sj">
+        <Property name="label">时间</Property>
+      </PropertyDef>
+      <PropertyDef name="sfzm">
+        <Property name="label">是否忽略周末</Property>
+        <Property name="mapping">
+          <Property name="mapValues">
+            <Collection>
+              <Entity>
+                <Property name="key">1</Property>
+                <Property name="value">是</Property>
+              </Entity>
+              <Entity>
+                <Property name="key">0</Property>
+                <Property name="value">否</Property>
+              </Entity>
+            </Collection>
+          </Property>
+        </Property>
+        <Property name="defaultValue">1</Property>
+      </PropertyDef>
+    </DataType>
+    <DataType name="dtKqsj">
+      <PropertyDef name="id"/>
+      <PropertyDef name="sj">
+        <Property name="label">时间</Property>
+      </PropertyDef>
+    </DataType>
+    <DataType name="dtKqmx">
       <PropertyDef name="id"/>
       <PropertyDef name="gh">
         <Property name="label">工号</Property>
@@ -125,49 +181,15 @@
         <Property name="label">星期</Property>
       </PropertyDef>
     </DataType>
-    <DataType name="dtCondition">
-      <PropertyDef name="sjq">
-        <Property name="label">时间起</Property>
-        <Property name="dataType">Date</Property>
-      </PropertyDef>
-      <PropertyDef name="sjz">
-        <Property name="label">时间止</Property>
-        <Property name="dataType">Date</Property>
-      </PropertyDef>
-      <PropertyDef name="sfzm">
-        <Property name="label">是否忽略周末</Property>
-        <Property name="mapping">
-          <Property name="mapValues">
-            <Collection>
-              <Entity>
-                <Property name="key">1</Property>
-                <Property name="value">是</Property>
-              </Entity>
-              <Entity>
-                <Property name="key">0</Property>
-                <Property name="value">否</Property>
-              </Entity>
-            </Collection>
-          </Property>
-        </Property>
-        <Property name="defaultValue">1</Property>
-      </PropertyDef>
-      <PropertyDef name="xm">
-        <Property name="label">姓名</Property>
-      </PropertyDef>
-    </DataType>
   </Model>
   <View>
-    <UploadAction id="uploadAction1">
-      <ClientEvent name="onFilesAdded">self.set(&quot;parameter&quot;,{&#xD;
-	&quot;fields&quot;:[&quot;Num,Mode,TkflTkmc,TktmTmnd,&quot;&#xD;
-				+&quot;TktmContent,DaToF,TmlyTitle,&quot;&#xD;
-				+&quot;TmlyContent,UserName,DeptName&quot;]&#xD;
-});</ClientEvent>
-      <ClientEvent name="onFileUploaded">dorado.MessageBox.alert(&quot;提交成功！&quot;);</ClientEvent>
-      <Property name="fileResolver">kqglController#importKqxx</Property>
-      <Filters/>
-    </UploadAction>
+    <ClientEvent name="onCreate">window.showKqmx = function(gh,lx,kqid){&#xD;
+	view.get(&quot;#dsKqmx&quot;).set(&quot;parameter&quot;,{&#xD;
+		gh:gh,lx:lx,kqid:kqid&#xD;
+	}).flushAsync();&#xD;
+	view.get(&quot;#dialogKqmx&quot;).show();&#xD;
+}&#xD;
+</ClientEvent>
     <DataSet id="dsKqjl">
       <Property name="loadMode">manual</Property>
       <Property name="dataType">[dtKqjl]</Property>
@@ -181,40 +203,54 @@ var sjq = now.setFullYear(y,m-1,1);&#xD;
 var sjz = now.setFullYear(y,m,1);&#xD;
 sjz= new Date((sjz/1000-86400)*1000)&#xD;
 &#xD;
-self.insert({&#xD;
-	sjq:sjq,&#xD;
-	sjz:sjz&#xD;
-});&#xD;
+self.insert();&#xD;
 </ClientEvent>
       <Property name="dataType">dtCondition</Property>
     </DataSet>
+    <DataSet id="dsKqsj">
+      <Property name="dataProvider">kqryController#getKqsj</Property>
+    </DataSet>
+    <DataSet id="dsKqmx">
+      <Property name="loadMode">manual</Property>
+      <Property name="dataType">[dtKqmx]</Property>
+      <Property name="dataProvider">kqglController#getKqmx</Property>
+    </DataSet>
+    <UploadAction id="uploadAction1">
+      <ClientEvent name="onFilesAdded">self.set(&quot;parameter&quot;,{&#xD;
+	&quot;fields&quot;:[&quot;Num,Mode,TkflTkmc,TktmTmnd,&quot;&#xD;
+				+&quot;TktmContent,DaToF,TmlyTitle,&quot;&#xD;
+				+&quot;TmlyContent,UserName,DeptName&quot;]&#xD;
+});</ClientEvent>
+      <ClientEvent name="onFileUploaded">dorado.MessageBox.alert(&quot;提交成功！&quot;);</ClientEvent>
+      <Property name="fileResolver">kqglController#importKqxx</Property>
+      <Filters/>
+    </UploadAction>
+    <DataSetDropDown id="dataSetDropDown1">
+      <Property name="dataSet">dsKqsj</Property>
+      <Property name="property">sj</Property>
+      <Property name="assignmentMap">id=id;sj=sj</Property>
+    </DataSetDropDown>
     <AutoForm>
       <Property name="dataSet">dsCondition</Property>
-      <Property name="cols">*,*</Property>
+      <Property name="cols">*,*,*</Property>
       <Property name="labelWidth">100</Property>
       <AutoFormElement>
-        <Property name="name">sjq</Property>
-        <Property name="property">sjq</Property>
-        <Editor/>
-      </AutoFormElement>
-      <AutoFormElement>
-        <Property name="name">sjz</Property>
-        <Property name="property">sjz</Property>
-        <Editor/>
-      </AutoFormElement>
-      <AutoFormElement>
-        <Property name="name">sfzm</Property>
-        <Property name="property">sfzm</Property>
-        <Editor/>
-      </AutoFormElement>
-      <AutoFormElement>
-        <Property name="name">xm</Property>
-        <Property name="property">xm</Property>
+        <Property name="name">sj</Property>
+        <Property name="property">sj</Property>
+        <Property name="trigger">dataSetDropDown1</Property>
+        <Property name="editable">false</Property>
         <Editor/>
       </AutoFormElement>
       <Button>
         <ClientEvent name="onClick">var dsCondition = view.get(&quot;#dsCondition&quot;).getData(&quot;#&quot;);&#xD;
-view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync();&#xD;
+var sj = dsCondition.get(&quot;sj&quot;);&#xD;
+if(sj==null||sj==&quot;&quot;){&#xD;
+	dorado.MessageBox.alert(&quot;时间不能为空&quot;);&#xD;
+}else{&#xD;
+	view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync();&#xD;
+}&#xD;
+&#xD;
+&#xD;
 </ClientEvent>
         <Property name="caption">查询</Property>
       </Button>
@@ -223,42 +259,6 @@ view.get(&quot;#dsKqjl&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync(
         <Property name="action">uploadAction1</Property>
       </Button>
     </AutoForm>
-    <ToolBar>
-      <DataPilot>
-        <Property name="itemCodes">pages</Property>
-        <Property name="dataSet">dsKqjl</Property>
-      </DataPilot>
-      <ToolBarButton>
-        <ClientEvent name="onClick">view.get(&quot;#dialogXg&quot;).show();&#xD;
-view.get(&quot;#dsKqjl&quot;).getData(&quot;#&quot;).set(&quot;bz&quot;,&quot;B&quot;);</ClientEvent>
-        <Property name="caption">补卡</Property>
-      </ToolBarButton>
-      <ToolBarButton>
-        <ClientEvent name="onClick">view.get(&quot;#dialogXg&quot;).show();&#xD;
-view.get(&quot;#dsKqjl&quot;).getData(&quot;#&quot;).set(&quot;bz&quot;,&quot;C&quot;);</ClientEvent>
-        <Property name="caption">迟到早退</Property>
-      </ToolBarButton>
-      <ToolBarButton>
-        <ClientEvent name="onClick">view.get(&quot;#dialogCc&quot;).show();&#xD;
-view.get(&quot;#dsKqjl&quot;).getData(&quot;#&quot;).set(&quot;bz&quot;,&quot;W&quot;);</ClientEvent>
-        <Property name="caption">外出补卡</Property>
-      </ToolBarButton>
-      <ToolBarButton>
-        <ClientEvent name="onClick">view.get(&quot;#dialogQj&quot;).show();&#xD;
-view.get(&quot;#dsKqjl&quot;).getData(&quot;#&quot;).set(&quot;bz&quot;,&quot;Q&quot;);</ClientEvent>
-        <Property name="caption">请假</Property>
-      </ToolBarButton>
-      <ToolBarButton>
-        <ClientEvent name="onClick">view.get(&quot;#dialogKg&quot;).show();&#xD;
-view.get(&quot;#dsKqjl&quot;).getData(&quot;#&quot;).set(&quot;bz&quot;,&quot;K&quot;);</ClientEvent>
-        <Property name="caption">旷工</Property>
-      </ToolBarButton>
-      <ToolBarButton>
-        <ClientEvent name="onClick">view.get(&quot;#dialogXg&quot;).show();&#xD;
-view.get(&quot;#dsKqjl&quot;).getData(&quot;#&quot;).set(&quot;bz&quot;,&quot;S&quot;);</ClientEvent>
-        <Property name="caption">数据调整</Property>
-      </ToolBarButton>
-    </ToolBar>
     <DataGrid>
       <Property name="dataSet">dsKqjl</Property>
       <Property name="readOnly">true</Property>
@@ -271,403 +271,126 @@ view.get(&quot;#dsKqjl&quot;).getData(&quot;#&quot;).set(&quot;bz&quot;,&quot;S&
       <DataColumn name="bm">
         <Property name="property">bm</Property>
       </DataColumn>
-      <DataColumn name="xq">
-        <Property name="property">xq</Property>
+      <DataColumn name="kqts">
+        <Property name="property">kqts</Property>
       </DataColumn>
-      <DataColumn name="ts">
-        <Property name="property">ts</Property>
+      <DataColumn name="kqzc">
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = &quot;kqzc&quot;&#xD;
+var kqid = arg.data.get(&quot;kq_id&quot;);&#xD;
+var kqzc = arg.data.get(&quot;kqzc&quot;);&#xD;
+if(kqzc == &quot;0&quot;){&#xD;
+	arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+}else  {&#xD;
+	 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.showKqmx(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+kqid+&quot;\&quot;)'>&quot;+kqzc+&quot;&lt;/a>&quot;;&#xD;
+}</ClientEvent>
+        <Property name="property">kqzc</Property>
       </DataColumn>
-      <DataColumn name="zbq">
-        <Property name="property">zbq</Property>
+      <DataColumn name="kqzw">
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = &quot;kqzw&quot;&#xD;
+var kqid = arg.data.get(&quot;kq_id&quot;);&#xD;
+var kqzw = arg.data.get(&quot;kqzw&quot;);&#xD;
+if(kqzw == &quot;0&quot;){&#xD;
+	arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+}else  {&#xD;
+	 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.showKqmx(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+kqid+&quot;\&quot;)'>&quot;+kqzw+&quot;&lt;/a>&quot;;&#xD;
+}</ClientEvent>
+        <Property name="property">kqzw</Property>
       </DataColumn>
-      <DataColumn name="zbz">
-        <Property name="property">zbz</Property>
-      </DataColumn>
-      <DataColumn name="wbq">
-        <Property name="property">wbq</Property>
-      </DataColumn>
-      <DataColumn name="wbz">
-        <Property name="property">wbz</Property>
-      </DataColumn>
-      <DataColumn name="ybq">
-        <Property name="property">ybq</Property>
-      </DataColumn>
-      <DataColumn>
-        <Property name="property">ybz</Property>
-        <Property name="name">ybz</Property>
+      <DataColumn name="kqbzc">
+        <ClientEvent name="onRenderCell">var gh = arg.data.get(&quot;gh&quot;);&#xD;
+var lx = &quot;kqbzc&quot;&#xD;
+var kqid = arg.data.get(&quot;kq_id&quot;);&#xD;
+var kqbzc = arg.data.get(&quot;kqbzc&quot;);&#xD;
+if(kqbzc == &quot;0&quot;){&#xD;
+	arg.dom.innerHTML = arg.cellRenderer.getText(arg.data,self);&#xD;
+}else  {&#xD;
+	 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.showKqmx(\&quot;&quot;+gh+&quot;\&quot;,\&quot;&quot;+lx+&quot;\&quot;,\&quot;&quot;+kqid+&quot;\&quot;)'>&quot;+kqbzc+&quot;&lt;/a>&quot;;&#xD;
+}</ClientEvent>
+        <Property name="property">kqbzc</Property>
       </DataColumn>
     </DataGrid>
-    <Dialog id="dialogXg">
-      <Property name="height">350</Property>
-      <Property name="width">550</Property>
-      <Buttons>
-        <Button>
-          <ClientEvent name="onClick">&#xD;
-var dsKqjl = view.get(&quot;#dsKqjl&quot;).getData(&quot;#&quot;);&#xD;
-view.get(&quot;#ajaxActionXg&quot;).set(&quot;parameter&quot;,dsKqjl).execute(function(returnValue){&#xD;
-	if(returnValue==&quot;ok&quot;){&#xD;
-		dorado.MessageBox.alert(&quot;提交成功！&quot;);&#xD;
-	}&#xD;
-	view.get(&quot;#dsKqjl&quot;).flushAsync();&#xD;
-&#xD;
-	view.get(&quot;#dialogXg&quot;).hide();&#xD;
-})&#xD;
-</ClientEvent>
-          <Property name="caption">确定</Property>
-        </Button>
-        <Button>
-          <ClientEvent name="onClick">view.get(&quot;#dialogXg&quot;).hide();</ClientEvent>
-          <Property name="caption">取消</Property>
-        </Button>
-      </Buttons>
+    <Dialog id="dialogKqmx">
+      <Property name="height">90%</Property>
+      <Property name="width">90%</Property>
+      <Buttons/>
       <Children>
-        <AutoForm>
-          <Property name="dataSet">dsKqjl</Property>
-          <AutoFormElement>
-            <Property name="name">gh</Property>
-            <Property name="property">gh</Property>
-            <Property name="readOnly">true</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">xm</Property>
-            <Property name="property">xm</Property>
-            <Property name="readOnly">true</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">bm</Property>
-            <Property name="property">bm</Property>
-            <Property name="readOnly">true</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">ts</Property>
+        <ToolBar>
+          <DataPilot>
+            <Property name="itemCodes">pages</Property>
+            <Property name="dataSet">dsKqmx</Property>
+          </DataPilot>
+          <ToolBarButton>
+            <ClientEvent name="onClick">view.get(&quot;#dialogXg&quot;).show();&#xD;
+view.get(&quot;#dsKqjl&quot;).getData(&quot;#&quot;).set(&quot;bz&quot;,&quot;B&quot;);</ClientEvent>
+            <Property name="caption">补卡</Property>
+          </ToolBarButton>
+          <ToolBarButton>
+            <ClientEvent name="onClick">view.get(&quot;#dialogXg&quot;).show();&#xD;
+view.get(&quot;#dsKqjl&quot;).getData(&quot;#&quot;).set(&quot;bz&quot;,&quot;C&quot;);</ClientEvent>
+            <Property name="caption">迟到早退</Property>
+          </ToolBarButton>
+          <ToolBarButton>
+            <ClientEvent name="onClick">view.get(&quot;#dialogCc&quot;).show();&#xD;
+view.get(&quot;#dsKqjl&quot;).getData(&quot;#&quot;).set(&quot;bz&quot;,&quot;W&quot;);</ClientEvent>
+            <Property name="caption">外出补卡</Property>
+          </ToolBarButton>
+          <ToolBarButton>
+            <ClientEvent name="onClick">view.get(&quot;#dialogQj&quot;).show();&#xD;
+view.get(&quot;#dsKqjl&quot;).getData(&quot;#&quot;).set(&quot;bz&quot;,&quot;Q&quot;);</ClientEvent>
+            <Property name="caption">请假</Property>
+          </ToolBarButton>
+          <ToolBarButton>
+            <ClientEvent name="onClick">view.get(&quot;#dialogKg&quot;).show();&#xD;
+view.get(&quot;#dsKqjl&quot;).getData(&quot;#&quot;).set(&quot;bz&quot;,&quot;K&quot;);</ClientEvent>
+            <Property name="caption">旷工</Property>
+          </ToolBarButton>
+          <ToolBarButton>
+            <ClientEvent name="onClick">view.get(&quot;#dialogXg&quot;).show();&#xD;
+view.get(&quot;#dsKqjl&quot;).getData(&quot;#&quot;).set(&quot;bz&quot;,&quot;S&quot;);</ClientEvent>
+            <Property name="caption">数据调整</Property>
+          </ToolBarButton>
+        </ToolBar>
+        <DataGrid>
+          <Property name="dataSet">dsKqmx</Property>
+          <DataColumn name="ts">
             <Property name="property">ts</Property>
-            <Property name="readOnly">true</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">zbq</Property>
+          </DataColumn>
+          <DataColumn name="xq">
+            <Property name="property">xq</Property>
+          </DataColumn>
+          <DataColumn name="zbq">
             <Property name="property">zbq</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">zbz</Property>
+          </DataColumn>
+          <DataColumn name="zbz">
             <Property name="property">zbz</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">wbq</Property>
+          </DataColumn>
+          <DataColumn name="wbq">
             <Property name="property">wbq</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">wbz</Property>
+          </DataColumn>
+          <DataColumn name="wbz">
             <Property name="property">wbz</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">ybq</Property>
+          </DataColumn>
+          <DataColumn name="ybq">
             <Property name="property">ybq</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">ybz </Property>
-            <Property name="property">ybz </Property>
-            <Editor/>
-          </AutoFormElement>
-        </AutoForm>
-      </Children>
-      <Tools/>
-    </Dialog>
-    <AjaxAction id="ajaxActionXg">
-      <Property name="service">kqglController#updateXg</Property>
-    </AjaxAction>
-    <Dialog id="dialogQj">
-      <Property name="height">350</Property>
-      <Property name="width">550</Property>
-      <Buttons>
-        <Button>
-          <ClientEvent name="onClick">&#xD;
-var dsKqjl = view.get(&quot;#dsKqjl&quot;).getData(&quot;#&quot;);&#xD;
-view.get(&quot;#ajaxActionXg&quot;).set(&quot;parameter&quot;,dsKqjl).execute(function(returnValue){&#xD;
-	if(returnValue==&quot;ok&quot;){&#xD;
-		dorado.MessageBox.alert(&quot;提交成功！&quot;);&#xD;
-	}&#xD;
-	view.get(&quot;#dsKqjl&quot;).flushAsync();&#xD;
-&#xD;
-	view.get(&quot;#dialogQj&quot;).hide();&#xD;
-})&#xD;
-</ClientEvent>
-          <Property name="caption">确定</Property>
-        </Button>
-        <Button>
-          <ClientEvent name="onClick">view.get(&quot;#dialogQj&quot;).hide();</ClientEvent>
-          <Property name="caption">取消</Property>
-        </Button>
-      </Buttons>
-      <Children>
-        <AutoForm>
-          <Property name="dataSet">dsKqjl</Property>
-          <AutoFormElement>
-            <Property name="name">gh</Property>
-            <Property name="property">gh</Property>
-            <Property name="readOnly">true</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">xm</Property>
-            <Property name="property">xm</Property>
-            <Property name="readOnly">true</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">bm</Property>
-            <Property name="property">bm</Property>
-            <Property name="readOnly">true</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">ts</Property>
-            <Property name="property">ts</Property>
-            <Property name="readOnly">true</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">xs</Property>
-            <Property name="property">xs</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">qj</Property>
+          </DataColumn>
+          <DataColumn name="ybz">
+            <Property name="property">ybz</Property>
+          </DataColumn>
+          <DataColumn name="qj">
             <Property name="property">qj</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">zbq</Property>
-            <Property name="property">zbq</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">zbz</Property>
-            <Property name="property">zbz</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">wbq</Property>
-            <Property name="property">wbq</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">wbz</Property>
-            <Property name="property">wbz</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">ybq</Property>
-            <Property name="property">ybq</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">ybz </Property>
-            <Property name="property">ybz </Property>
-            <Editor/>
-          </AutoFormElement>
-        </AutoForm>
-      </Children>
-      <Tools/>
-    </Dialog>
-    <Dialog id="dialogCc">
-      <Property name="height">350</Property>
-      <Property name="width">550</Property>
-      <Buttons>
-        <Button>
-          <ClientEvent name="onClick">&#xD;
-var dsKqjl = view.get(&quot;#dsKqjl&quot;).getData(&quot;#&quot;);&#xD;
-view.get(&quot;#ajaxActionXg&quot;).set(&quot;parameter&quot;,dsKqjl).execute(function(returnValue){&#xD;
-	if(returnValue==&quot;ok&quot;){&#xD;
-		dorado.MessageBox.alert(&quot;提交成功！&quot;);&#xD;
-	}&#xD;
-	view.get(&quot;#dsKqjl&quot;).flushAsync();&#xD;
-&#xD;
-	view.get(&quot;#dialogCc&quot;).hide();&#xD;
-})&#xD;
-</ClientEvent>
-          <Property name="caption">确定</Property>
-        </Button>
-        <Button>
-          <ClientEvent name="onClick">view.get(&quot;#dialogCc&quot;).hide();</ClientEvent>
-          <Property name="caption">取消</Property>
-        </Button>
-      </Buttons>
-      <Children>
-        <AutoForm>
-          <Property name="dataSet">dsKqjl</Property>
-          <AutoFormElement>
-            <Property name="name">gh</Property>
-            <Property name="property">gh</Property>
-            <Property name="readOnly">true</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">xm</Property>
-            <Property name="property">xm</Property>
-            <Property name="readOnly">true</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">bm</Property>
-            <Property name="property">bm</Property>
-            <Property name="readOnly">true</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">ts</Property>
-            <Property name="property">ts</Property>
-            <Property name="readOnly">true</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">xs</Property>
-            <Property name="property">xs</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">cc</Property>
+          </DataColumn>
+          <DataColumn name="cc">
             <Property name="property">cc</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">zbq</Property>
-            <Property name="property">zbq</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">zbz</Property>
-            <Property name="property">zbz</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">wbq</Property>
-            <Property name="property">wbq</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">wbz</Property>
-            <Property name="property">wbz</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">ybq</Property>
-            <Property name="property">ybq</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">ybz </Property>
-            <Property name="property">ybz </Property>
-            <Editor/>
-          </AutoFormElement>
-        </AutoForm>
-      </Children>
-      <Tools/>
-    </Dialog>
-    <Dialog id="dialogKg">
-      <Property name="height">350</Property>
-      <Property name="width">550</Property>
-      <Buttons>
-        <Button>
-          <ClientEvent name="onClick">&#xD;
-var dsKqjl = view.get(&quot;#dsKqjl&quot;).getData(&quot;#&quot;);&#xD;
-view.get(&quot;#ajaxActionXg&quot;).set(&quot;parameter&quot;,dsKqjl).execute(function(returnValue){&#xD;
-	if(returnValue==&quot;ok&quot;){&#xD;
-		dorado.MessageBox.alert(&quot;提交成功！&quot;);&#xD;
-	}&#xD;
-	view.get(&quot;#dsKqjl&quot;).flushAsync();&#xD;
-&#xD;
-	view.get(&quot;#dialogKg&quot;).hide();&#xD;
-})&#xD;
-</ClientEvent>
-          <Property name="caption">确定</Property>
-        </Button>
-        <Button>
-          <ClientEvent name="onClick">view.get(&quot;#dialogkg&quot;).hide();</ClientEvent>
-          <Property name="caption">取消</Property>
-        </Button>
-      </Buttons>
-      <Children>
-        <AutoForm>
-          <Property name="dataSet">dsKqjl</Property>
-          <AutoFormElement>
-            <Property name="name">gh</Property>
-            <Property name="property">gh</Property>
-            <Property name="readOnly">true</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">xm</Property>
-            <Property name="property">xm</Property>
-            <Property name="readOnly">true</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">bm</Property>
-            <Property name="property">bm</Property>
-            <Property name="readOnly">true</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">ts</Property>
-            <Property name="property">ts</Property>
-            <Property name="readOnly">true</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">xs</Property>
-            <Property name="property">xs</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">kg</Property>
+          </DataColumn>
+          <DataColumn name="kg">
             <Property name="property">kg</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">zbq</Property>
-            <Property name="property">zbq</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">zbz</Property>
-            <Property name="property">zbz</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">wbq</Property>
-            <Property name="property">wbq</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">wbz</Property>
-            <Property name="property">wbz</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">ybq</Property>
-            <Property name="property">ybq</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">ybz </Property>
-            <Property name="property">ybz </Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">bz</Property>
-            <Property name="property">bz</Property>
-            <Editor/>
-          </AutoFormElement>
-        </AutoForm>
+          </DataColumn>
+          <DataColumn name="xs">
+            <Property name="property">xs</Property>
+          </DataColumn>
+        </DataGrid>
       </Children>
       <Tools/>
     </Dialog>

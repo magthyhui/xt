@@ -43,10 +43,17 @@ public class KqglController {
 		}
 		return null;
 	}
+	
 	@DataProvider
 	public List<Map<String,Object>> getKqjl(Map<String,Object> para){
 		return kqglService.getKqjl(para);
 	}
+
+	@DataProvider
+	public List<Map<String,Object>> getKqmx(Map<String,Object> para){
+		return kqglService.getKqmx(para);
+	}
+
 	@DataProvider
 	public List<Map<String,Object>> getKqAll(Map<String,Object> para){
 		return kqglService.getKqAll(para);

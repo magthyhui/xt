@@ -21,6 +21,11 @@ public class KqryController {
 	KqryService kqryService;
 
 	@DataProvider
+	public List<Map<String,Object>> getKqsj(Map<String, Object> param) {
+		return kqryService.getKqsj(param);
+	}
+	
+	@DataProvider
 	public void getKqry(Page page, Map<String, Object> param) {
 		kqryService.getKqry(page, param);
 	}

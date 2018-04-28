@@ -66,4 +66,11 @@ public class KqryDao extends BaseJdbcDao {
 		this.jdbcTemplate.update(sql, new Object[] { sp.getId() });
 	}
 
+
+	public List<Map<String, Object>> getKqsj(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		String sql = "select id,CONCAT(kqq,'至',kqz) sj from xt_kqjl order by id";
+		return this.jdbcTemplate.queryForList(sql);
+	}
+
 }

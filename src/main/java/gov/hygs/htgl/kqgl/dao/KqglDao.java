@@ -48,8 +48,6 @@ public class KqglDao extends BaseJdbcDao {
 	public void saveKqjl(int kqsjId, Map<String, Object> kqxx) {
 		// TODO Auto-generated method stub
 		String gh = (String) kqxx.get("gh");
-		String xm = (String) kqxx.get("xm");
-		String bm = (String) kqxx.get("bm");
 		
 		int ts = (int) kqxx.get("ts");
 		for (int i = 1; i <= ts; i++) {
@@ -87,41 +85,68 @@ public class KqglDao extends BaseJdbcDao {
 
 	public List<Map<String, Object>> getKqjl(Map<String, Object> para) {
 		// TODO Auto-generated method stub
-		Date sjq = (Date) para.get("sjq");
-		Date sjz = (Date) para.get("sjz");
+		Integer id = (Integer) para.get("id");
 		String sfzm = (String) para.get("sfzm");
-		String xm = (String) para.get("xm");
 		List<Object> args = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select a.id,a.kqq,a.kqz,c.gh,c.xm,c.bm,b.id mxid ,b.ts,zbq,zbz,wbq,wbz,ybq,ybz,");
-		sql.append(" case DAYOFWEEK(date_format(date_add(a.kqq, interval ts-1 day),'%Y-%m-%d'))  when 1 then '星期日' when 2 then '星期一' when 3 then '星期二' when 4 then '星期三' when 5 then '星期四' when 6 then '星期五' when 7 then '星期六' end xq");
-		sql.append(" from xt_kqjl a, xt_kqjl_mx b,xt_kqry c ");
-		sql.append(" where a.id=b.kq_id and b.gh=c.gh ");
-		if(xm!=null&&xm!=""){
-			sql.append("  and a.xm like ? ");
-			args.add("%"+xm+"%");
-		}
-		sql.append("  and  ( ");
-		sql.append(" date_format(CONCAT('2017-01-01 ',zbq,':00'), '%Y-%m-%d %H:%i:%s')>date_format('2017-01-01 07:55:00', '%Y-%m-%d %H:%i:%s') ");
-		sql.append(" or  ");
-		sql.append(" date_format(CONCAT('2017-01-01 ',zbz,':00'), '%Y-%m-%d %H:%i:%s')<date_format('2017-01-01 12:00:00', '%Y-%m-%d %H:%i:%s') ");
-		sql.append(" or "); 
-		sql.append(" date_format(CONCAT('2017-01-01 ',wbq,':00'), '%Y-%m-%d %H:%i:%s') > date_format('2017-01-01 13:55:00', '%Y-%m-%d %H:%i:%s') ");
-		sql.append(" or "); 
-		sql.append(" date_format(CONCAT('2017-01-01 ',wbz,':00'), '%Y-%m-%d %H:%i:%s') < date_format('2017-01-01 18:00:00', '%Y-%m-%d %H:%i:%s') ");
-		sql.append(" or  ");
-		sql.append(" date_format(CONCAT('2017-01-01 ',ybq,':00'), '%Y-%m-%d %H:%i:%s') > date_format('2017-01-01 18:30:00', '%Y-%m-%d %H:%i:%s') ");
-		sql.append(" or  ");
-		sql.append(" date_format(CONCAT('2017-01-01 ',ybz,':00'), '%Y-%m-%d %H:%i:%s') < date_format('2017-01-01 21:30:00', '%Y-%m-%d %H:%i:%s') ");
-		sql.append(" or zbq is null  or zbz is null or wbq is null or wbz is null ) ");
-		sql.append(" and date_format(a.kqq,'%Y-%m-%d') >= date_format(?,'%Y-%m-%d') and date_format(a.kqz,'%Y-%m-%d')  <= date_format(?,'%Y-%m-%d')");
-		if(sfzm.equals("1")){
-			sql.append("and bz is null and (DAYOFWEEK(date_format(date_add(a.kqq, interval ts-1 day),'%Y-%m-%d')) not in (1,7) or ( zbq is not null  or zbz is not null or wbq is not null or wbz is not null or ybq is not null or ybz is not null) )  order by bm,gh,ts ");
-		}
-		args.add(sjq);
-		args.add(sjz);
+		sql.append(" select a.kq_id,a.gh,b.xm,b.bm,sum(1) kqts, ");
+		sql.append(" sum(case when a.kqbz='Y' then 1 else 0 end ) kqbz,sum(case when a.kqzc='Y' then 1 else 0 end ) kqzc,sum(case when a.kqzw='Y' then 1 else 0 end ) kqzw, ");
+		sql.append(" sum(case when a.kqzw='N' then 1 else 0 end ) kqbzc ");
+		sql.append("  from xt_kqjl_mx a,xt_kqry b where a.gh=b.gh  and a.kq_id = ? ");
+		sql.append(" group by a.kq_id,a.gh,b.xm,b.bm ");
+		sql.append(" order by bm,gh ");
+		args.add(id);
 		List<Map<String, Object>> ls =  this.jdbcTemplate.queryForList(sql.toString(),args.toArray());
 		return ls;
+	}
+	
+
+	public List<Map<String, Object>> getKqmx(Map<String, Object> para) {
+		// TODO Auto-generated method stub
+		String kqid = (String) para.get("kqid");
+		String gh = (String) para.get("gh");
+		String lx = (String) para.get("lx");
+		List<Object> args = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select  ");
+		sql.append("        b.id mxid, ");
+		sql.append("        b.ts, ");
+		sql.append("        zbq, ");
+		sql.append("        zbz, ");
+		sql.append("        wbq, ");
+		sql.append("        wbz, ");
+		sql.append("        ybq, ");
+		sql.append("        ybz, ");
+		sql.append("        case DAYOFWEEK(date_format(date_add(a.kqq, interval ts - 1 day), ");
+		sql.append("                               '%Y-%m-%d')) ");
+		sql.append("          when 1 then ");
+		sql.append("           '星期日' ");
+		sql.append("          when 2 then ");
+		sql.append("           '星期一' ");
+		sql.append("          when 3 then ");
+		sql.append("           '星期二' ");
+		sql.append("          when 4 then ");
+		sql.append("           '星期三' ");
+		sql.append("          when 5 then ");
+		sql.append("           '星期四' ");
+		sql.append("          when 6 then ");
+		sql.append("           '星期五' ");
+		sql.append("          when 7 then ");
+		sql.append("           '星期六' ");
+		sql.append("        end xq ");
+		sql.append("   from xt_kqjl a, xt_kqjl_mx b, xt_kqry c ");
+		sql.append("  where a.id = b.kq_id and b.kq_id = ? and b.gh= ? ");
+		args.add(kqid);
+		args.add(gh);
+		if(lx.equals("kqzc")){
+			sql.append(" and b.kqzc='Y' ");
+		}else if(lx.equals("kqzw")){
+			sql.append(" and b.kqzw='Y' ");
+		}else if(lx.equals("kqbzc")){
+			sql.append(" and b.kqzw='N' ");
+		}
+		sql.append("    and b.gh = c.gh order by c.bm,b.gh,b.ts ");
+		return this.jdbcTemplate.queryForList(sql.toString(),args.toArray());
 	}
 
 	public String updateXg(Map<String, Object> mx) {
@@ -224,6 +249,7 @@ public class KqglDao extends BaseJdbcDao {
 		this.jdbcTemplate.execute("call kqwtsj()");
 		return null;
 	}
+
 
 	
 }

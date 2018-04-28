@@ -40,4 +40,10 @@ public class KqryService {
 			}
 		}
 	}
+
+
+	public List<Map<String, Object>> getKqsj(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return kqryDao.getKqsj(param);
+	}
 }
