@@ -14,6 +14,7 @@ public class Cpxx {
 	private Double xl;
 	private String bz;
 	private List<Cpkcxx> clxxs;
+	
 	public Integer getId() {
 		return id;
 	}

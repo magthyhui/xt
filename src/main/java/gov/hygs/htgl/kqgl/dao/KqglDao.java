@@ -89,7 +89,7 @@ public class KqglDao extends BaseJdbcDao {
 		String sfzm = (String) para.get("sfzm");
 		List<Object> args = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select a.kq_id,a.gh,b.xm,b.bm,sum(1) kqts, ");
+		sql.append(" select a.kq_id,a.gh,b.xm,b.bm, ");
 		sql.append(" sum(case when a.kqbz='Y' then 1 else 0 end ) kqbz,sum(case when a.kqzc='Y' then 1 else 0 end ) kqzc,sum(case when a.kqzw='Y' then 1 else 0 end ) kqzw, ");
 		sql.append(" sum(case when a.kqzw='N' then 1 else 0 end ) kqbzc ");
 		sql.append("  from xt_kqjl_mx a,xt_kqry b where a.gh=b.gh  and a.kq_id = ? ");
@@ -108,7 +108,7 @@ public class KqglDao extends BaseJdbcDao {
 		String lx = (String) para.get("lx");
 		List<Object> args = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select  ");
+		sql.append(" select c.xm, ");
 		sql.append("        b.id mxid, ");
 		sql.append("        b.ts, ");
 		sql.append("        zbq, ");
@@ -133,7 +133,7 @@ public class KqglDao extends BaseJdbcDao {
 		sql.append("           '星期五' ");
 		sql.append("          when 7 then ");
 		sql.append("           '星期六' ");
-		sql.append("        end xq ");
+		sql.append("        end xq, case when b.kqbz = 'N' then b.xq else '' end kqqk ");
 		sql.append("   from xt_kqjl a, xt_kqjl_mx b, xt_kqry c ");
 		sql.append("  where a.id = b.kq_id and b.kq_id = ? and b.gh= ? ");
 		args.add(kqid);
@@ -151,7 +151,7 @@ public class KqglDao extends BaseJdbcDao {
 
 	public String updateXg(Map<String, Object> mx) {
 		// TODO Auto-generated method stub
-		String sql ="update xt_kqjl_mx set zbq = ? ,zbz = ? ,wbq = ? ,wbz = ? ,ybq = ? ,ybz = ? ,bz = ? where id = ? ";
+		String sql ="update xt_kqjl_mx set zbq = ? ,zbz = ? ,wbq = ? ,wbz = ? ,ybq = ? ,ybz = ? ,bz = ?,kqbz='Y' where id = ? ";
 		this.jdbcTemplate.update(sql,new Object[]{mx.get("zbq"),mx.get("zbz"),mx.get("wbq"),mx.get("wbz"),mx.get("ybq"),mx.get("ybz"),mx.get("bz"),mx.get("id")});
 		return "ok";
 	}
@@ -199,12 +199,173 @@ public class KqglDao extends BaseJdbcDao {
 
 	public List<Map<String, Object>> getKqhz(Map<String, Object> para) {
 		// TODO Auto-generated method stub
+		Integer id = (Integer) para.get("id");
+		List<Object> args = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select * from xt_kq_hz ");
-		sql.append(" 		order by gh,lx ");
-		
-
-		return this.jdbcTemplate.queryForList(sql.toString());
+		sql.append(" select '2' lx, id, gh,  ");
+		sql.append("          MAX(CASE ts WHEN 1 THEN sj ELSE '' END ) '1', ");
+		sql.append("          MAX(CASE ts WHEN 2 THEN sj ELSE '' END ) '2',  ");
+		sql.append("          MAX(CASE ts WHEN 3 THEN sj ELSE '' END ) '3',  ");
+		sql.append("          MAX(CASE ts WHEN 4 THEN sj ELSE '' END ) '4',  ");
+		sql.append("          MAX(CASE ts WHEN 5 THEN sj ELSE '' END ) '5',  ");
+		sql.append("          MAX(CASE ts WHEN 6 THEN sj ELSE '' END ) '6',  ");
+		sql.append("          MAX(CASE ts WHEN 7 THEN sj ELSE '' END ) '7',  ");
+		sql.append("          MAX(CASE ts WHEN 8 THEN sj ELSE '' END ) '8',  ");
+		sql.append("          MAX(CASE ts WHEN 9 THEN sj ELSE '' END ) '9',  ");
+		sql.append("          MAX(CASE ts WHEN 10 THEN sj ELSE '' END ) '10',  ");
+		sql.append("          MAX(CASE ts WHEN 11 THEN sj ELSE '' END ) '11',  ");
+		sql.append("          MAX(CASE ts WHEN 12 THEN sj ELSE '' END ) '12',  ");
+		sql.append("          MAX(CASE ts WHEN 13 THEN sj ELSE '' END ) '13',  ");
+		sql.append("          MAX(CASE ts WHEN 14 THEN sj ELSE '' END ) '14',  ");
+		sql.append("          MAX(CASE ts WHEN 15 THEN sj ELSE '' END ) '15',  ");
+		sql.append("          MAX(CASE ts WHEN 16 THEN sj ELSE '' END ) '16',  ");
+		sql.append("          MAX(CASE ts WHEN 17 THEN sj ELSE '' END ) '17',  ");
+		sql.append("          MAX(CASE ts WHEN 18 THEN sj ELSE '' END ) '18',  ");
+		sql.append("          MAX(CASE ts WHEN 19 THEN sj ELSE '' END ) '19',  ");
+		sql.append("          MAX(CASE ts WHEN 20 THEN sj ELSE '' END ) '20',  ");
+		sql.append("          MAX(CASE ts WHEN 21 THEN sj ELSE '' END ) '21',  ");
+		sql.append("          MAX(CASE ts WHEN 22 THEN sj ELSE '' END ) '22',  ");
+		sql.append("          MAX(CASE ts WHEN 23 THEN sj ELSE '' END ) '23',  ");
+		sql.append("          MAX(CASE ts WHEN 24 THEN sj ELSE '' END ) '24',  ");
+		sql.append("          MAX(CASE ts WHEN 25 THEN sj ELSE '' END ) '25',  ");
+		sql.append("          MAX(CASE ts WHEN 26 THEN sj ELSE '' END ) '26',  ");
+		sql.append("          MAX(CASE ts WHEN 27 THEN sj ELSE '' END ) '27',  ");
+		sql.append("          MAX(CASE ts WHEN 28 THEN sj ELSE '' END ) '28',  ");
+		sql.append("          MAX(CASE ts WHEN 29 THEN sj ELSE '' END ) '29',  ");
+		sql.append("          MAX(CASE ts WHEN 30 THEN sj ELSE '' END ) '30',  ");
+		sql.append("          MAX(CASE ts WHEN 31 THEN sj ELSE '' END ) '31' ");
+		sql.append("   from (select a.id, ");
+		sql.append("                b.gh, ");
+		sql.append("                b.ts, ");
+		sql.append("                case ");
+		sql.append("                  when kqzw = 'Y' then ");
+		sql.append("                   CONCAT_WS('', zbq, zbz, wbq, wbz, ybq, ybz) ");
+		sql.append("                  else ");
+		sql.append("                   b.xq ");
+		sql.append("                end sj ");
+		sql.append("           from xt_kqjl a, xt_kqjl_mx b, xt_kqry c ");
+		sql.append("          WHERE a.id = b.kq_id ");
+		sql.append("            and b.gh = c.gh and a.id = ? ");
+		sql.append("         ) a ");
+		sql.append("  group by id, gh ");
+		sql.append(" union all ");
+		sql.append(" select '1' lx, '', gh, ");
+		sql.append("  '工' as '1', ");
+		sql.append("          '号：' as '2',  ");
+		sql.append("          gh '3',  ");
+		sql.append("          '' as '4',  ");
+		sql.append("          '' as '5',  ");
+		sql.append("          '' as '6',  ");
+		sql.append("          '' as '7',  ");
+		sql.append("          '' as '8',  ");
+		sql.append("          '姓' as '9',  ");
+		sql.append("          '名：' as '10',  ");
+		sql.append("          xm '11',  ");
+		sql.append("          '' as '12',  ");
+		sql.append("          '' as '13',  ");
+		sql.append("          '' as '14',  ");
+		sql.append("          '' as '15',  ");
+		sql.append("          '' as '16',  ");
+		sql.append("          '' as '17',  ");
+		sql.append("          '' as '18',  ");
+		sql.append("          '部' as '19',  ");
+		sql.append("          '门：' as '20',  ");
+		sql.append("          bm '21',  ");
+		sql.append("          '' as '22',  ");
+		sql.append("          '' as '23',  ");
+		sql.append("          '' as '24',  ");
+		sql.append("          '' as '25',  ");
+		sql.append("          '' as '26',  ");
+		sql.append("          '' as '27',  ");
+		sql.append("          '' as '28',  ");
+		sql.append("          '' as '29',  ");
+		sql.append("          '' as '30',  ");
+		sql.append("          '' as '31' ");
+		sql.append("   from xt_kqry ");
+		sql.append("   union all ");
+		sql.append("   select '3' lx, id, gh,  ");
+		sql.append("          MAX(case when sj<>0 and ts =1 THEN sj ELSE '' END ) '1', ");
+		sql.append("          MAX(case when sj<>0 and ts =2 THEN sj ELSE '' END ) '2',  ");
+		sql.append("          MAX(case when sj<>0 and ts =3 THEN sj ELSE '' END ) '3',  ");
+		sql.append("          MAX(case when sj<>0 and ts =4 THEN sj ELSE '' END ) '4',  ");
+		sql.append("          MAX(case when sj<>0 and ts =5 THEN sj ELSE '' END ) '5',  ");
+		sql.append("          MAX(case when sj<>0 and ts =6 THEN sj ELSE '' END ) '6',  ");
+		sql.append("          MAX(case when sj<>0 and ts =7 THEN sj ELSE '' END ) '7',  ");
+		sql.append("          MAX(case when sj<>0 and ts =8 THEN sj ELSE '' END ) '8',  ");
+		sql.append("          MAX(case when sj<>0 and ts =9 THEN sj ELSE '' END ) '9',  ");
+		sql.append("          MAX(case when sj<>0 and ts =10 THEN sj ELSE '' END ) '10',  ");
+		sql.append("          MAX(case when sj<>0 and ts =11 THEN sj ELSE '' END ) '11',  ");
+		sql.append("          MAX(case when sj<>0 and ts =12 THEN sj ELSE '' END ) '12',  ");
+		sql.append("          MAX(case when sj<>0 and ts =13 THEN sj ELSE '' END ) '13',  ");
+		sql.append("          MAX(case when sj<>0 and ts =14 THEN sj ELSE '' END ) '14',  ");
+		sql.append("          MAX(case when sj<>0 and ts =15 THEN sj ELSE '' END ) '15',  ");
+		sql.append("          MAX(case when sj<>0 and ts =16 THEN sj ELSE '' END ) '16',  ");
+		sql.append("          MAX(case when sj<>0 and ts =17 THEN sj ELSE '' END ) '17',  ");
+		sql.append("          MAX(case when sj<>0 and ts =18 THEN sj ELSE '' END ) '18',  ");
+		sql.append("          MAX(case when sj<>0 and ts =19 THEN sj ELSE '' END ) '19',  ");
+		sql.append("          MAX(case when sj<>0 and ts =20 THEN sj ELSE '' END ) '20',  ");
+		sql.append("          MAX(case when sj<>0 and ts =21 THEN sj ELSE '' END ) '21',  ");
+		sql.append("          MAX(case when sj<>0 and ts =22 THEN sj ELSE '' END ) '22',  ");
+		sql.append("          MAX(case when sj<>0 and ts =23 THEN sj ELSE '' END ) '23',  ");
+		sql.append("          MAX(case when sj<>0 and ts =24 THEN sj ELSE '' END ) '24',  ");
+		sql.append("          MAX(case when sj<>0 and ts =25 THEN sj ELSE '' END ) '25',  ");
+		sql.append("          MAX(case when sj<>0 and ts =26 THEN sj ELSE '' END ) '26',  ");
+		sql.append("          MAX(case when sj<>0 and ts =27 THEN sj ELSE '' END ) '27',  ");
+		sql.append("          MAX(case when sj<>0 and ts =28 THEN sj ELSE '' END ) '28',  ");
+		sql.append("          MAX(case when sj<>0 and ts =29 THEN sj ELSE '' END ) '29',  ");
+		sql.append("          MAX(case when sj<>0 and ts =30 THEN sj ELSE '' END ) '30',  ");
+		sql.append("          MAX(case when sj<>0 and ts =31 THEN sj ELSE '' END ) '31' ");
+		sql.append("   from ( ");
+		sql.append("   select b.kq_id id, ");
+		sql.append("                b.gh, ");
+		sql.append("                b.ts, ");
+		sql.append("                case ");
+		sql.append("                  when kqzw = 'Y' then ");
+		sql.append("                   8 ");
+		sql.append("                  else ");
+		sql.append("                   0 ");
+		sql.append("                end sj ");
+		sql.append("           from  xt_kqjl_mx b ");
+		sql.append("            where b.kq_id = ? ");
+		sql.append("            ) a ");
+		sql.append("  group by id, gh       ");
+		sql.append(" union all select '4' as lx,'',gh,  ");
+		sql.append("          '' as '1', ");
+		sql.append("          '' as '2',  ");
+		sql.append("          '' as '3',  ");
+		sql.append("          '' as '4',  ");
+		sql.append("          '' as '5',  ");
+		sql.append("          '' as '6',  ");
+		sql.append("          '' as '7',  ");
+		sql.append("          '' as '8',  ");
+		sql.append("          '' as '9',  ");
+		sql.append("          '' as '10',  ");
+		sql.append("          '' as '11',  ");
+		sql.append("          '' as '12',  ");
+		sql.append("          '' as '13',  ");
+		sql.append("          '' as '14',  ");
+		sql.append("          '' as '15',  ");
+		sql.append("          '' as '16',  ");
+		sql.append("          '' as '17',  ");
+		sql.append("          '' as '18',  ");
+		sql.append("          '' as '19',  ");
+		sql.append("          '' as '20',  ");
+		sql.append("          '' as '21',  ");
+		sql.append("          '' as '22',  ");
+		sql.append("          '' as '23',  ");
+		sql.append("          '' as '24',  ");
+		sql.append("          '' as '25',  ");
+		sql.append("          '' as '26',  ");
+		sql.append("          '' as '27',  ");
+		sql.append("          '' as '28',  ");
+		sql.append("          '' as '29',  ");
+		sql.append("          '' as '30',  ");
+		sql.append("          '' as '31' ");
+		sql.append("          from  xt_kqry  ");
+		sql.append("  order by gh, lx ");
+		args.add(id);
+		args.add(id);
+		return this.jdbcTemplate.queryForList(sql.toString(),args.toArray());
 	}
 
 
@@ -248,6 +409,11 @@ public class KqglDao extends BaseJdbcDao {
 		this.jdbcTemplate.update(sqllog,new Object[]{id,gh,ts,sjq,sjz,lx,sjlx,jsjq,jsjz});
 		this.jdbcTemplate.execute("call kqwtsj()");
 		return null;
+	}
+
+	public void callSp() {
+		// TODO Auto-generated method stub
+		this.jdbcTemplate.execute("call kqzcsj()");
 	}
 
 
