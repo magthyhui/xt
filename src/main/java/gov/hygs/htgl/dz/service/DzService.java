@@ -97,5 +97,10 @@ public class DzService {
 		return dzDao.getDzxx(param);
 	}
 
+	public List<Map<String, Object>> getCh(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dzDao.getCh(param);
+	}
+
 	
 }

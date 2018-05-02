@@ -92,6 +92,10 @@
         <Property name="label">数量</Property>
         <Property name="dataType">Integer</Property>
       </PropertyDef>
+      <PropertyDef name="ddh">
+        <Property></Property>
+        <Property name="label">订单编号</Property>
+      </PropertyDef>
     </DataType>
     <DataType name="dtDd">
       <PropertyDef name="id">
@@ -181,7 +185,7 @@
         <ClientEvent name="onClick">view.get(&quot;#dsDdxx&quot;).insert();&#xD;
 view.get(&quot;#dialog&quot;).show();&#xD;
 </ClientEvent>
-        <Property name="caption">增加</Property>
+        <Property name="caption">新增订单</Property>
         <Property name="icon"> url(>skin>common/icons.gif) -120px -0px</Property>
       </Button>
       <Button>
@@ -189,7 +193,7 @@ view.get(&quot;#dialog&quot;).show();&#xD;
 var currentData = view.get(&quot;#dsDd&quot;).getData(&quot;#&quot;);&#xD;
 var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
 var id = currentData.get(&quot;id&quot;);&#xD;
-dsDdxx.set(&quot;parameter&quot;,{id:id}).flush();	&#xD;
+dsDdxx.insert();	&#xD;
 </ClientEvent>
         <Property name="caption">出货单</Property>
         <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
@@ -374,22 +378,16 @@ view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).cancel();&#xD;
               <Property name="width">95%</Property>
               <Property name="cols">*,*,*</Property>
               <Property name="readOnly">false</Property>
-              <AutoFormElement>
+              <AutoFormElement layoutConstraint="colSpan:2">
                 <Property name="name">kh</Property>
                 <Property name="property">kh</Property>
-                <Property name="readOnly">true</Property>
-                <Editor/>
-              </AutoFormElement>
-              <AutoFormElement>
-                <Property name="name">ddh</Property>
-                <Property name="property">ddh</Property>
-                <Property name="readOnly">true</Property>
+                <Property name="readOnly">false</Property>
                 <Editor/>
               </AutoFormElement>
               <AutoFormElement>
                 <Property name="name">xdrq</Property>
                 <Property name="property">xdrq</Property>
-                <Property name="readOnly">true</Property>
+                <Property name="readOnly">false</Property>
                 <Editor/>
               </AutoFormElement>
               <AutoFormElement layoutConstraint="colSpan:2">
@@ -404,10 +402,30 @@ view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).cancel();&#xD;
               </AutoFormElement>
               <Container layoutConstraint="colSpan:3">
                 <Property name="height">500</Property>
+                <ToolBar>
+                  <Button>
+                    <ClientEvent name="onClick">var dsDdxx = view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;);&#xD;
+dsDdxx.get(&quot;ddxxMxs&quot;).insert();&#xD;
+//view.get(&quot;#dialogClxx&quot;).show();&#xD;
+</ClientEvent>
+                    <Property name="caption">增加</Property>
+                    <Property name="icon"> url(>skin>common/icons.gif) -120px -0px</Property>
+                  </Button>
+                  <Button>
+                    <ClientEvent name="onClick">	view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).get(&quot;ddxxMxs&quot;).remove();&#xD;
+&#xD;
+</ClientEvent>
+                    <Property name="caption">删除</Property>
+                    <Property name="icon">url(>skin>common/icons.gif) -140px -0px</Property>
+                  </Button>
+                </ToolBar>
                 <DataGrid>
                   <Property name="dataSet">dsDdxx</Property>
                   <Property name="dataPath">#.ddxxMxs</Property>
                   <Property name="readOnly">false</Property>
+                  <DataColumn name="ddh">
+                    <Property name="property">ddh</Property>
+                  </DataColumn>
                   <DataColumn name="wlh">
                     <Property name="property">wlh</Property>
                     <Property name="readOnly">true</Property>

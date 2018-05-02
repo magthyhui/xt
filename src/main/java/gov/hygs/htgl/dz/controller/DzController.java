@@ -47,6 +47,11 @@ public class DzController {
 	}
 	
 	@DataProvider
+	public List<Map<String, Object>> getCh(Map<String, Object> param) {
+		return dzService.getCh( param);
+	}
+	
+	@DataProvider
 	public List<Map<String, Object>> getDdxxMx(Map<String, Object> param) {
 		return dzService.getDdxxMx(param);
 	}

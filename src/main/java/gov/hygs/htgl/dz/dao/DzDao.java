@@ -138,6 +138,12 @@ public class DzDao extends BaseJdbcDao {
 		return this.jdbcTemplate.queryForList(sql.toString(),new Object[] {kh,sjq,sjz});
 	}
 
+	public List<Map<String, Object>> getCh(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		String sql ="select c.*,d.*,a.ddh,b.wlh,b.wlmc  from xt_dz_ddb a ,xt_dz_ddb_mx b,xt_dz_chd c,xt_dz_chd_mx d where  c.id=d.chdid and d.ddbid=a.id and d.mxid=b.mxid";
+		return this.jdbcTemplate.queryForList(sql);
+	}
+
 
 
 	

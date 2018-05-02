@@ -83,7 +83,7 @@ public class MainDaoImpl extends BaseJdbcDao  implements MainDao {
 		int username =(Integer)para.get("user_id");
 		StringBuffer sql = new StringBuffer();
 		sql.append(" select d.id_,d.menu_name,d.url,d.parent_Id from user a,user_role b,role_menu c,menu d  ");
-		sql.append(" where a.id_=b.user_id and b.role_id=c.role_id and c.menu_id = d.id_ and d.parent_id is null and a.id_=? group by d.id_,d.menu_name,d.url,d.parent_Id  order by d.id_");
+		sql.append(" where a.id_=b.user_id and b.role_id=c.role_id and c.menu_id = d.id_ and d.parent_id is null and a.id_=? group by d.id_,d.menu_name,d.url,d.parent_Id  order by d.pxh,d.id_");
 		return this.jdbcTemplate.query(sql.toString(), new Object[] {username  },
 				new MenuRowMapper());
 	}
@@ -97,7 +97,7 @@ public class MainDaoImpl extends BaseJdbcDao  implements MainDao {
 			    .getPrincipal();
 		int userid = userDetails.getId();
 		StringBuffer sql = new StringBuffer(" select d.id_,d.menu_name,d.url,d.parent_id from user a,user_role b,role_menu c,menu d  ");
-		sql.append(" where a.id_=b.user_id and b.role_id=c.role_id and c.menu_id = d.id_ and d.parent_id =? and a.id_=? group by d.id_,d.menu_name,d.url,d.parent_id order by d.id_");
+		sql.append(" where a.id_=b.user_id and b.role_id=c.role_id and c.menu_id = d.id_ and d.parent_id =? and a.id_=? group by d.id_,d.menu_name,d.url,d.parent_id order by d.pxh,d.id_");
 		return this.jdbcTemplate.query(sql.toString(), new Object[] {id,userid  },
 				new MenuRowMapper());
 	}
