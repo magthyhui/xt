@@ -35,7 +35,7 @@ public class TjdcResolver extends AbstractResolver {
 			response.setHeader("pragma", "no-cache");
 			response.setHeader("Cache-Control", "no-cache, must-revalidate");
 			response.setHeader("expires", "0");
-			response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("贡献统计_"+sdf.format(new Date())+".xls", "UTF-8"));
+			response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("出货单"+sdf.format(new Date())+".xls", "UTF-8"));
 			IOUtils.copyLarge(new FileInputStream(path+File.separator+fileName), response.getOutputStream());
 			response.flushBuffer();
 			return null;

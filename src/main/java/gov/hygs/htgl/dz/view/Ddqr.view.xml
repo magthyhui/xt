@@ -164,6 +164,33 @@
         <Property name="label">未交数量</Property>
         <Property name="dataType">Integer</Property>
       </PropertyDef>
+      <PropertyDef name="dw">
+        <Property name="label">单位</Property>
+      </PropertyDef>
+    </DataType>
+    <DataType name="dtWl">
+      <PropertyDef name="id">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="ddh">
+        <Property></Property>
+        <Property name="label">订单编号</Property>
+      </PropertyDef>
+      <PropertyDef name="wlh">
+        <Property></Property>
+        <Property name="label">物料编号</Property>
+      </PropertyDef>
+      <PropertyDef name="wlmc">
+        <Property></Property>
+        <Property name="label">物料名称</Property>
+      </PropertyDef>
+      <PropertyDef name="dw">
+        <Property name="label">单位</Property>
+      </PropertyDef>
+      <PropertyDef name="sy">
+        <Property name="label">未交数量</Property>
+      </PropertyDef>
+      <PropertyDef name="mxid"/>
     </DataType>
   </Model>
   <View>
@@ -175,6 +202,11 @@
     <DataSet id="dsDd">
       <Property name="dataType">[dtDd]</Property>
       <Property name="dataProvider">dzController#getDd</Property>
+      <Property name="loadMode">lazy</Property>
+    </DataSet>
+    <DataSet id="dsWl">
+      <Property name="dataType">[dtWl]</Property>
+      <Property name="dataProvider">dzController#getWl</Property>
       <Property name="loadMode">lazy</Property>
     </DataSet>
     <ToolBar>
@@ -189,10 +221,35 @@ view.get(&quot;#dialog&quot;).show();&#xD;
         <Property name="icon"> url(>skin>common/icons.gif) -120px -0px</Property>
       </Button>
       <Button>
-        <ClientEvent name="onClick">view.get(&quot;#dialogShd&quot;).show();&#xD;
+        <ClientEvent name="onClick">var currentData = view.get(&quot;#dsDd&quot;).getData(&quot;#&quot;);&#xD;
+var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
+if(currentData != undefined){&#xD;
+	dorado.MessageBox.confirm(&quot;删除当前订单数据？&quot;,function(){&#xD;
+	var id = currentData.get(&quot;id&quot;);&#xD;
+	dsDdxx.set(&quot;parameter&quot;,{id:id}).flush();&#xD;
+	dsDdxx.getData(&quot;#&quot;).remove();&#xD;
+	view.get(&quot;#updateAction&quot;).execute();&#xD;
+	view.get(&quot;#dsDd&quot;).flushAsync();&#xD;
+	});	&#xD;
+}&#xD;
+&#xD;
+</ClientEvent>
+        <Property name="caption">删除</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -140px -0px</Property>
+      </Button>
+      <Button>
+        <ClientEvent name="onClick">view.get(&quot;#dialog&quot;).show();&#xD;
 var currentData = view.get(&quot;#dsDd&quot;).getData(&quot;#&quot;);&#xD;
 var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
 var id = currentData.get(&quot;id&quot;);&#xD;
+dsDdxx.set(&quot;parameter&quot;,{id:id}).flush();	&#xD;
+</ClientEvent>
+        <Property name="caption">修改</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
+      </Button>
+      <Button>
+        <ClientEvent name="onClick">view.get(&quot;#dialogShd&quot;).show();&#xD;
+var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
 dsDdxx.insert();	&#xD;
 </ClientEvent>
         <Property name="caption">出货单</Property>
@@ -235,6 +292,9 @@ dsDdxx.insert();	&#xD;
       <DataColumn name="wjsl">
         <Property name="property">wjsl</Property>
       </DataColumn>
+      <DataColumn name="dw">
+        <Property name="property">dw</Property>
+      </DataColumn>
       <DataColumn name="bz">
         <Property name="property">bz</Property>
       </DataColumn>
@@ -242,6 +302,7 @@ dsDdxx.insert();	&#xD;
     <Dialog id="dialog">
       <Property name="width">80%</Property>
       <Property name="height">60%</Property>
+      <Property name="closeable">false</Property>
       <Buttons/>
       <Children>
         <GroupBox layout="hbox pack:center">
@@ -286,18 +347,23 @@ view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).cancel();&#xD;
                 <Editor/>
               </AutoFormElement>
               <Container layoutConstraint="colSpan:3">
-                <Property name="height">500</Property>
+                <Property name="height">300</Property>
                 <ToolBar>
                   <Button>
                     <ClientEvent name="onClick">var dsDdxx = view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;);&#xD;
 dsDdxx.get(&quot;ddxxMxs&quot;).insert();&#xD;
-//view.get(&quot;#dialogClxx&quot;).show();&#xD;
+view.get(&quot;#dialogDdxx&quot;).show();&#xD;
 </ClientEvent>
                     <Property name="caption">增加</Property>
                     <Property name="icon"> url(>skin>common/icons.gif) -120px -0px</Property>
                   </Button>
                   <Button>
-                    <ClientEvent name="onClick">	view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).get(&quot;ddxxMxs&quot;).remove();&#xD;
+                    <ClientEvent name="onClick">view.get(&quot;#dialogDdxx&quot;).show();</ClientEvent>
+                    <Property name="caption">修改</Property>
+                    <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
+                  </Button>
+                  <Button>
+                    <ClientEvent name="onClick">view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).get(&quot;ddxxMxs&quot;).remove();&#xD;
 &#xD;
 </ClientEvent>
                     <Property name="caption">删除</Property>
@@ -329,6 +395,9 @@ dsDdxx.get(&quot;ddxxMxs&quot;).insert();&#xD;
                   <DataColumn name="hyjq">
                     <Property name="property">hyjq</Property>
                   </DataColumn>
+                  <DataColumn name="dw">
+                    <Property name="property">dw</Property>
+                  </DataColumn>
                   <DataColumn name="bz">
                     <Property name="property">bz</Property>
                   </DataColumn>
@@ -349,6 +418,7 @@ dsDdxx.get(&quot;ddxxMxs&quot;).insert();&#xD;
     <Dialog id="dialogShd">
       <Property name="width">80%</Property>
       <Property name="height">60%</Property>
+      <Property name="closeable">false</Property>
       <Buttons/>
       <Children>
         <GroupBox layout="hbox pack:center">
@@ -376,7 +446,7 @@ view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).cancel();&#xD;
             <AutoForm id="autoForm2">
               <Property name="dataSet">dsDdxx</Property>
               <Property name="width">95%</Property>
-              <Property name="cols">*,*,*</Property>
+              <Property name="cols">*,*</Property>
               <Property name="readOnly">false</Property>
               <AutoFormElement layoutConstraint="colSpan:2">
                 <Property name="name">kh</Property>
@@ -385,12 +455,6 @@ view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).cancel();&#xD;
                 <Editor/>
               </AutoFormElement>
               <AutoFormElement>
-                <Property name="name">xdrq</Property>
-                <Property name="property">xdrq</Property>
-                <Property name="readOnly">false</Property>
-                <Editor/>
-              </AutoFormElement>
-              <AutoFormElement layoutConstraint="colSpan:2">
                 <Property name="name">shdh</Property>
                 <Property name="property">shdh</Property>
                 <Editor/>
@@ -400,16 +464,21 @@ view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).cancel();&#xD;
                 <Property name="property">shrq</Property>
                 <Editor/>
               </AutoFormElement>
-              <Container layoutConstraint="colSpan:3">
-                <Property name="height">500</Property>
+              <Container layoutConstraint="colSpan:2">
+                <Property name="height">300</Property>
                 <ToolBar>
                   <Button>
                     <ClientEvent name="onClick">var dsDdxx = view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;);&#xD;
 dsDdxx.get(&quot;ddxxMxs&quot;).insert();&#xD;
-//view.get(&quot;#dialogClxx&quot;).show();&#xD;
+view.get(&quot;#dialogShdxx&quot;).show();&#xD;
 </ClientEvent>
                     <Property name="caption">增加</Property>
                     <Property name="icon"> url(>skin>common/icons.gif) -120px -0px</Property>
+                  </Button>
+                  <Button>
+                    <ClientEvent name="onClick">view.get(&quot;#dialogShdxx&quot;).show();</ClientEvent>
+                    <Property name="caption">修改</Property>
+                    <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
                   </Button>
                   <Button>
                     <ClientEvent name="onClick">	view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).get(&quot;ddxxMxs&quot;).remove();&#xD;
@@ -425,14 +494,14 @@ dsDdxx.get(&quot;ddxxMxs&quot;).insert();&#xD;
                   <Property name="readOnly">false</Property>
                   <DataColumn name="ddh">
                     <Property name="property">ddh</Property>
+                    <Property name="editable">false</Property>
+                    <Property name="trigger">dataSetDropDown1</Property>
                   </DataColumn>
                   <DataColumn name="wlh">
                     <Property name="property">wlh</Property>
-                    <Property name="readOnly">true</Property>
                   </DataColumn>
                   <DataColumn name="wlmc">
                     <Property name="property">wlmc</Property>
-                    <Property name="readOnly">true</Property>
                   </DataColumn>
                   <DataColumn name="dw">
                     <Property name="property">dw</Property>
@@ -458,5 +527,162 @@ dsDdxx.get(&quot;ddxxMxs&quot;).insert();&#xD;
         <Property name="dataPath">[#all]</Property>
       </UpdateItem>
     </UpdateAction>
+    <Dialog id="dialogDdxx">
+      <Property name="height">450</Property>
+      <Property name="width">500</Property>
+      <Property name="closeable">false</Property>
+      <Buttons>
+        <Button>
+          <ClientEvent name="onClick">view.get(&quot;#dialogDdxx&quot;).hide();&#xD;
+</ClientEvent>
+          <Property name="caption">提交</Property>
+          <Property name="icon">url(>skin>common/icons.gif) -20px -0px</Property>
+        </Button>
+        <Button>
+          <ClientEvent name="onClick">view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).get(&quot;ddxxMxs&quot;).remove();&#xD;
+view.get(&quot;#dialogDdxx&quot;).hide();&#xD;
+</ClientEvent>
+          <Property name="caption">取消</Property>
+          <Property name="icon">url(>skin>common/icons.gif) -40px -0px</Property>
+        </Button>
+      </Buttons>
+      <Children>
+        <AutoForm>
+          <Property name="dataSet">dsDdxx</Property>
+          <Property name="width">95%</Property>
+          <Property name="cols">*</Property>
+          <Property name="readOnly">false</Property>
+          <Property name="dataPath">#.#ddxxMxs</Property>
+          <AutoFormElement>
+            <Property name="name">wlh</Property>
+            <Property name="property">wlh</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">wlmc</Property>
+            <Property name="property">wlmc</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">cz</Property>
+            <Property name="property">cz</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">clgg</Property>
+            <Property name="property">clgg</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">jhrq</Property>
+            <Property name="property">jhrq</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">ddsl</Property>
+            <Property name="property">ddsl</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">hyjq</Property>
+            <Property name="property">hyjq</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">dw</Property>
+            <Property name="property">dw</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">bz</Property>
+            <Property name="property">bz</Property>
+            <Editor/>
+          </AutoFormElement>
+        </AutoForm>
+      </Children>
+      <Tools/>
+    </Dialog>
+    <Dialog id="dialogShdxx">
+      <Property name="height">350</Property>
+      <Property name="width">400</Property>
+      <Property name="closeable">false</Property>
+      <Buttons>
+        <Button>
+          <ClientEvent name="onClick">view.get(&quot;#dialogShdxx&quot;).hide();&#xD;
+</ClientEvent>
+          <Property name="caption">提交</Property>
+          <Property name="icon">url(>skin>common/icons.gif) -20px -0px</Property>
+        </Button>
+        <Button>
+          <ClientEvent name="onClick">view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).get(&quot;ddxxMxs&quot;).remove();&#xD;
+view.get(&quot;#dialogShdxx&quot;).hide();&#xD;
+</ClientEvent>
+          <Property name="caption">取消</Property>
+          <Property name="icon">url(>skin>common/icons.gif) -40px -0px</Property>
+        </Button>
+      </Buttons>
+      <Children>
+        <AutoForm>
+          <Property name="dataSet">dsDdxx</Property>
+          <Property name="width">95%</Property>
+          <Property name="cols">*</Property>
+          <Property name="readOnly">false</Property>
+          <Property name="dataPath">#.#ddxxMxs</Property>
+          <AutoFormElement>
+            <Property name="name">ddh</Property>
+            <Property name="property">ddh</Property>
+            <Property name="editable">false</Property>
+            <Property name="trigger">dataSetDropDown1</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">wlh</Property>
+            <Property name="property">wlh</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">wlmc</Property>
+            <Property name="property">wlmc</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">dw</Property>
+            <Property name="property">dw</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">sl</Property>
+            <Property name="property">sl</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">bz</Property>
+            <Property name="property">bz</Property>
+            <Editor/>
+          </AutoFormElement>
+        </AutoForm>
+      </Children>
+      <Tools/>
+    </Dialog>
+    <DataSetDropDown id="dataSetDropDown1">
+      <Property name="dataSet">dsWl</Property>
+      <Property name="assignmentMap">ddbid=id;ddh=ddh;wlh=wlh;wlmc=wlmc;dw=dw;mxid=mxid</Property>
+      <Property name="width">450</Property>
+      <DataColumn name="ddh">
+        <Property name="property">ddh</Property>
+      </DataColumn>
+      <DataColumn name="wlh">
+        <Property name="property">wlh</Property>
+      </DataColumn>
+      <DataColumn name="wlmc">
+        <Property name="property">wlmc</Property>
+      </DataColumn>
+      <DataColumn name="dw">
+        <Property name="property">dw</Property>
+      </DataColumn>
+      <DataColumn name="sy">
+        <Property name="property">sy</Property>
+      </DataColumn>
+    </DataSetDropDown>
   </View>
 </ViewConfig>

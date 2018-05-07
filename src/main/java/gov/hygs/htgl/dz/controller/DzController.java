@@ -47,6 +47,11 @@ public class DzController {
 	}
 	
 	@DataProvider
+	public List<Map<String, Object>> getWl(Map<String, Object> param) {
+		return dzService.getWl( param);
+	}
+	
+	@DataProvider
 	public List<Map<String, Object>> getCh(Map<String, Object> param) {
 		return dzService.getCh( param);
 	}
@@ -66,5 +71,10 @@ public class DzController {
 	@Transactional
 	public void insertShd(List<Ddxx> list) {
 		dzService.insertShd(list);
+	}
+	
+	@Expose
+	public String exportExcel(Map param) throws Exception {
+		return dzService.exportExcel(param);
 	}
 }

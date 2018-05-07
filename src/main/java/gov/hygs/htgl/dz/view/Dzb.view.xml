@@ -29,6 +29,14 @@
       <PropertyDef name="sl">
         <Property name="label">数量</Property>
       </PropertyDef>
+      <PropertyDef name="dj">
+        <Property name="dataType">Double</Property>
+        <Property name="label">单价</Property>
+      </PropertyDef>
+      <PropertyDef name="je">
+        <Property name="dataType">String</Property>
+        <Property name="label">金额</Property>
+      </PropertyDef>
       <PropertyDef name="bz">
         <Property name="label">备注</Property>
       </PropertyDef>
@@ -89,8 +97,9 @@ self.insert({&#xD;
       </AutoFormElement>
       <Button>
         <ClientEvent name="onClick">var dsCondition = view.get(&quot;#dsCondition&quot;).getData(&quot;#&quot;);&#xD;
-var sj = dsCondition.get(&quot;sjq&quot;);&#xD;
-if(sj==null||sj==&quot;&quot;){&#xD;
+var sjq = dsCondition.get(&quot;sjq&quot;);&#xD;
+var sjz = dsCondition.get(&quot;sjz&quot;);&#xD;
+if(sjq==null||sjq==&quot;&quot;||sjz==null||sjz==&quot;&quot;){&#xD;
 	dorado.MessageBox.alert(&quot;时间不能为空&quot;);&#xD;
 }else{&#xD;
 	view.get(&quot;#dsResult&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync();&#xD;
@@ -119,6 +128,37 @@ if(view.get(&quot;#dsResult.data:#&quot;)){&#xD;
       <Property name="dataSet">dsResult</Property>
       <Property name="readOnly">true</Property>
       <Property name="dynaRowHeight">true</Property>
+      <DataColumn name="shrq">
+        <Property name="property">shrq</Property>
+      </DataColumn>
+      <DataColumn name="shdh">
+        <Property name="property">shdh</Property>
+      </DataColumn>
+      <DataColumn name="ddh">
+        <Property name="property">ddh</Property>
+      </DataColumn>
+      <DataColumn name="wlh">
+        <Property name="property">wlh</Property>
+      </DataColumn>
+      <DataColumn name="wlmc">
+        <Property name="property">wlmc</Property>
+      </DataColumn>
+      <DataColumn name="dw">
+        <Property name="property">dw</Property>
+      </DataColumn>
+      <DataColumn name="sl">
+        <Property name="property">sl</Property>
+      </DataColumn>
+      <DataColumn name="dj">
+        <Property name="property">dj</Property>
+      </DataColumn>
+      <DataColumn name="je">
+        <Property name="property">je</Property>
+        <Property name="align">right</Property>
+      </DataColumn>
+      <DataColumn name="bz">
+        <Property name="property">bz</Property>
+      </DataColumn>
     </DataGrid>
     <Export2ReportAction id="export2ReportActionResult">
       <Property name="fileName">dcjg</Property>

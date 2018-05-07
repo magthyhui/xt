@@ -5,6 +5,7 @@ import gov.hygs.htgl.dz.entity.DdxxMx;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -107,8 +108,8 @@ public class DzDao extends BaseJdbcDao {
 
 	public Integer insertShd(Ddxx ddxxMx) {
 		// TODO Auto-generated method stub
-		String sql = "insert into xt_dz_chd(ddbid,shdh,shrq) values(?,?,?)";
-		Object[] obj = new Object[] {ddxxMx.getId(), ddxxMx.getShdh(),ddxxMx.getShrq() };
+		String sql = "insert into xt_dz_chd(shdh,shrq) values(?,?)";
+		Object[] obj = new Object[] {ddxxMx.getShdh(),ddxxMx.getShrq() };
 		this.jdbcTemplate.update(sql, obj);
 		sql = "select id from xt_dz_chd where shdh = ? ";
 		return	this.jdbcTemplate.queryForObject(sql, new Object[]{ddxxMx.getShdh()},Integer.class);
@@ -116,8 +117,8 @@ public class DzDao extends BaseJdbcDao {
 
 	public void insertShdMx(Integer id, DdxxMx ddxxMx) {
 		// TODO Auto-generated method stub
-		String sql = "insert into xt_dz_chd_mx(chdid,mxid,dw,sl,bz) values(?,?,?,?,?)";
-		Object[] obj = new Object[] { id,ddxxMx.getMxid(),ddxxMx.getDw(),ddxxMx.getSl(),ddxxMx.getBz() };
+		String sql = "insert into xt_dz_chd_mx(chdid,ddbid,mxid,dw,sl,bz) values(?,?,?,?,?,?)";
+		Object[] obj = new Object[] { id,ddxxMx.getDdbid(),ddxxMx.getMxid(),ddxxMx.getDw(),ddxxMx.getSl(),ddxxMx.getBz() };
 		this.jdbcTemplate.update(sql, obj);
 		
 	}
@@ -125,23 +126,76 @@ public class DzDao extends BaseJdbcDao {
 	public List<Map<String, Object>> getChd(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		String id = (String) param.get("id");
-		String sql = "select a.*,b.*,c.wlh,c.wlmc from xt_dz_chd a ,xt_dz_chd_mx b,xt_dz_ddb_mx c where a.id=b.chdid and b.mxid=c.mxid and a.ddbid = ? ";
+		String sql = "select d.kh,a.*,b.*,c.wlh,c.wlmc from xt_dz_chd a ,xt_dz_chd_mx b,xt_dz_ddb_mx c,xt_dz_ddb d  where a.id=b.chdid and b.mxid=c.mxid and c.mxid = ? and c.ddbid=d.id ";
 		return this.jdbcTemplate.queryForList(sql,new Object[]{id});
 	}
 
 	public List<Map<String, Object>> getDzxx(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		String kh = (String) param.get("kh");
+		List<Object> args =new ArrayList<Object>();
 		Date sjq=(Date) param.get("sjq"),sjz=(Date) param.get("sjz");;
-		StringBuffer sql =new StringBuffer("select a.*,b.*,c.wlh,c.wlmc,d.ddh from xt_dz_chd a ,xt_dz_chd_mx b,xt_dz_ddb_mx c,xt_dz_ddb d where a.id=b.chdid and b.mxid=c.mxid and c.ddbid=d.id ");
-		sql.append(" and kh like ? and a.shrq between ? and ? order by a.shrq ");
-		return this.jdbcTemplate.queryForList(sql.toString(),new Object[] {kh,sjq,sjz});
+		StringBuffer sql =new StringBuffer("select a.*,b.*,c.wlh,c.wlmc,d.ddh,FORMAT(c.ddsl*c.dj,2) je,c.dj from xt_dz_chd a ,xt_dz_chd_mx b,xt_dz_ddb_mx c,xt_dz_ddb d where a.id=b.chdid and b.mxid=c.mxid and c.ddbid=d.id ");
+	
+		if(kh!=null){
+			sql.append(" and kh like ? ");
+			args.add("%"+kh+"%");
+		}
+		sql.append("  and a.shrq between ? and ? order by a.shrq ");
+		args.add(sjq);
+		args.add(sjz);
+		return this.jdbcTemplate.queryForList(sql.toString(),args.toArray());
 	}
 
 	public List<Map<String, Object>> getCh(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		String sql ="select c.*,d.*,a.ddh,b.wlh,b.wlmc  from xt_dz_ddb a ,xt_dz_ddb_mx b,xt_dz_chd c,xt_dz_chd_mx d where  c.id=d.chdid and d.ddbid=a.id and d.mxid=b.mxid";
+		String kh = (String) param.get("kh");
+		String ddh = (String) param.get("ddh");
+		String shdh = (String) param.get("shdh");
+		List<Object> args =new ArrayList<Object>();
+		Date sjq=(Date) param.get("sjq"),sjz=(Date) param.get("sjz");
+		StringBuffer sql =new StringBuffer("select c.*,d.*,a.kh,a.ddh,b.wlh,b.wlmc  from xt_dz_ddb a ,xt_dz_ddb_mx b,xt_dz_chd c,xt_dz_chd_mx d where  c.id=d.chdid and d.ddbid=a.id and d.mxid=b.mxid");
+		if(kh!=null){
+			sql.append(" and kh like ? ");
+			args.add("%"+kh+"%");
+		}
+		if(ddh!=null){
+			sql.append(" and a.ddh like ? ");
+			args.add("%"+ddh+"%");
+		}
+		if(shdh!=null){
+			sql.append(" and c.shdh like ? ");
+			args.add("%"+shdh+"%");
+		}
+		if(sjq!=null){
+			sql.append(" and c.shrq >= ? ");
+			args.add(sjq);
+		}
+		if(sjz!=null){
+			sql.append(" and c.shrq <= ?");
+			args.add(sjz);
+		}
+		return this.jdbcTemplate.queryForList(sql.toString(),args.toArray());
+	}
+
+	public List<Map<String, Object>> getWl(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		String sql ="select b.mxid,a.id,a.ddh,b.wlh,b.wlmc,b.dw,(b.ddsl-ifnull(c.sl,0)) sy from xt_dz_ddb a ,xt_dz_ddb_mx b left join  (select c.mxid,sum(c.sl) sl from xt_dz_chd_mx c group by c.mxid) c on c.mxid=b.mxid where a.id=b.ddbid and b.ddsl>= ifnull(c.sl,0)";
 		return this.jdbcTemplate.queryForList(sql);
+	}
+
+	public List getShd(Integer id) {
+		// TODO Auto-generated method stub
+		String sql = "select concat('送货单号：',shdh) shdh,concat('送货日期：',DATE_FORMAT(shrq,'%Y年%m月%d日')) shrq from xt_dz_chd  where id = ? ";
+		return this.jdbcTemplate.queryForList(sql,new Object[]{id});
+	}
+
+	public List getShdMx(Integer id) {
+		// TODO Auto-generated method stub
+		StringBuffer sql = new StringBuffer("select (@i:=@i+1)  xh,d.ddh,c.wlh,c.wlmc,c.dw,b.sl,b.bz ");
+		sql.append(" from xt_dz_chd a ,xt_dz_chd_mx b,xt_dz_ddb_mx c,xt_dz_ddb d  ,(select   @i:=0)  t2 ");
+		sql.append(" where a.id=b.chdid and b.mxid=c.mxid and c.ddbid=d.id and a.id = ? ");
+		return this.jdbcTemplate.queryForList(sql.toString(),new Object[]{id});
 	}
 
 
