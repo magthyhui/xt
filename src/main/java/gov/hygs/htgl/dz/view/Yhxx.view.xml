@@ -4,28 +4,32 @@
   <Context/>
   <Model>
     <DataType name="dtYhxx">
-      <Property name="creationType">gov.hygs.htgl.kqgl.entity.Yhxx</Property>
+      <Property name="creationType">gov.hygs.htgl.dz.entity.Yhxx</Property>
       <PropertyDef name="id">
         <Property name="dataType">Integer</Property>
       </PropertyDef>
-      <PropertyDef name="gh">
+      <PropertyDef name="kh">
         <Property/>
-        <Property name="label">工号</Property>
+        <Property name="label">客户</Property>
       </PropertyDef>
-      <PropertyDef name="xm">
+      <PropertyDef name="dh">
         <Property/>
-        <Property name="label">姓名</Property>
+        <Property name="label">电话号码</Property>
       </PropertyDef>
-      <PropertyDef name="bm">
+      <PropertyDef name="dz">
         <Property/>
-        <Property name="label">部门</Property>
+        <Property name="label">地址</Property>
+      </PropertyDef>
+      <PropertyDef name="khjc">
+        <Property/>
+        <Property name="label">客户简称</Property>
       </PropertyDef>
     </DataType>
   </Model>
   <View>
     <DataSet id="dsYhxx">
       <Property name="dataType">[dtYhxx]</Property>
-      <Property name="dataProvider">kqryController#getYhxx</Property>
+      <Property name="dataProvider">dzController#getYhxx</Property>
       <Property name="pageSize">40</Property>
     </DataSet>
     <Container>
@@ -69,14 +73,17 @@ if(currentData != undefined){&#xD;
           <DataGrid>
             <Property name="dataSet">dsYhxx</Property>
             <Property name="readOnly">true</Property>
-            <DataColumn name="gh">
-              <Property name="property">gh</Property>
+            <DataColumn name="kh">
+              <Property name="property">kh</Property>
             </DataColumn>
-            <DataColumn name="xm">
-              <Property name="property">xm</Property>
+            <DataColumn name="khjc">
+              <Property name="property">khjc</Property>
             </DataColumn>
-            <DataColumn name="bm">
-              <Property name="property">bm</Property>
+            <DataColumn name="dh">
+              <Property name="property">dh</Property>
+            </DataColumn>
+            <DataColumn name="dz">
+              <Property name="property">dz</Property>
             </DataColumn>
           </DataGrid>
         </Children>
@@ -119,21 +126,26 @@ view.get(&quot;#dsYhxx&quot;).getData(&quot;#&quot;).cancel();&#xD;
             <AutoForm id="autoForm">
               <Property name="dataSet">dsYhxx</Property>
               <Property name="width">680</Property>
-              <Property name="cols">*,*,*</Property>
+              <Property name="cols">*</Property>
               <Property name="labelWidth">100</Property>
               <AutoFormElement>
-                <Property name="name">gh</Property>
-                <Property name="property">gh</Property>
+                <Property name="name">kh</Property>
+                <Property name="property">kh</Property>
                 <Editor/>
               </AutoFormElement>
               <AutoFormElement>
-                <Property name="name">xm</Property>
-                <Property name="property">xm</Property>
+                <Property name="name">khjc</Property>
+                <Property name="property">khjc</Property>
                 <Editor/>
               </AutoFormElement>
               <AutoFormElement>
-                <Property name="name">bm</Property>
-                <Property name="property">bm</Property>
+                <Property name="name">dh</Property>
+                <Property name="property">dh</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">dz</Property>
+                <Property name="property">dz</Property>
                 <Editor/>
               </AutoFormElement>
             </AutoForm>
@@ -143,7 +155,7 @@ view.get(&quot;#dsYhxx&quot;).getData(&quot;#&quot;).cancel();&#xD;
       <Tools/>
     </Dialog>
     <UpdateAction id="updateAction">
-      <Property name="dataResolver">kqryController#updateYhxx</Property>
+      <Property name="dataResolver">dzController#updateYhxx</Property>
       <UpdateItem>
         <Property name="dataSet">dsYhxx</Property>
       </UpdateItem>

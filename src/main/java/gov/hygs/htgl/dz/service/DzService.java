@@ -3,10 +3,9 @@ package gov.hygs.htgl.dz.service;
 import gov.hygs.htgl.dz.dao.DzDao;
 import gov.hygs.htgl.dz.entity.Ddxx;
 import gov.hygs.htgl.dz.entity.DdxxMx;
+import gov.hygs.htgl.dz.entity.Yhxx;
 import gov.hygs.htgl.utils.excel.ImportExcel;
-import gov.hygs.htgl.xt.entity.Cpkcxx;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,14 +13,11 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import net.sf.jxls.exception.ParsePropertyException;
-
 import org.springframework.stereotype.Service;
 
 import com.bstek.dorado.data.entity.EntityState;
 import com.bstek.dorado.data.entity.EntityUtils;
 import com.bstek.dorado.data.provider.Page;
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
 @Service
 public class DzService {
@@ -133,5 +129,25 @@ public class DzService {
 		return fileName;
 	}
 
+	public void getYhxx(Page page, Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		dzDao.getYhxx(page, param);
+	}
+
+	
+	public void updateYhxx(List<Yhxx> list) {
+		// TODO Auto-generated method stub
+		for (Yhxx sp : list) {
+			if (EntityUtils.getState(sp).equals(EntityState.NEW)) {
+				dzDao.addYhxx(sp);
+			}
+			if (EntityUtils.getState(sp).equals(EntityState.MODIFIED)) {
+				dzDao.updateYhxx(sp);
+			}
+			if (EntityUtils.getState(sp).equals(EntityState.DELETED)) {
+				dzDao.deleteYhxx(sp);
+			}
+		}
+	}
 	
 }

@@ -1,6 +1,7 @@
 package gov.hygs.htgl.dz.controller;
 
 import gov.hygs.htgl.dz.entity.Ddxx;
+import gov.hygs.htgl.dz.entity.Yhxx;
 import gov.hygs.htgl.dz.service.DzService;
 
 import java.util.List;
@@ -77,4 +78,16 @@ public class DzController {
 	public String exportExcel(Map param) throws Exception {
 		return dzService.exportExcel(param);
 	}
+	
+	@DataProvider
+	public void getYhxx(Page page, Map<String, Object> param) {
+		dzService.getYhxx(page, param);
+	}
+
+	@DataResolver
+	@Transactional
+	public void updateYhxx(List<Yhxx> list) {
+		dzService.updateYhxx(list);
+	}
+	
 }

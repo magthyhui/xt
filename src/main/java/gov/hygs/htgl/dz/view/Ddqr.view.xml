@@ -470,13 +470,15 @@ view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).cancel();&#xD;
                   <Button>
                     <ClientEvent name="onClick">var dsDdxx = view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;);&#xD;
 dsDdxx.get(&quot;ddxxMxs&quot;).insert();&#xD;
+view.get(&quot;#dsWl&quot;).flushAsync();&#xD;
 view.get(&quot;#dialogShdxx&quot;).show();&#xD;
 </ClientEvent>
                     <Property name="caption">增加</Property>
                     <Property name="icon"> url(>skin>common/icons.gif) -120px -0px</Property>
                   </Button>
                   <Button>
-                    <ClientEvent name="onClick">view.get(&quot;#dialogShdxx&quot;).show();</ClientEvent>
+                    <ClientEvent name="onClick">view.get(&quot;#dialogShdxx&quot;).show();&#xD;
+view.get(&quot;#dsWl&quot;).flushAsync();</ClientEvent>
                     <Property name="caption">修改</Property>
                     <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
                   </Button>

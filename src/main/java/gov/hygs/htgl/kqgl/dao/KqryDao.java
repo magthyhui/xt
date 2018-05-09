@@ -55,7 +55,7 @@ public class KqryDao extends BaseJdbcDao {
 	public void updateKqry(Kqry sp) {
 		// TODO Auto-generated method stub
 		String sql = "update xt_kqry set gh=?,xm=?,bm=? where id=?";
-		Object[] obj = new Object[] { sp.getGh(), sp.getXm(), sp.getBm() };
+		Object[] obj = new Object[] { sp.getGh(), sp.getXm(), sp.getBm(),sp.getId() };
 		this.jdbcTemplate.update(sql, obj);
 	}
 

@@ -390,9 +390,6 @@ view.get(&quot;#dialogDdxx&quot;).show();</ClientEvent>
                   <DataColumn name="hyjq">
                     <Property name="property">hyjq</Property>
                   </DataColumn>
-                  <DataColumn name="dw">
-                    <Property name="property">dw</Property>
-                  </DataColumn>
                   <DataColumn name="dj">
                     <Property name="property">dj</Property>
                   </DataColumn>
@@ -520,11 +517,6 @@ view.get(&quot;#dialogDdxx&quot;).hide();&#xD;
           <AutoFormElement>
             <Property name="name">hyjq</Property>
             <Property name="property">hyjq</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">dw</Property>
-            <Property name="property">dw</Property>
             <Editor/>
           </AutoFormElement>
           <AutoFormElement>
