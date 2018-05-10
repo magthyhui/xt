@@ -9,19 +9,19 @@
         <Property name="dataType">Integer</Property>
       </PropertyDef>
       <PropertyDef name="kh">
-        <Property/>
+        <Property></Property>
         <Property name="label">客户</Property>
       </PropertyDef>
       <PropertyDef name="dh">
-        <Property/>
+        <Property></Property>
         <Property name="label">电话号码</Property>
       </PropertyDef>
       <PropertyDef name="dz">
-        <Property/>
+        <Property></Property>
         <Property name="label">地址</Property>
       </PropertyDef>
       <PropertyDef name="khjc">
-        <Property/>
+        <Property></Property>
         <Property name="label">客户简称</Property>
       </PropertyDef>
     </DataType>

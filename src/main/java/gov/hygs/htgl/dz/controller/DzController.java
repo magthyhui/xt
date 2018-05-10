@@ -90,4 +90,10 @@ public class DzController {
 		dzService.updateYhxx(list);
 	}
 	
+	@DataResolver
+	@Expose
+	public String getZdbh(Map<String,Object> para){
+		return dzService.getZdbh(para);
+	}
+	
 }

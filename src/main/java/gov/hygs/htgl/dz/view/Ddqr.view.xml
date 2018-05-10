@@ -96,6 +96,10 @@
         <Property></Property>
         <Property name="label">订单编号</Property>
       </PropertyDef>
+      <PropertyDef name="gg">
+        <Property/>
+        <Property name="label">规格</Property>
+      </PropertyDef>
     </DataType>
     <DataType name="dtDd">
       <PropertyDef name="id">
@@ -166,6 +170,10 @@
       </PropertyDef>
       <PropertyDef name="dw">
         <Property name="label">单位</Property>
+      </PropertyDef>
+      <PropertyDef name="gg">
+        <Property/>
+        <Property name="label">规格</Property>
       </PropertyDef>
     </DataType>
     <DataType name="dtWl">
@@ -250,7 +258,14 @@ dsDdxx.set(&quot;parameter&quot;,{id:id}).flush();	&#xD;
       <Button>
         <ClientEvent name="onClick">view.get(&quot;#dialogShd&quot;).show();&#xD;
 var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
-dsDdxx.insert();	&#xD;
+var ajaxActionZdbh = view.get(&quot;#ajaxActionZdbh&quot;)&#xD;
+ajaxActionZdbh.set(&quot;parameter&quot;,{lx:&quot;s&quot;});&#xD;
+ajaxActionZdbh.execute(function(returnValue){&#xD;
+	dsDdxx.insert({&#xD;
+		shdh:returnValue&#xD;
+	});	&#xD;
+})&#xD;
+&#xD;
 </ClientEvent>
         <Property name="caption">出货单</Property>
         <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
@@ -261,42 +276,59 @@ dsDdxx.insert();	&#xD;
       <Property name="readOnly">true</Property>
       <DataColumn name="kh">
         <Property name="property">kh</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="ddh">
         <Property name="property">ddh</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="xdrq">
         <Property name="property">xdrq</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="wlh">
         <Property name="property">wlh</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="wlmc">
         <Property name="property">wlmc</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="cz">
         <Property name="property">cz</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="clgg">
         <Property name="property">clgg</Property>
+        <Property name="width">120</Property>
+      </DataColumn>
+      <DataColumn name="gg">
+        <Property name="property">gg</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="jhrq">
         <Property name="property">jhrq</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="ddsl">
         <Property name="property">ddsl</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="yjsl">
         <Property name="property">yjsl</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="wjsl">
         <Property name="property">wjsl</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="dw">
         <Property name="property">dw</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="bz">
         <Property name="property">bz</Property>
+        <Property name="width">120</Property>
       </DataColumn>
     </DataGrid>
     <Dialog id="dialog">
@@ -385,6 +417,9 @@ view.get(&quot;#dialogDdxx&quot;).show();&#xD;
                   </DataColumn>
                   <DataColumn name="clgg">
                     <Property name="property">clgg</Property>
+                  </DataColumn>
+                  <DataColumn name="gg">
+                    <Property name="property">gg</Property>
                   </DataColumn>
                   <DataColumn name="jhrq">
                     <Property name="property">jhrq</Property>
@@ -498,21 +533,27 @@ view.get(&quot;#dsWl&quot;).flushAsync();</ClientEvent>
                     <Property name="property">ddh</Property>
                     <Property name="editable">false</Property>
                     <Property name="trigger">dataSetDropDown1</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                   <DataColumn name="wlh">
                     <Property name="property">wlh</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                   <DataColumn name="wlmc">
                     <Property name="property">wlmc</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                   <DataColumn name="dw">
                     <Property name="property">dw</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                   <DataColumn name="sl">
                     <Property name="property">sl</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                   <DataColumn name="bz">
                     <Property name="property">bz</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                 </DataGrid>
               </Container>
@@ -573,6 +614,11 @@ view.get(&quot;#dialogDdxx&quot;).hide();&#xD;
           <AutoFormElement>
             <Property name="name">clgg</Property>
             <Property name="property">clgg</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">gg</Property>
+            <Property name="property">gg</Property>
             <Editor/>
           </AutoFormElement>
           <AutoFormElement>
@@ -686,5 +732,8 @@ view.get(&quot;#dialogShdxx&quot;).hide();&#xD;
         <Property name="property">sy</Property>
       </DataColumn>
     </DataSetDropDown>
+    <AjaxAction id="ajaxActionZdbh">
+      <Property name="service">dzController#getZdbh</Property>
+    </AjaxAction>
   </View>
 </ViewConfig>

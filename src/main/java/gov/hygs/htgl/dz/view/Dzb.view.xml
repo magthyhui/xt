@@ -130,34 +130,44 @@ if(view.get(&quot;#dsResult.data:#&quot;)){&#xD;
       <Property name="dynaRowHeight">true</Property>
       <DataColumn name="shrq">
         <Property name="property">shrq</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="shdh">
         <Property name="property">shdh</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="ddh">
         <Property name="property">ddh</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="wlh">
         <Property name="property">wlh</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="wlmc">
         <Property name="property">wlmc</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="dw">
         <Property name="property">dw</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="sl">
         <Property name="property">sl</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="dj">
         <Property name="property">dj</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="je">
         <Property name="property">je</Property>
         <Property name="align">right</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="bz">
         <Property name="property">bz</Property>
+        <Property name="width">120</Property>
       </DataColumn>
     </DataGrid>
     <Export2ReportAction id="export2ReportActionResult">

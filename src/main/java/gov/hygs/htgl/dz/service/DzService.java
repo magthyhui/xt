@@ -149,5 +149,10 @@ public class DzService {
 			}
 		}
 	}
+
+	public String getZdbh(Map<String, Object> para) {
+		// TODO Auto-generated method stub
+		return dzDao.getZdbh(para);
+	}
 	
 }

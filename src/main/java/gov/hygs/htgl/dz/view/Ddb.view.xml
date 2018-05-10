@@ -81,6 +81,10 @@
       <PropertyDef name="dw">
         <Property name="label">单位</Property>
       </PropertyDef>
+      <PropertyDef name="gg">
+        <Property/>
+        <Property name="label">规格</Property>
+      </PropertyDef>
     </DataType>
     <DataType name="dtDd">
       <PropertyDef name="id">
@@ -151,6 +155,10 @@
       </PropertyDef>
       <PropertyDef name="dw">
         <Property name="label">单位</Property>
+      </PropertyDef>
+      <PropertyDef name="gg">
+        <Property/>
+        <Property name="label">规格</Property>
       </PropertyDef>
     </DataType>
     <DataType name="dtChd">
@@ -249,33 +257,43 @@ dsDdxx.set(&quot;parameter&quot;,{id:id}).flush();	&#xD;
       <Property name="readOnly">true</Property>
       <DataColumn name="kh">
         <Property name="property">kh</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="ddh">
         <Property name="property">ddh</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="xdrq">
         <Property name="property">xdrq</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="wlh">
         <Property name="property">wlh</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="wlmc">
         <Property name="property">wlmc</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="jhrq">
         <Property name="property">jhrq</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="ddsl">
         <Property name="property">ddsl</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="hyjq">
         <Property name="property">hyjq</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="dj">
         <Property name="property">dj</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="je">
         <Property name="property">je</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="yjsl">
         <ClientEvent name="onRenderCell">var id = arg.data.get(&quot;mxid&quot;);&#xD;
@@ -286,12 +304,15 @@ if(yjsl == &quot;0&quot;||yjsl==null){&#xD;
 	 arg.dom.innerHTML = &quot;&lt;a href='javascript:window.showChd(\&quot;&quot;+id+&quot;\&quot;)'>&quot;+yjsl+&quot;&lt;/a>&quot;;&#xD;
 }</ClientEvent>
         <Property name="property">yjsl</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="wjsl">
         <Property name="property">wjsl</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="bz">
         <Property name="property">bz</Property>
+        <Property name="width">120</Property>
       </DataColumn>
     </DataGrid>
     <Dialog id="dialog">
@@ -371,30 +392,39 @@ view.get(&quot;#dialogDdxx&quot;).show();</ClientEvent>
                   <Property name="readOnly">false</Property>
                   <DataColumn name="wlh">
                     <Property name="property">wlh</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                   <DataColumn name="wlmc">
                     <Property name="property">wlmc</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                   <DataColumn name="cz">
                     <Property name="property">cz</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                   <DataColumn name="clgg">
                     <Property name="property">clgg</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                   <DataColumn name="jhrq">
                     <Property name="property">jhrq</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                   <DataColumn name="ddsl">
                     <Property name="property">ddsl</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                   <DataColumn name="hyjq">
                     <Property name="property">hyjq</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                   <DataColumn name="dj">
                     <Property name="property">dj</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                   <DataColumn name="bz">
                     <Property name="property">bz</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                 </DataGrid>
               </Container>
@@ -432,27 +462,35 @@ view.get(&quot;#dialogDdxx&quot;).show();</ClientEvent>
           <Property name="readOnly">true</Property>
           <DataColumn name="shdh">
             <Property name="property">shdh</Property>
+            <Property name="width">120</Property>
           </DataColumn>
           <DataColumn name="shrq">
             <Property name="property">shrq</Property>
+            <Property name="width">120</Property>
           </DataColumn>
           <DataColumn name="kh">
             <Property name="property">kh</Property>
+            <Property name="width">120</Property>
           </DataColumn>
           <DataColumn name="wlh">
             <Property name="property">wlh</Property>
+            <Property name="width">120</Property>
           </DataColumn>
           <DataColumn name="wlmc">
             <Property name="property">wlmc</Property>
+            <Property name="width">120</Property>
           </DataColumn>
           <DataColumn name="dw">
             <Property name="property">dw</Property>
+            <Property name="width">120</Property>
           </DataColumn>
           <DataColumn name="sl">
             <Property name="property">sl</Property>
+            <Property name="width">120</Property>
           </DataColumn>
           <DataColumn name="bz">
             <Property name="property">bz</Property>
+            <Property name="width">120</Property>
           </DataColumn>
         </DataGrid>
       </Children>

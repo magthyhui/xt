@@ -48,7 +48,7 @@ public class DzDao extends BaseJdbcDao {
 		String sqlCount = "select count(*) from xt_dz_ddb";
 		int entityCount = this.jdbcTemplate.queryForObject(sqlCount,
 				Integer.class);
-		String sql = "select * from xt_dz_ddb limit ?,? order by id desc ";
+		String sql = "select * from xt_dz_ddb limit ?,? order by kh,id desc ";
 
 		List<Ddxx> list = this.jdbcTemplate.query(sql,
 				new Object[] { page.getPageSize() * (page.getPageNo() - 1),
@@ -68,16 +68,16 @@ public class DzDao extends BaseJdbcDao {
 
 	public void addDdxxMx(DdxxMx ddxxMx) {
 		// TODO Auto-generated method stub
-		String sql = "insert into xt_dz_ddb_mx(ddbid,wlh,wlmc,cz,clgg,jhrq,ddsl,hyjq,dw,dj,bz) values(?,?,?,?,?,?,?,?,?,?,?)";
-		Object[] obj = new Object[] { ddxxMx.getDdbid(),ddxxMx.getWlh(),ddxxMx.getWlmc(),ddxxMx.getCz(),ddxxMx.getClgg(),ddxxMx.getJhrq(),ddxxMx.getDdsl(),ddxxMx.getHyjq(),ddxxMx.getDw(),ddxxMx.getDj(),ddxxMx.getBz() };
+		String sql = "insert into xt_dz_ddb_mx(ddbid,wlh,wlmc,cz,clgg,jhrq,ddsl,hyjq,dw,dj,bz,gg) values(?,?,?,?,?,?,?,?,?,?,?,?)";
+		Object[] obj = new Object[] { ddxxMx.getDdbid(),ddxxMx.getWlh(),ddxxMx.getWlmc(),ddxxMx.getCz(),ddxxMx.getClgg(),ddxxMx.getJhrq(),ddxxMx.getDdsl(),ddxxMx.getHyjq(),ddxxMx.getDw(),ddxxMx.getDj(),ddxxMx.getBz(),ddxxMx.getGg() };
 		this.jdbcTemplate.update(sql, obj);
 
 	}
 
 	public void updateDdxxMx(DdxxMx ddxxMx) {
 		// TODO Auto-generated method stub
-		String sql = "update xt_dz_ddb_mx set ddbid = ?,wlh = ?,wlmc = ?,cz = ?,clgg = ?,jhrq = ?,ddsl = ?,hyjq = ?,dw= ?,dj = ?,bz = ? where mxid=? ";
-		Object[] obj = new Object[] { ddxxMx.getDdbid(),ddxxMx.getWlh(),ddxxMx.getWlmc(),ddxxMx.getCz(),ddxxMx.getClgg(),ddxxMx.getJhrq(),ddxxMx.getDdsl(),ddxxMx.getHyjq(),ddxxMx.getDw(),ddxxMx.getDj(),ddxxMx.getBz(),ddxxMx.getMxid() };
+		String sql = "update xt_dz_ddb_mx set ddbid = ?,wlh = ?,wlmc = ?,cz = ?,clgg = ?,jhrq = ?,ddsl = ?,hyjq = ?,dw= ?,dj = ?,bz = ?,gg = ? where mxid=? ";
+		Object[] obj = new Object[] { ddxxMx.getDdbid(),ddxxMx.getWlh(),ddxxMx.getWlmc(),ddxxMx.getCz(),ddxxMx.getClgg(),ddxxMx.getJhrq(),ddxxMx.getDdsl(),ddxxMx.getHyjq(),ddxxMx.getDw(),ddxxMx.getDj(),ddxxMx.getBz(),ddxxMx.getGg(),ddxxMx.getMxid() };
 		this.jdbcTemplate.update(sql, obj);
 	}
 
@@ -103,7 +103,7 @@ public class DzDao extends BaseJdbcDao {
 	public List<Map<String, Object>> getDdxx(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		int id = (Integer) param.get("id");
-		String sql = "select * from xt_dz_ddb where id = ? order by id desc ";
+		String sql = "select * from xt_dz_ddb where id = ? order by kh,id desc ";
 		return this.jdbcTemplate.queryForList(sql,new Object[]{id});
 	}
 
@@ -142,7 +142,7 @@ public class DzDao extends BaseJdbcDao {
 			sql.append(" and kh like ? ");
 			args.add("%"+kh+"%");
 		}
-		sql.append("  and a.shrq between ? and ? order by a.shrq ");
+		sql.append("  and a.shrq between ? and ? order by a.kh,a.shrq ");
 		args.add(sjq);
 		args.add(sjz);
 		return this.jdbcTemplate.queryForList(sql.toString(),args.toArray());
@@ -162,7 +162,7 @@ public class DzDao extends BaseJdbcDao {
 		sql.append("  left join xt_dz_ddb_mx b on d.mxid=b.mxid ");
 		sql.append("   where  c.id=d.chdid  ");
 		if(kh!=null){
-			sql.append(" and kh like ? ");
+			sql.append(" and a.kh like ? ");
 			args.add("%"+kh+"%");
 		}
 		if(ddh!=null){
@@ -186,7 +186,7 @@ public class DzDao extends BaseJdbcDao {
 
 	public List<Map<String, Object>> getWl(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		String sql ="select b.mxid,a.id,a.ddh,b.wlh,b.wlmc,b.dw,(b.ddsl-ifnull(c.sl,0)) sy from xt_dz_ddb a ,xt_dz_ddb_mx b left join  (select c.mxid,sum(c.sl) sl from xt_dz_chd_mx c group by c.mxid) c on c.mxid=b.mxid where a.id=b.ddbid and b.ddsl>= ifnull(c.sl,0)";
+		String sql ="select b.mxid,a.id,a.ddh,b.wlh,b.wlmc,b.dw,(b.ddsl-ifnull(c.sl,0)) sy from xt_dz_ddb a ,xt_dz_ddb_mx b left join  (select c.mxid,sum(c.sl) sl from xt_dz_chd_mx c group by c.mxid) c on c.mxid=b.mxid where a.id=b.ddbid and b.ddsl>= ifnull(c.sl,0) order by a.kh,a.id desc";
 		return this.jdbcTemplate.queryForList(sql);
 	}
 
@@ -258,6 +258,33 @@ public class DzDao extends BaseJdbcDao {
 		// TODO Auto-generated method stub
 		String sql = "delete from xt_dz_yhxx where id=?";
 		this.jdbcTemplate.update(sql, new Object[] { sp.getId() });
+	}
+
+	public String getZdbh(Map<String, Object> para) {
+		// TODO Auto-generated method stub
+		String lx = (String)para.get("lx");
+		String sql = "select   date_format(date(now()), '%Y%m%d') qz,CAST(date(scrq)<date(now()) AS CHAR) sj,CAST(bh AS CHAR) bh from xt_dz_zdbh where lx = ? ";
+		Map<String,Object> map = this.jdbcTemplate.queryForMap(sql,new Object[]{lx});
+		String sj = (String)map.get("sj");
+		String bh = (String)map.get("bh");
+		String qz = (String)map.get("qz");
+		if(sj.equals("1")){
+			bh="01";
+			sql = "update xt_dz_zdbh set scrq = date(now()) ,bh = 2 where lx =?";
+			this.jdbcTemplate.update(sql, new Object[] { lx });
+		}else{
+			sql = "update xt_dz_zdbh set bh = bh+1 where lx =?";
+			this.jdbcTemplate.update(sql, new Object[] { lx });
+		}
+		if(bh.length()==1){
+			bh="0"+bh;
+		}
+		if(lx.equals("s")){
+			bh="HHXT"+qz+bh;
+		}else{
+			bh="HHXT"+qz+bh+"th";
+		}
+		return bh;
 	}
 
 	

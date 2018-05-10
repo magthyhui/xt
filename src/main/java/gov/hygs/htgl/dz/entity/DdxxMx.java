@@ -10,6 +10,7 @@ public class DdxxMx {
 	private String wlmc;
 	private String cz;
 	private String clgg;
+	private String gg;
 	private String jhrq;
 	private Integer ddsl;
 	private String hyjq;
@@ -29,6 +30,12 @@ public class DdxxMx {
 	}
 	public Integer getMxid() {
 		return mxid;
+	}
+	public String getGg() {
+		return gg;
+	}
+	public void setGg(String gg) {
+		this.gg = gg;
 	}
 	public void setMxid(Integer mxid) {
 		this.mxid = mxid;

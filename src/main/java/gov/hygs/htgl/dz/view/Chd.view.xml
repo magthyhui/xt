@@ -315,7 +315,14 @@ view.get(&quot;#dsCh&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync();
       <Button>
         <ClientEvent name="onClick">view.get(&quot;#dialogShd&quot;).show();&#xD;
 var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
-dsDdxx.insert();	&#xD;
+var ajaxActionZdbh = view.get(&quot;#ajaxActionZdbh&quot;)&#xD;
+ajaxActionZdbh.set(&quot;parameter&quot;,{lx:&quot;s&quot;});&#xD;
+ajaxActionZdbh.execute(function(returnValue){&#xD;
+	dsDdxx.insert({&#xD;
+		shdh:returnValue&#xD;
+	});	&#xD;
+})&#xD;
+&#xD;
 </ClientEvent>
         <Property name="caption">出货单</Property>
         <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
@@ -336,27 +343,35 @@ ajaxActionExport.execute(function(fileName){&#xD;
       <Property name="readOnly">true</Property>
       <DataColumn name="shdh">
         <Property name="property">shdh</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="shrq">
         <Property name="property">shrq</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="ddh">
         <Property name="property">ddh</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="kh">
         <Property name="property">kh</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="wlh">
         <Property name="property">wlh</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="wlmc">
         <Property name="property">wlmc</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="sl">
         <Property name="property">sl</Property>
+        <Property name="width">120</Property>
       </DataColumn>
       <DataColumn name="bz">
         <Property name="property">bz</Property>
+        <Property name="width">120</Property>
       </DataColumn>
     </DataGrid>
     <UpdateAction id="updateAction">
@@ -454,21 +469,27 @@ view.get(&quot;#dsWl&quot;).flushAsync();</ClientEvent>
                     <Property name="property">ddh</Property>
                     <Property name="editable">false</Property>
                     <Property name="trigger">dataSetDropDown1</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                   <DataColumn name="wlh">
                     <Property name="property">wlh</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                   <DataColumn name="wlmc">
                     <Property name="property">wlmc</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                   <DataColumn name="dw">
                     <Property name="property">dw</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                   <DataColumn name="sl">
                     <Property name="property">sl</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                   <DataColumn name="bz">
                     <Property name="property">bz</Property>
+                    <Property name="width">120</Property>
                   </DataColumn>
                 </DataGrid>
               </Container>
@@ -579,6 +600,9 @@ view.get(&quot;#dialogShdxx&quot;).hide();&#xD;
       <Property name="service">dzController#exportExcel</Property>
       <Property name="executingMessage">正在执行 。。。</Property>
       <Property name="successMessage">执行成功</Property>
+    </AjaxAction>
+    <AjaxAction id="ajaxActionZdbh">
+      <Property name="service">dzController#getZdbh</Property>
     </AjaxAction>
   </View>
 </ViewConfig>
