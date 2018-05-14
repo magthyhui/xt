@@ -12,6 +12,7 @@ public class Ddxx {
 	private String shdh;
 	private Date shrq;
 	private List<DdxxMx> ddxxMxs;
+	private String lx;
 	
 	public Integer getId() {
 		return id;
@@ -54,6 +55,12 @@ public class Ddxx {
 	}
 	public void setShrq(Date shrq) {
 		this.shrq = shrq;
+	}
+	public String getLx() {
+		return lx;
+	}
+	public void setLx(String lx) {
+		this.lx = lx;
 	}
 	
 }

@@ -16,6 +16,8 @@ import com.bstek.dorado.annotation.DataProvider;
 import com.bstek.dorado.annotation.DataResolver;
 import com.bstek.dorado.annotation.Expose;
 import com.bstek.dorado.data.provider.Page;
+import com.bstek.dorado.uploader.UploadFile;
+import com.bstek.dorado.uploader.annotation.FileResolver;
 
 @Component
 public class DzController {
@@ -53,6 +55,16 @@ public class DzController {
 	}
 	
 	@DataProvider
+	public List<Map<String, Object>> getChDd(Map<String, Object> param) {
+		return dzService.getChDd( param);
+	}
+	
+	@DataProvider
+	public List<Map<String, Object>> getChDdMx(Map<String, Object> param) {
+		return dzService.getChDdMx( param);
+	}
+	
+	@DataProvider
 	public List<Map<String, Object>> getCh(Map<String, Object> param) {
 		return dzService.getCh( param);
 	}
@@ -67,6 +79,7 @@ public class DzController {
 	public void updateDdxx(List<Ddxx> list) {
 		dzService.updateDdxx(list);
 	}
+
 	
 	@DataResolver
 	@Transactional
@@ -96,4 +109,16 @@ public class DzController {
 		return dzService.getZdbh(para);
 	}
 	
+	@Transactional
+	@FileResolver
+	public String importDdxx(UploadFile file, Map<String, Object> param){
+		try {
+			Map<String,Object> map = dzService.importDdxx(file, param);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			//return null;
+		}
+		return null;
+	}
 }

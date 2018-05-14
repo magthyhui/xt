@@ -7,6 +7,7 @@ public class Yhxx {
 	private String dh;
 	private String dz;
 	private String khjc;
+	private String lxr;
 	
 	public Integer getId() {
 		return id;
@@ -37,6 +38,12 @@ public class Yhxx {
 	}
 	public void setKhjc(String khjc) {
 		this.khjc = khjc;
+	}
+	public String getLxr() {
+		return lxr;
+	}
+	public void setLxr(String lxr) {
+		this.lxr = lxr;
 	}
 	
 

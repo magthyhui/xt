@@ -3,9 +3,11 @@ package gov.hygs.htgl.dz.service;
 import gov.hygs.htgl.dz.dao.DzDao;
 import gov.hygs.htgl.dz.entity.Ddxx;
 import gov.hygs.htgl.dz.entity.DdxxMx;
+import gov.hygs.htgl.dz.entity.Drdd;
 import gov.hygs.htgl.dz.entity.Yhxx;
 import gov.hygs.htgl.utils.excel.ImportExcel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,11 +15,17 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.springframework.stereotype.Service;
 
 import com.bstek.dorado.data.entity.EntityState;
 import com.bstek.dorado.data.entity.EntityUtils;
 import com.bstek.dorado.data.provider.Page;
+import com.bstek.dorado.uploader.UploadFile;
 
 @Service
 public class DzService {
@@ -41,12 +49,16 @@ public class DzService {
 			}
 			if (EntityUtils.getState(sp).equals(EntityState.DELETED)) {
 				dzDao.deleteDdxx(sp);
+				dzDao.deleteDdxxMx(sp.getId());
 			}
+			
 			List<DdxxMx> ddxxMxs = sp.getDdxxMxs();
 			if (ddxxMxs != null) {
 				for (DdxxMx ddxxMx : ddxxMxs) {
 					if(id!=null){
 						ddxxMx.setDdbid(id);
+					}else{
+						ddxxMx.setDdbid(sp.getId());
 					}
 					if (EntityUtils.getState(ddxxMx).equals(EntityState.NEW)) {
 						dzDao.addDdxxMx(ddxxMx);
@@ -154,5 +166,66 @@ public class DzService {
 		// TODO Auto-generated method stub
 		return dzDao.getZdbh(para);
 	}
-	
+
+	public Map<String, Object> importDdxx(UploadFile file,
+			Map<String, Object> param) throws IOException {
+				// TODO Auto-generated method stub
+				String filename = file.getFileName();
+				String extname = filename.substring(filename.lastIndexOf('.') + 1);
+				if ("xls".equalsIgnoreCase(extname) || "xlsx".equalsIgnoreCase(extname)) {
+					Map<String, Object> kqxx = null;
+					POIFSFileSystem pfs = new POIFSFileSystem(file.getInputStream());
+					HSSFWorkbook work = new HSSFWorkbook(pfs);
+					HSSFSheet sheet = work.getSheetAt(0);
+					String kqsj = null;
+					HSSFRow row  =null;
+					for(int i = 1;i<=sheet.getLastRowNum();i++){
+						row= sheet.getRow(i);
+						Drdd drdd = new Drdd();
+						if(row.getCell(0).getCellType()==HSSFCell.CELL_TYPE_STRING){
+							drdd.setKh(row.getCell(0).getStringCellValue());
+						}
+						if(row.getCell(1).getCellType()==HSSFCell.CELL_TYPE_NUMERIC){
+							drdd.setXdrq(row.getCell(1).getDateCellValue());
+						}
+						if(row.getCell(2).getCellType()==HSSFCell.CELL_TYPE_STRING){
+							drdd.setDdh(row.getCell(2).getStringCellValue());
+						}
+						if(row.getCell(3).getCellType()==HSSFCell.CELL_TYPE_STRING){
+							drdd.setWlbh(row.getCell(3).getStringCellValue());
+						}
+						if(row.getCell(4).getCellType()==HSSFCell.CELL_TYPE_STRING){
+							drdd.setWlmc(row.getCell(4).getStringCellValue());
+						}
+						if(row.getCell(5).getCellType()==HSSFCell.CELL_TYPE_STRING){
+							drdd.setCz(row.getCell(5).getStringCellValue());
+						}
+						if(row.getCell(6).getCellType()==HSSFCell.CELL_TYPE_STRING){
+							drdd.setClgg(row.getCell(6).getStringCellValue());
+						}
+						if(row.getCell(7).getCellType()==HSSFCell.CELL_TYPE_STRING){
+							drdd.setGg(row.getCell(7).getStringCellValue());
+						}
+						if(row.getCell(8).getCellType()==HSSFCell.CELL_TYPE_STRING){
+							drdd.setJhrq(row.getCell(8).getStringCellValue());
+						}
+						if(row.getCell(9).getCellType()==HSSFCell.CELL_TYPE_NUMERIC){
+							drdd.setDdsl((int)row.getCell(9).getNumericCellValue());
+						}
+						dzDao.saveDdxx(drdd);
+					}
+				
+
+				}
+				return null;
+			}
+
+	public List<Map<String, Object>> getChDd(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dzDao.getChDd(param);
+	}
+	public List<Map<String, Object>> getChDdMx(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dzDao.getChDdMx(param);
+	}
 }

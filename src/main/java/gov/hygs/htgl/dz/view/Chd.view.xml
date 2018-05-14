@@ -24,6 +24,23 @@
           </Entity>
         </Property>
       </Reference>
+      <PropertyDef name="lx">
+        <Property name="mapping">
+          <Property name="mapValues">
+            <Collection>
+              <Entity>
+                <Property name="key">s</Property>
+                <Property name="value">送货单</Property>
+              </Entity>
+              <Entity>
+                <Property name="key">t</Property>
+                <Property name="value">退货单</Property>
+              </Entity>
+            </Collection>
+          </Property>
+        </Property>
+        <Property name="label">类型</Property>
+      </PropertyDef>
     </DataType>
     <DataType name="dtChdMx">
       <Property name="creationType">gov.hygs.htgl.dz.entity.ChdMx</Property>
@@ -107,6 +124,23 @@
       <PropertyDef name="kh">
         <Property name="label">客户</Property>
       </PropertyDef>
+      <PropertyDef name="lx">
+        <Property name="mapping">
+          <Property name="mapValues">
+            <Collection>
+              <Entity>
+                <Property name="key">s</Property>
+                <Property name="value">送货单</Property>
+              </Entity>
+              <Entity>
+                <Property name="key">t</Property>
+                <Property name="value">退货单</Property>
+              </Entity>
+            </Collection>
+          </Property>
+        </Property>
+        <Property name="label">类型</Property>
+      </PropertyDef>
     </DataType>
     <DataType name="dtDdxx">
       <Property name="creationType">gov.hygs.htgl.dz.entity.Ddxx</Property>
@@ -141,6 +175,7 @@
         <Property name="dataType">Date</Property>
         <Property name="label">送货日期</Property>
       </PropertyDef>
+      <PropertyDef name="lx"/>
     </DataType>
     <DataType name="dtDdxxMx">
       <Property name="creationType">gov.hygs.htgl.dz.entity.DdxxMx</Property>
@@ -258,6 +293,11 @@
       <Property name="dataProvider">dzController#getCh</Property>
       <Property name="loadMode">manual</Property>
     </DataSet>
+    <DataSet id="dsDdxx">
+      <Property name="dataType">[dtDdxx]</Property>
+      <Property name="loadMode">manual</Property>
+      <Property name="dataProvider">dzController#getDdxx</Property>
+    </DataSet>
     <DataSet id="dsCondition">
       <ClientEvent name="onReady">var now = new Date();&#xD;
 var y = now.getFullYear();&#xD;
@@ -271,6 +311,11 @@ var dsCondition = view.get(&quot;#dsCondition&quot;).getData(&quot;#&quot;);&#xD
 view.get(&quot;#dsCh&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync();&#xD;
 </ClientEvent>
       <Property name="dataType">dtCondition</Property>
+    </DataSet>
+    <DataSet id="dsWl">
+      <Property name="dataType">[dtWl]</Property>
+      <Property name="dataProvider">dzController#getWl</Property>
+      <Property name="loadMode">lazy</Property>
     </DataSet>
     <AutoForm>
       <Property name="dataSet">dsCondition</Property>
@@ -319,13 +364,32 @@ var ajaxActionZdbh = view.get(&quot;#ajaxActionZdbh&quot;)&#xD;
 ajaxActionZdbh.set(&quot;parameter&quot;,{lx:&quot;s&quot;});&#xD;
 ajaxActionZdbh.execute(function(returnValue){&#xD;
 	dsDdxx.insert({&#xD;
-		shdh:returnValue&#xD;
+		shdh:returnValue,&#xD;
+		lx:&quot;s&quot;&#xD;
 	});	&#xD;
 })&#xD;
 &#xD;
 </ClientEvent>
         <Property name="caption">出货单</Property>
         <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
+        <Property name="ignored">true</Property>
+      </Button>
+      <Button>
+        <ClientEvent name="onClick">view.get(&quot;#dialogShd&quot;).show();&#xD;
+var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
+var ajaxActionZdbh = view.get(&quot;#ajaxActionZdbh&quot;)&#xD;
+ajaxActionZdbh.set(&quot;parameter&quot;,{lx:&quot;t&quot;});&#xD;
+ajaxActionZdbh.execute(function(returnValue){&#xD;
+	dsDdxx.insert({&#xD;
+		shdh:returnValue,&#xD;
+		lx:&quot;t&quot;&#xD;
+	});	&#xD;
+})&#xD;
+&#xD;
+</ClientEvent>
+        <Property name="caption">退货单</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
+        <Property name="ignored">true</Property>
       </Button>
       <Button>
         <ClientEvent name="onClick">var ajaxActionExport =view.get(&quot;#ajaxActionExport&quot;);&#xD;
@@ -347,7 +411,7 @@ ajaxActionExport.execute(function(fileName){&#xD;
       </DataColumn>
       <DataColumn name="shrq">
         <Property name="property">shrq</Property>
-        <Property name="width">120</Property>
+        <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="ddh">
         <Property name="property">ddh</Property>
@@ -355,7 +419,7 @@ ajaxActionExport.execute(function(fileName){&#xD;
       </DataColumn>
       <DataColumn name="kh">
         <Property name="property">kh</Property>
-        <Property name="width">120</Property>
+        <Property name="width">70</Property>
       </DataColumn>
       <DataColumn name="wlh">
         <Property name="property">wlh</Property>
@@ -367,24 +431,17 @@ ajaxActionExport.execute(function(fileName){&#xD;
       </DataColumn>
       <DataColumn name="sl">
         <Property name="property">sl</Property>
-        <Property name="width">120</Property>
+        <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="bz">
         <Property name="property">bz</Property>
         <Property name="width">120</Property>
       </DataColumn>
+      <DataColumn name="lx">
+        <Property name="property">lx</Property>
+        <Property name="width">120</Property>
+      </DataColumn>
     </DataGrid>
-    <UpdateAction id="updateAction">
-      <Property name="dataResolver">dzController#updateDdxx</Property>
-      <UpdateItem>
-        <Property name="dataSet">dsDdxx</Property>
-      </UpdateItem>
-    </UpdateAction>
-    <DataSet id="dsDdxx">
-      <Property name="dataType">[dtDdxx]</Property>
-      <Property name="loadMode">manual</Property>
-      <Property name="dataProvider">dzController#getDdxx</Property>
-    </DataSet>
     <Dialog id="dialogShd">
       <Property name="width">80%</Property>
       <Property name="height">60%</Property>
@@ -398,7 +455,8 @@ ajaxActionExport.execute(function(fileName){&#xD;
               <ClientEvent name="onClick">var dsDdxx = view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;);&#xD;
 view.get(&quot;#updateActionShd&quot;).execute(function(){&#xD;
 	view.get(&quot;#dialogShd&quot;).hide();&#xD;
-	view.get(&quot;#dsDd&quot;).flushAsync();&#xD;
+	view.get(&quot;#dsCh&quot;).flushAsync();&#xD;
+	view.get(&quot;#dsDdxx&quot;).set(&quot;parameter&quot;,{id:0}).flushAsync();&#xD;
 });&#xD;
 </ClientEvent>
               <Property name="caption">提交</Property>
@@ -485,7 +543,7 @@ view.get(&quot;#dsWl&quot;).flushAsync();</ClientEvent>
                   </DataColumn>
                   <DataColumn name="sl">
                     <Property name="property">sl</Property>
-                    <Property name="width">120</Property>
+                    <Property name="width">80</Property>
                   </DataColumn>
                   <DataColumn name="bz">
                     <Property name="property">bz</Property>
@@ -561,11 +619,6 @@ view.get(&quot;#dialogShdxx&quot;).hide();&#xD;
       </Children>
       <Tools/>
     </Dialog>
-    <DataSet id="dsWl">
-      <Property name="dataType">[dtWl]</Property>
-      <Property name="dataProvider">dzController#getWl</Property>
-      <Property name="loadMode">lazy</Property>
-    </DataSet>
     <UpdateAction id="updateActionShd">
       <Property name="dataResolver">dzController#insertShd</Property>
       <UpdateItem>

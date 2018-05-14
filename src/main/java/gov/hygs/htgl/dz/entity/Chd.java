@@ -7,6 +7,7 @@ import java.util.List;
 public class Chd {
 	private Integer id;
 	private String shdh;
+	private String lx;
 	private Date shrq;
 	private List<ChdMx> chdMx;
 	
@@ -34,6 +35,13 @@ public class Chd {
 	public void setChdMx(List<ChdMx> chdMx) {
 		this.chdMx = chdMx;
 	}
+	public String getLx() {
+		return lx;
+	}
+	public void setLx(String lx) {
+		this.lx = lx;
+	}
+	
 	
 	
 }

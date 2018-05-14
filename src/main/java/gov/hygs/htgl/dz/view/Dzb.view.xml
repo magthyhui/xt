@@ -40,6 +40,23 @@
       <PropertyDef name="bz">
         <Property name="label">备注</Property>
       </PropertyDef>
+      <PropertyDef name="lx">
+        <Property name="mapping">
+          <Property name="mapValues">
+            <Collection>
+              <Entity>
+                <Property name="key">s</Property>
+                <Property name="value">送货单</Property>
+              </Entity>
+              <Entity>
+                <Property name="key">t</Property>
+                <Property name="value">退货单</Property>
+              </Entity>
+            </Collection>
+          </Property>
+        </Property>
+        <Property name="label">类型</Property>
+      </PropertyDef>
     </DataType>
     <DataType name="dtCondition">
       <PropertyDef name="kh">
@@ -52,6 +69,40 @@
       <PropertyDef name="sjz">
         <Property name="dataType">Date</Property>
         <Property name="label">结束时间</Property>
+      </PropertyDef>
+      <PropertyDef name="lx">
+        <Property name="mapping">
+          <Property name="mapValues">
+            <Collection>
+              <Entity>
+                <Property name="key">s</Property>
+                <Property name="value">送货单</Property>
+              </Entity>
+              <Entity>
+                <Property name="key">t</Property>
+                <Property name="value">退货单</Property>
+              </Entity>
+            </Collection>
+          </Property>
+        </Property>
+        <Property name="label">订单类型</Property>
+      </PropertyDef>
+      <PropertyDef name="cplx">
+        <Property name="label">产品类型</Property>
+        <Property name="mapping">
+          <Property name="mapValues">
+            <Collection>
+              <Entity>
+                <Property name="key">1</Property>
+                <Property name="value">产品</Property>
+              </Entity>
+              <Entity>
+                <Property name="key">0</Property>
+                <Property name="value">额外（订单号）</Property>
+              </Entity>
+            </Collection>
+          </Property>
+        </Property>
       </PropertyDef>
     </DataType>
   </Model>
@@ -78,7 +129,7 @@ self.insert({&#xD;
     </DataSet>
     <AutoForm>
       <Property name="dataSet">dsCondition</Property>
-      <Property name="cols">*,*,*</Property>
+      <Property name="cols">*,*,*,*</Property>
       <Property name="labelWidth">100</Property>
       <AutoFormElement>
         <Property name="name">kh</Property>
@@ -93,6 +144,16 @@ self.insert({&#xD;
       <AutoFormElement>
         <Property name="name">sjz</Property>
         <Property name="property">sjz</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">lx</Property>
+        <Property name="property">lx</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">cplx</Property>
+        <Property name="property">cplx</Property>
         <Editor/>
       </AutoFormElement>
       <Button>
@@ -130,7 +191,7 @@ if(view.get(&quot;#dsResult.data:#&quot;)){&#xD;
       <Property name="dynaRowHeight">true</Property>
       <DataColumn name="shrq">
         <Property name="property">shrq</Property>
-        <Property name="width">120</Property>
+        <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="shdh">
         <Property name="property">shdh</Property>
@@ -154,7 +215,7 @@ if(view.get(&quot;#dsResult.data:#&quot;)){&#xD;
       </DataColumn>
       <DataColumn name="sl">
         <Property name="property">sl</Property>
-        <Property name="width">120</Property>
+        <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="dj">
         <Property name="property">dj</Property>
@@ -167,6 +228,10 @@ if(view.get(&quot;#dsResult.data:#&quot;)){&#xD;
       </DataColumn>
       <DataColumn name="bz">
         <Property name="property">bz</Property>
+        <Property name="width">120</Property>
+      </DataColumn>
+      <DataColumn name="lx">
+        <Property name="property">lx</Property>
         <Property name="width">120</Property>
       </DataColumn>
     </DataGrid>
