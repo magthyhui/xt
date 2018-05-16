@@ -78,6 +78,11 @@ public class DzService {
 		// TODO Auto-generated method stub
 		return dzDao.getDdxxMx(param);
 	}
+	
+	public List<Map<String, Object>> getChdMx(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dzDao.getChdMx(param);
+	}
 
 	public List<Map<String, Object>> getDd(Map<String, Object> param) {
 		// TODO Auto-generated method stub
@@ -90,13 +95,37 @@ public class DzService {
 	}
 
 	public void insertShd(List<Ddxx> list) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub		
 		for (Ddxx sp : list) {
-			Integer id = dzDao.insertShd(sp);
-			List<DdxxMx> ddxxMxs = sp.getDdxxMxs();
+			Integer id = null;
+			if (EntityUtils.getState(sp).equals(EntityState.NEW)) {
+				id = dzDao.insertShd(sp);
+			}
+			if (EntityUtils.getState(sp).equals(EntityState.MODIFIED)) {
+				dzDao.updateShd(sp);
+			}
+			if (EntityUtils.getState(sp).equals(EntityState.DELETED)) {
+				dzDao.deleteShd(sp);
+				dzDao.deleteShdMx(sp.getId());
+			}
+			
+			List<DdxxMx> ddxxMxs = sp.getChdxxMxs();
 			if (ddxxMxs != null) {
 				for (DdxxMx ddxxMx : ddxxMxs) {
-					dzDao.insertShdMx(id,ddxxMx);
+					if(id!=null){
+						ddxxMx.setChdid(id);
+					}else{
+						ddxxMx.setChdid(sp.getId());
+					}
+					if (EntityUtils.getState(ddxxMx).equals(EntityState.NEW)) {
+						dzDao.insertShdMx(ddxxMx);
+					}
+					if (EntityUtils.getState(ddxxMx).equals(EntityState.MODIFIED)) {
+						dzDao.updateShdMx(ddxxMx);
+					}
+					if (EntityUtils.getState(ddxxMx).equals(EntityState.DELETED)) {
+						dzDao.deleteShdMx(ddxxMx);
+					}
 				}
 			}
 		}
@@ -182,35 +211,38 @@ public class DzService {
 					for(int i = 1;i<=sheet.getLastRowNum();i++){
 						row= sheet.getRow(i);
 						Drdd drdd = new Drdd();
-						if(row.getCell(0).getCellType()==HSSFCell.CELL_TYPE_STRING){
+						if(row.getCell(0)!=null&&row.getCell(0).getCellType()==HSSFCell.CELL_TYPE_STRING){
 							drdd.setKh(row.getCell(0).getStringCellValue());
 						}
-						if(row.getCell(1).getCellType()==HSSFCell.CELL_TYPE_NUMERIC){
+						if(row.getCell(1)!=null&&row.getCell(1).getCellType()==HSSFCell.CELL_TYPE_NUMERIC){
 							drdd.setXdrq(row.getCell(1).getDateCellValue());
 						}
-						if(row.getCell(2).getCellType()==HSSFCell.CELL_TYPE_STRING){
+						if(row.getCell(2)!=null&&row.getCell(2).getCellType()==HSSFCell.CELL_TYPE_STRING){
 							drdd.setDdh(row.getCell(2).getStringCellValue());
 						}
-						if(row.getCell(3).getCellType()==HSSFCell.CELL_TYPE_STRING){
+						if(row.getCell(3)!=null&&row.getCell(3).getCellType()==HSSFCell.CELL_TYPE_STRING){
 							drdd.setWlbh(row.getCell(3).getStringCellValue());
 						}
-						if(row.getCell(4).getCellType()==HSSFCell.CELL_TYPE_STRING){
+						if(row.getCell(4)!=null&&row.getCell(4).getCellType()==HSSFCell.CELL_TYPE_STRING){
 							drdd.setWlmc(row.getCell(4).getStringCellValue());
 						}
-						if(row.getCell(5).getCellType()==HSSFCell.CELL_TYPE_STRING){
+						if(row.getCell(5)!=null&&row.getCell(5).getCellType()==HSSFCell.CELL_TYPE_STRING){
 							drdd.setCz(row.getCell(5).getStringCellValue());
 						}
-						if(row.getCell(6).getCellType()==HSSFCell.CELL_TYPE_STRING){
+						if(row.getCell(6)!=null&&row.getCell(6).getCellType()==HSSFCell.CELL_TYPE_STRING){
 							drdd.setClgg(row.getCell(6).getStringCellValue());
 						}
-						if(row.getCell(7).getCellType()==HSSFCell.CELL_TYPE_STRING){
+						if(row.getCell(7)!=null&&row.getCell(7).getCellType()==HSSFCell.CELL_TYPE_STRING){
 							drdd.setGg(row.getCell(7).getStringCellValue());
 						}
-						if(row.getCell(8).getCellType()==HSSFCell.CELL_TYPE_STRING){
-							drdd.setJhrq(row.getCell(8).getStringCellValue());
+						if(row.getCell(8)!=null&&row.getCell(8).getCellType()==HSSFCell.CELL_TYPE_STRING){
+							drdd.setDw(row.getCell(8).getStringCellValue());
 						}
-						if(row.getCell(9).getCellType()==HSSFCell.CELL_TYPE_NUMERIC){
-							drdd.setDdsl((int)row.getCell(9).getNumericCellValue());
+						if(row.getCell(9)!=null&&row.getCell(9).getCellType()==HSSFCell.CELL_TYPE_STRING){
+							drdd.setJhrq(row.getCell(9).getStringCellValue());
+						}
+						if(row.getCell(10)!=null&&row.getCell(10).getCellType()==HSSFCell.CELL_TYPE_NUMERIC){
+							drdd.setDdsl((int)row.getCell(10).getNumericCellValue());
 						}
 						dzDao.saveDdxx(drdd);
 					}
@@ -227,5 +259,10 @@ public class DzService {
 	public List<Map<String, Object>> getChDdMx(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		return dzDao.getChDdMx(param);
+	}
+
+	public List<Map<String, Object>> getKh(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return dzDao.getKh(param);
 	}
 }

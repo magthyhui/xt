@@ -20,6 +20,8 @@ public class DdxxMx {
 	private String bz;
 	private String dw;
 	private Integer sl;
+	private Integer chmxid;
+	private Integer chdid;
 
 
 	public Double getJe() {
@@ -111,6 +113,18 @@ public class DdxxMx {
 	}
 	public void setSl(Integer sl) {
 		this.sl = sl;
+	}
+	public Integer getChmxid() {
+		return chmxid;
+	}
+	public void setChmxid(Integer chmxid) {
+		this.chmxid = chmxid;
+	}
+	public Integer getChdid() {
+		return chdid;
+	}
+	public void setChdid(Integer chdid) {
+		this.chdid = chdid;
 	}
 	
 	

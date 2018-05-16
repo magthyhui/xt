@@ -351,7 +351,7 @@ dsDdxx.set(&quot;parameter&quot;,{id:id}).flush();	&#xD;
       </DataColumn>
       <DataColumn name="ddh">
         <Property name="property">ddh</Property>
-        <Property name="width">120</Property>
+        <Property name="width">140</Property>
       </DataColumn>
       <DataColumn name="xdrq">
         <Property name="property">xdrq</Property>
@@ -359,23 +359,11 @@ dsDdxx.set(&quot;parameter&quot;,{id:id}).flush();	&#xD;
       </DataColumn>
       <DataColumn name="wlh">
         <Property name="property">wlh</Property>
-        <Property name="width">120</Property>
+        <Property name="width">150</Property>
       </DataColumn>
       <DataColumn name="wlmc">
         <Property name="property">wlmc</Property>
-        <Property name="width">120</Property>
-      </DataColumn>
-      <DataColumn name="jhrq">
-        <Property name="property">jhrq</Property>
-        <Property name="width">100</Property>
-      </DataColumn>
-      <DataColumn name="ddsl">
-        <Property name="property">ddsl</Property>
-        <Property name="width">80</Property>
-      </DataColumn>
-      <DataColumn name="hyjq">
-        <Property name="property">hyjq</Property>
-        <Property name="width">100</Property>
+        <Property name="width">200</Property>
       </DataColumn>
       <DataColumn name="dj">
         <Property name="property">dj</Property>
@@ -384,6 +372,11 @@ dsDdxx.set(&quot;parameter&quot;,{id:id}).flush();	&#xD;
       <DataColumn name="je">
         <Property name="property">je</Property>
         <Property name="width">120</Property>
+        <Property name="align">right</Property>
+      </DataColumn>
+      <DataColumn name="ddsl">
+        <Property name="property">ddsl</Property>
+        <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="yjsl">
         <ClientEvent name="onRenderCell">var id = arg.data.get(&quot;mxid&quot;);&#xD;
@@ -399,6 +392,14 @@ if(yjsl == &quot;0&quot;||yjsl==null){&#xD;
       <DataColumn name="wjsl">
         <Property name="property">wjsl</Property>
         <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="jhrq">
+        <Property name="property">jhrq</Property>
+        <Property name="width">100</Property>
+      </DataColumn>
+      <DataColumn name="hyjq">
+        <Property name="property">hyjq</Property>
+        <Property name="width">100</Property>
       </DataColumn>
       <DataColumn name="bz">
         <Property name="property">bz</Property>
@@ -483,11 +484,11 @@ view.get(&quot;#dialogDdxx&quot;).show();</ClientEvent>
                   <Property name="readOnly">false</Property>
                   <DataColumn name="wlh">
                     <Property name="property">wlh</Property>
-                    <Property name="width">120</Property>
+                    <Property name="width">150</Property>
                   </DataColumn>
                   <DataColumn name="wlmc">
                     <Property name="property">wlmc</Property>
-                    <Property name="width">120</Property>
+                    <Property name="width">200</Property>
                   </DataColumn>
                   <DataColumn name="cz">
                     <Property name="property">cz</Property>
@@ -495,7 +496,7 @@ view.get(&quot;#dialogDdxx&quot;).show();</ClientEvent>
                   </DataColumn>
                   <DataColumn name="clgg">
                     <Property name="property">clgg</Property>
-                    <Property name="width">120</Property>
+                    <Property name="width">100</Property>
                   </DataColumn>
                   <DataColumn name="jhrq">
                     <Property name="property">jhrq</Property>
@@ -565,11 +566,11 @@ view.get(&quot;#dialogDdxx&quot;).show();</ClientEvent>
           </DataColumn>
           <DataColumn name="wlh">
             <Property name="property">wlh</Property>
-            <Property name="width">120</Property>
+            <Property name="width">150</Property>
           </DataColumn>
           <DataColumn name="wlmc">
             <Property name="property">wlmc</Property>
-            <Property name="width">120</Property>
+            <Property name="width">200</Property>
           </DataColumn>
           <DataColumn name="dw">
             <Property name="property">dw</Property>

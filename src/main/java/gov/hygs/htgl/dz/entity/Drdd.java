@@ -13,6 +13,7 @@ public class Drdd {
 	private String cz;
 	private String clgg;
 	private String gg;
+	private String dw;
 	private String jhrq;
 	private Integer ddsl;
 	public String getKh() {
@@ -74,6 +75,12 @@ public class Drdd {
 	}
 	public void setDdsl(Integer ddsl) {
 		this.ddsl = ddsl;
+	}
+	public String getDw() {
+		return dw;
+	}
+	public void setDw(String dw) {
+		this.dw = dw;
 	}
 
 	

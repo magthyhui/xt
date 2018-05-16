@@ -73,6 +73,11 @@ public class DzController {
 	public List<Map<String, Object>> getDdxxMx(Map<String, Object> param) {
 		return dzService.getDdxxMx(param);
 	}
+	
+	@DataProvider
+	public List<Map<String, Object>> getChdMx(Map<String, Object> param) {
+		return dzService.getChdMx(param);
+	}
 
 	@DataResolver
 	@Transactional
@@ -121,4 +126,10 @@ public class DzController {
 		}
 		return null;
 	}
+	
+	@DataProvider
+	public List<Map<String, Object>> getKh(Map<String, Object> param) {
+		return dzService.getKh(param);
+	}
+
 }

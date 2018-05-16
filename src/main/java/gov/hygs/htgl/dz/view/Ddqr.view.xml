@@ -37,6 +37,15 @@
         <Property name="label">送货日期</Property>
       </PropertyDef>
       <PropertyDef name="lx"/>
+      <Reference name="chdxxMxs">
+        <Property name="dataType">[dtDdxxMx]</Property>
+        <Property name="dataProvider">dzController#getChdMx</Property>
+        <Property name="parameter">
+          <Entity>
+            <Property name="id">$${this.id}</Property>
+          </Entity>
+        </Property>
+      </Reference>
     </DataType>
     <DataType name="dtDdxxMx">
       <Property name="creationType">gov.hygs.htgl.dz.entity.DdxxMx</Property>
@@ -177,6 +186,9 @@
         <Property name="label">规格</Property>
       </PropertyDef>
       <PropertyDef name="sl"/>
+      <PropertyDef name="ddbid">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
     </DataType>
     <DataType name="dtWl">
       <PropertyDef name="id">
@@ -218,6 +230,11 @@
         <Property name="label">订单号</Property>
       </PropertyDef>
     </DataType>
+    <DataType name="dtKh">
+      <PropertyDef name="kh">
+        <Property name="label">客户</Property>
+      </PropertyDef>
+    </DataType>
   </Model>
   <View>
     <ClientEvent name="onCreate">window.flushDd = function(){&#xD;
@@ -225,6 +242,11 @@
 }&#xD;
 </ClientEvent>
     <ClientEvent name="onReady">setTimeout(window.flushDd,30000)</ClientEvent>
+    <DataSet id="dsKh">
+      <Property name="dataType">[dtKh]</Property>
+      <Property name="dataProvider">dzController#getKh</Property>
+      <Property name="loadMode">lazy</Property>
+    </DataSet>
     <DataSet id="dsDdxx">
       <Property name="dataType">[dtDdxx]</Property>
       <Property name="loadMode">manual</Property>
@@ -234,11 +256,6 @@
       <Property name="dataType">[dtDd]</Property>
       <Property name="dataProvider">dzController#getDd</Property>
       <Property name="loadMode">manual</Property>
-    </DataSet>
-    <DataSet id="dsWl">
-      <Property name="dataType">[dtWl]</Property>
-      <Property name="dataProvider">dzController#getWl</Property>
-      <Property name="loadMode">lazy</Property>
     </DataSet>
     <DataSet id="dsCondition">
       <ClientEvent name="onReady">var now = new Date();&#xD;
@@ -258,6 +275,11 @@ view.get(&quot;#dsDd&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync();
       <Property name="loadMode">lazy</Property>
       <Property name="dataProvider">dzController#getChDd</Property>
       <Property name="dataType">[dtDdxx]</Property>
+    </DataSet>
+    <DataSet id="dsWl">
+      <Property name="dataType">[dtWl]</Property>
+      <Property name="dataProvider">dzController#getWl</Property>
+      <Property name="loadMode">lazy</Property>
     </DataSet>
     <DataSet id="dsChDdMx">
       <Property name="loadMode">manual</Property>
@@ -402,7 +424,7 @@ ajaxActionZdbh.execute(function(returnValue){&#xD;
       </DataColumn>
       <DataColumn name="ddh">
         <Property name="property">ddh</Property>
-        <Property name="width">120</Property>
+        <Property name="width">140</Property>
       </DataColumn>
       <DataColumn name="xdrq">
         <Property name="property">xdrq</Property>
@@ -410,11 +432,11 @@ ajaxActionZdbh.execute(function(returnValue){&#xD;
       </DataColumn>
       <DataColumn name="wlh">
         <Property name="property">wlh</Property>
-        <Property name="width">120</Property>
+        <Property name="width">150</Property>
       </DataColumn>
       <DataColumn name="wlmc">
         <Property name="property">wlmc</Property>
-        <Property name="width">120</Property>
+        <Property name="width">200</Property>
       </DataColumn>
       <DataColumn name="ddsl">
         <Property name="property">ddsl</Property>
@@ -434,11 +456,11 @@ ajaxActionZdbh.execute(function(returnValue){&#xD;
       </DataColumn>
       <DataColumn name="clgg">
         <Property name="property">clgg</Property>
-        <Property name="width">120</Property>
+        <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="gg">
         <Property name="property">gg</Property>
-        <Property name="width">120</Property>
+        <Property name="width">160</Property>
       </DataColumn>
       <DataColumn name="jhrq">
         <Property name="property">jhrq</Property>
@@ -446,7 +468,7 @@ ajaxActionZdbh.execute(function(returnValue){&#xD;
       </DataColumn>
       <DataColumn name="dw">
         <Property name="property">dw</Property>
-        <Property name="width">120</Property>
+        <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="bz">
         <Property name="property">bz</Property>
@@ -531,11 +553,11 @@ view.get(&quot;#dialogDdxx&quot;).show();&#xD;
                   <Property name="readOnly">false</Property>
                   <DataColumn name="wlh">
                     <Property name="property">wlh</Property>
-                    <Property name="width">120</Property>
+                    <Property name="width">150</Property>
                   </DataColumn>
                   <DataColumn name="wlmc">
                     <Property name="property">wlmc</Property>
-                    <Property name="width">120</Property>
+                    <Property name="width">200</Property>
                   </DataColumn>
                   <DataColumn name="cz">
                     <Property name="property">cz</Property>
@@ -543,11 +565,11 @@ view.get(&quot;#dialogDdxx&quot;).show();&#xD;
                   </DataColumn>
                   <DataColumn name="clgg">
                     <Property name="property">clgg</Property>
-                    <Property name="width">120</Property>
+                    <Property name="width">80</Property>
                   </DataColumn>
                   <DataColumn name="gg">
                     <Property name="property">gg</Property>
-                    <Property name="width">120</Property>
+                    <Property name="width">160</Property>
                   </DataColumn>
                   <DataColumn name="jhrq">
                     <Property name="property">jhrq</Property>
@@ -563,7 +585,7 @@ view.get(&quot;#dialogDdxx&quot;).show();&#xD;
                   </DataColumn>
                   <DataColumn name="dw">
                     <Property name="property">dw</Property>
-                    <Property name="width">120</Property>
+                    <Property name="width">80</Property>
                   </DataColumn>
                   <DataColumn name="bz">
                     <Property name="property">bz</Property>
@@ -618,9 +640,14 @@ view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).cancel();&#xD;
               <Property name="cols">*,*</Property>
               <Property name="readOnly">false</Property>
               <AutoFormElement layoutConstraint="colSpan:2">
+                <ClientEvent name="onBlur">var kh = view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).get(&quot;kh&quot;);&#xD;
+view.get(&quot;#dsChDd&quot;).set(&quot;parameter&quot;,{kh:kh}).flushAsync();&#xD;
+view.get(&quot;#dsWl&quot;).set(&quot;parameter&quot;,{kh:kh}).flushAsync();&#xD;
+</ClientEvent>
                 <Property name="name">kh</Property>
                 <Property name="property">kh</Property>
                 <Property name="readOnly">false</Property>
+                <Property name="trigger">dataSetDropDownKh</Property>
                 <Editor/>
               </AutoFormElement>
               <AutoFormElement>
@@ -638,7 +665,7 @@ view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).cancel();&#xD;
                 <ToolBar>
                   <Button>
                     <ClientEvent name="onClick">var dsDdxx = view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;);&#xD;
-dsDdxx.get(&quot;ddxxMxs&quot;).insert();&#xD;
+dsDdxx.get(&quot;chdxxMxs&quot;).insert();&#xD;
 view.get(&quot;#dsWl&quot;).flushAsync();&#xD;
 view.get(&quot;#dialogShdxx&quot;).show();&#xD;
 </ClientEvent>
@@ -652,7 +679,7 @@ view.get(&quot;#dsWl&quot;).flushAsync();</ClientEvent>
                     <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
                   </Button>
                   <Button>
-                    <ClientEvent name="onClick">	view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).get(&quot;ddxxMxs&quot;).remove();&#xD;
+                    <ClientEvent name="onClick">	view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).get(&quot;chdxxMxs&quot;).remove();&#xD;
 &#xD;
 </ClientEvent>
                     <Property name="caption">删除</Property>
@@ -668,25 +695,25 @@ view.get(&quot;#dialogShdDdxx&quot;).show();&#xD;
                 </ToolBar>
                 <DataGrid>
                   <Property name="dataSet">dsDdxx</Property>
-                  <Property name="dataPath">#.ddxxMxs</Property>
+                  <Property name="dataPath">#.chdxxMxs</Property>
                   <Property name="readOnly">false</Property>
                   <DataColumn name="ddh">
                     <Property name="property">ddh</Property>
                     <Property name="editable">false</Property>
                     <Property name="trigger">dataSetDropDown1</Property>
-                    <Property name="width">120</Property>
+                    <Property name="width">140</Property>
                   </DataColumn>
                   <DataColumn name="wlh">
                     <Property name="property">wlh</Property>
-                    <Property name="width">120</Property>
+                    <Property name="width">150</Property>
                   </DataColumn>
                   <DataColumn name="wlmc">
                     <Property name="property">wlmc</Property>
-                    <Property name="width">120</Property>
+                    <Property name="width">200</Property>
                   </DataColumn>
                   <DataColumn name="dw">
                     <Property name="property">dw</Property>
-                    <Property name="width">120</Property>
+                    <Property name="width">80</Property>
                   </DataColumn>
                   <DataColumn name="sl">
                     <Property name="property">sl</Property>
@@ -803,7 +830,7 @@ view.get(&quot;#dialogDdxx&quot;).hide();&#xD;
           <Property name="icon">url(>skin>common/icons.gif) -20px -0px</Property>
         </Button>
         <Button>
-          <ClientEvent name="onClick">view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).get(&quot;ddxxMxs&quot;).remove();&#xD;
+          <ClientEvent name="onClick">view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).get(&quot;chdxxMxs&quot;).remove();&#xD;
 view.get(&quot;#dialogShdxx&quot;).hide();&#xD;
 </ClientEvent>
           <Property name="caption">取消</Property>
@@ -816,7 +843,7 @@ view.get(&quot;#dialogShdxx&quot;).hide();&#xD;
           <Property name="width">95%</Property>
           <Property name="cols">*</Property>
           <Property name="readOnly">false</Property>
-          <Property name="dataPath">#.#ddxxMxs</Property>
+          <Property name="dataPath">#.#chdxxMxs</Property>
           <AutoFormElement>
             <Property name="name">ddh</Property>
             <Property name="property">ddh</Property>
@@ -853,24 +880,39 @@ view.get(&quot;#dialogShdxx&quot;).hide();&#xD;
       </Children>
       <Tools/>
     </Dialog>
+    <DataSetDropDown id="dataSetDropDownKh">
+      <Property name="dataSet">dsKh</Property>
+      <Property name="assignmentMap">kh=kh</Property>
+      <Property name="width">140</Property>
+      <DataColumn>
+        <Property name="property">kh</Property>
+        <Property name="width">140</Property>
+        <Property name="name">kh</Property>
+      </DataColumn>
+    </DataSetDropDown>
     <DataSetDropDown id="dataSetDropDown1">
       <Property name="dataSet">dsWl</Property>
       <Property name="assignmentMap">ddbid=id;ddh=ddh;wlh=wlh;wlmc=wlmc;dw=dw;mxid=mxid</Property>
-      <Property name="width">450</Property>
+      <Property name="width">650</Property>
       <DataColumn name="ddh">
         <Property name="property">ddh</Property>
+        <Property name="width">140</Property>
       </DataColumn>
       <DataColumn name="wlh">
         <Property name="property">wlh</Property>
+        <Property name="width">140</Property>
       </DataColumn>
       <DataColumn name="wlmc">
         <Property name="property">wlmc</Property>
+        <Property name="width">200</Property>
       </DataColumn>
       <DataColumn name="dw">
         <Property name="property">dw</Property>
+        <Property name="width">40</Property>
       </DataColumn>
       <DataColumn name="sy">
         <Property name="property">sy</Property>
+        <Property name="width">70</Property>
       </DataColumn>
     </DataSetDropDown>
     <DataSetDropDown id="dataSetDropDownChDd">
@@ -911,7 +953,7 @@ view.get(&quot;#dsChDdMx&quot;).set(&quot;parameter&quot;,{id:id}).flush();&#xD;
 var dsDdxx = view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;);&#xD;
 var datas = view.get(&quot;#dsChDdMx&quot;).getData();&#xD;
 datas.each(function(entity){&#xD;
-dsDdxx.get(&quot;ddxxMxs&quot;).insert(entity);&#xD;
+dsDdxx.get(&quot;chdxxMxs&quot;).insert(entity);&#xD;
 });&#xD;
 view.get(&quot;#dialogShdDdxx&quot;).hide();&#xD;
 view.get(&quot;#dsChDdxx&quot;).flushAsync();</ClientEvent>

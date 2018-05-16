@@ -176,6 +176,15 @@
         <Property name="label">送货日期</Property>
       </PropertyDef>
       <PropertyDef name="lx"/>
+      <Reference name="chdxxMxs">
+        <Property name="dataType">[dtDdxxMx]</Property>
+        <Property name="dataProvider">dzController#getChdMx</Property>
+        <Property name="parameter">
+          <Entity>
+            <Property name="id">$${this.id}</Property>
+          </Entity>
+        </Property>
+      </Reference>
     </DataType>
     <DataType name="dtDdxxMx">
       <Property name="creationType">gov.hygs.htgl.dz.entity.DdxxMx</Property>
@@ -235,6 +244,15 @@
       <PropertyDef name="ddh">
         <Property></Property>
         <Property name="label">订单编号</Property>
+      </PropertyDef>
+      <PropertyDef name="gg">
+        <Property/>
+      </PropertyDef>
+      <PropertyDef name="chmxid">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="chdid">
+        <Property name="dataType">Integer</Property>
       </PropertyDef>
     </DataType>
     <DataType name="dtWl">
@@ -392,6 +410,33 @@ ajaxActionZdbh.execute(function(returnValue){&#xD;
         <Property name="ignored">true</Property>
       </Button>
       <Button>
+        <ClientEvent name="onClick">view.get(&quot;#dialogShd&quot;).show();&#xD;
+var currentData = view.get(&quot;#dsCh&quot;).getData(&quot;#&quot;);&#xD;
+var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
+var id = currentData.get(&quot;id&quot;);&#xD;
+dsDdxx.set(&quot;parameter&quot;,{id:id,lx:'chd'}).flush();	&#xD;
+</ClientEvent>
+        <Property name="caption">修改</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
+      </Button>
+      <Button>
+        <ClientEvent name="onClick">var currentData = view.get(&quot;#dsCh&quot;).getData(&quot;#&quot;);&#xD;
+var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
+if(currentData != undefined){&#xD;
+	dorado.MessageBox.confirm(&quot;删除当前订单数据？&quot;,function(){&#xD;
+	var id = currentData.get(&quot;id&quot;);&#xD;
+	dsDdxx.set(&quot;parameter&quot;,{id:id,lx:'chd'}).flush();&#xD;
+	dsDdxx.getData(&quot;#&quot;).remove();&#xD;
+	view.get(&quot;#updateActionShd&quot;).execute();&#xD;
+	view.get(&quot;#dsCh&quot;).flushAsync();&#xD;
+	});	&#xD;
+}&#xD;
+&#xD;
+</ClientEvent>
+        <Property name="caption">删除</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -140px -0px</Property>
+      </Button>
+      <Button>
         <ClientEvent name="onClick">var ajaxActionExport =view.get(&quot;#ajaxActionExport&quot;);&#xD;
 var id = view.get(&quot;#dsCh&quot;).getData(&quot;#&quot;).get(&quot;id&quot;);&#xD;
 ajaxActionExport.set(&quot;parameter&quot;,{id:id});&#xD;
@@ -400,6 +445,12 @@ ajaxActionExport.execute(function(fileName){&#xD;
 });&#xD;
 </ClientEvent>
         <Property name="caption">导出出货单</Property>
+      </Button>
+      <Button>
+        <ClientEvent name="onClick">history.go(0)&#xD;
+</ClientEvent>
+        <Property name="caption">刷新</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
       </Button>
     </ToolBar>
     <DataGrid>
@@ -415,7 +466,7 @@ ajaxActionExport.execute(function(fileName){&#xD;
       </DataColumn>
       <DataColumn name="ddh">
         <Property name="property">ddh</Property>
-        <Property name="width">120</Property>
+        <Property name="width">140</Property>
       </DataColumn>
       <DataColumn name="kh">
         <Property name="property">kh</Property>
@@ -423,11 +474,11 @@ ajaxActionExport.execute(function(fileName){&#xD;
       </DataColumn>
       <DataColumn name="wlh">
         <Property name="property">wlh</Property>
-        <Property name="width">120</Property>
+        <Property name="width">150</Property>
       </DataColumn>
       <DataColumn name="wlmc">
         <Property name="property">wlmc</Property>
-        <Property name="width">120</Property>
+        <Property name="width">200</Property>
       </DataColumn>
       <DataColumn name="sl">
         <Property name="property">sl</Property>
@@ -497,7 +548,7 @@ view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).cancel();&#xD;
                 <ToolBar>
                   <Button>
                     <ClientEvent name="onClick">var dsDdxx = view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;);&#xD;
-dsDdxx.get(&quot;ddxxMxs&quot;).insert();&#xD;
+dsDdxx.get(&quot;chdxxMxs&quot;).insert();&#xD;
 view.get(&quot;#dsWl&quot;).flushAsync();&#xD;
 view.get(&quot;#dialogShdxx&quot;).show();&#xD;
 </ClientEvent>
@@ -512,7 +563,7 @@ view.get(&quot;#dsWl&quot;).flushAsync();</ClientEvent>
                     <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
                   </Button>
                   <Button>
-                    <ClientEvent name="onClick">	view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).get(&quot;ddxxMxs&quot;).remove();&#xD;
+                    <ClientEvent name="onClick">	view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).get(&quot;chdxxMxs&quot;).remove();&#xD;
 &#xD;
 </ClientEvent>
                     <Property name="caption">删除</Property>
@@ -521,7 +572,7 @@ view.get(&quot;#dsWl&quot;).flushAsync();</ClientEvent>
                 </ToolBar>
                 <DataGrid>
                   <Property name="dataSet">dsDdxx</Property>
-                  <Property name="dataPath">#.ddxxMxs</Property>
+                  <Property name="dataPath">#.chdxxMxs</Property>
                   <Property name="readOnly">false</Property>
                   <DataColumn name="ddh">
                     <Property name="property">ddh</Property>
@@ -569,7 +620,7 @@ view.get(&quot;#dsWl&quot;).flushAsync();</ClientEvent>
           <Property name="icon">url(>skin>common/icons.gif) -20px -0px</Property>
         </Button>
         <Button>
-          <ClientEvent name="onClick">view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).get(&quot;ddxxMxs&quot;).remove();&#xD;
+          <ClientEvent name="onClick">view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).get(&quot;chdxxMxs&quot;).remove();&#xD;
 view.get(&quot;#dialogShdxx&quot;).hide();&#xD;
 </ClientEvent>
           <Property name="caption">取消</Property>
@@ -582,7 +633,7 @@ view.get(&quot;#dialogShdxx&quot;).hide();&#xD;
           <Property name="width">95%</Property>
           <Property name="cols">*</Property>
           <Property name="readOnly">false</Property>
-          <Property name="dataPath">#.#ddxxMxs</Property>
+          <Property name="dataPath">#.#chdxxMxs</Property>
           <AutoFormElement>
             <Property name="name">ddh</Property>
             <Property name="property">ddh</Property>
@@ -623,7 +674,7 @@ view.get(&quot;#dialogShdxx&quot;).hide();&#xD;
       <Property name="dataResolver">dzController#insertShd</Property>
       <UpdateItem>
         <Property name="dataSet">dsDdxx</Property>
-        <Property name="dataPath">[#all]</Property>
+        <Property name="dataPath">!DIRTY_TREE</Property>
       </UpdateItem>
     </UpdateAction>
     <DataSetDropDown id="dataSetDropDown1">
