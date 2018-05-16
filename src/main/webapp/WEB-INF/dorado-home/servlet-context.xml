@@ -9,7 +9,8 @@
 		<property name="resolver">
 			<bean class="com.bstek.dorado.web.resolver.WebFileResolver">
 				<property name="baseUri" value="/dorado/ndp/res" />
-				<property name="resourcePrefix" value="file:/usr/local/tomcat/upload/attachments/" />
+				<!-- property name="resourcePrefix" value="file:d:/xt/download/" />-->
+				<property name="resourcePrefix" value="file:/usr/local/tomcat/templates/" /> 
 			</bean>
 		</property>
 	</bean>
