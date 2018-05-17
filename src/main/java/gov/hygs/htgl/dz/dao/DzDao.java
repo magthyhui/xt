@@ -231,13 +231,13 @@ public class DzDao extends BaseJdbcDao {
 		// TODO Auto-generated method stub
 		String kh = null;
 		List<Object> args =new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer("select b.mxid,a.id,a.ddh,b.wlh,b.wlmc,b.dw,(b.ddsl-ifnull(c.sl,0)) sy from xt_dz_ddb a ,xt_dz_ddb_mx b left join  (select c.mxid,sum(c.sl) sl from xt_dz_chd_mx c group by c.mxid) c on c.mxid=b.mxid where a.id=b.ddbid  ");
 		if(param!=null){
 			kh= (String)param.get("kh");
-			args.add("%"+kh+"%");
 		}
-		StringBuffer sql = new StringBuffer("select b.mxid,a.id,a.ddh,b.wlh,b.wlmc,b.dw,(b.ddsl-ifnull(c.sl,0)) sy from xt_dz_ddb a ,xt_dz_ddb_mx b left join  (select c.mxid,sum(c.sl) sl from xt_dz_chd_mx c group by c.mxid) c on c.mxid=b.mxid where a.id=b.ddbid and b.ddsl>= ifnull(c.sl,0) ");
 		if(kh!=null){
 			sql.append(" and a.kh like ? ");
+			args.add("%"+kh+"%");
 		}
 		sql.append("  order by a.kh,a.id desc ");
 		return this.jdbcTemplate.queryForList(sql.toString(),args.toArray());
@@ -368,13 +368,13 @@ public class DzDao extends BaseJdbcDao {
 		// TODO Auto-generated method stub
 		String kh = null;
 		List<Object> args =new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer("select * from xt_dz_ddb where 1 = 1 ");
 		if(param!=null){
 			kh= (String)param.get("kh");
-			args.add("%"+kh+"%");
 		}
-		StringBuffer sql = new StringBuffer("select * from xt_dz_ddb where 1 = 1 ");
 		if(kh!=null){
 			sql.append(" and kh like ? ");
+			args.add("%"+kh+"%");
 		}
 		sql.append("  order by kh,xdrq ");
 		return this.jdbcTemplate.queryForList(sql.toString(),args.toArray());

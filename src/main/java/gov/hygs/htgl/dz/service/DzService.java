@@ -220,6 +220,9 @@ public class DzService {
 						if(row.getCell(2)!=null&&row.getCell(2).getCellType()==HSSFCell.CELL_TYPE_STRING){
 							drdd.setDdh(row.getCell(2).getStringCellValue());
 						}
+						if(drdd.getDdh()==null){
+							break;
+						}
 						if(row.getCell(3)!=null&&row.getCell(3).getCellType()==HSSFCell.CELL_TYPE_STRING){
 							drdd.setWlbh(row.getCell(3).getStringCellValue());
 						}

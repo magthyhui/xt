@@ -246,7 +246,7 @@
         <Property name="label">订单编号</Property>
       </PropertyDef>
       <PropertyDef name="gg">
-        <Property/>
+        <Property></Property>
       </PropertyDef>
       <PropertyDef name="chmxid">
         <Property name="dataType">Integer</Property>
@@ -495,7 +495,7 @@ ajaxActionExport.execute(function(fileName){&#xD;
     </DataGrid>
     <Dialog id="dialogShd">
       <Property name="width">80%</Property>
-      <Property name="height">60%</Property>
+      <Property name="height">75%</Property>
       <Property name="closeable">false</Property>
       <Buttons/>
       <Children>
@@ -544,7 +544,7 @@ view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).cancel();&#xD;
                 <Editor/>
               </AutoFormElement>
               <Container layoutConstraint="colSpan:2">
-                <Property name="height">300</Property>
+                <Property name="height">400</Property>
                 <ToolBar>
                   <Button>
                     <ClientEvent name="onClick">var dsDdxx = view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;);&#xD;
