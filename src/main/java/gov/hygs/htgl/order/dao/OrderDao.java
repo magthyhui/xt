@@ -1,4 +1,4 @@
-package gov.hygs.htgl.dz.dao;
+package gov.hygs.htgl.order.dao;
 
 import gov.hygs.htgl.dz.entity.Ddxx;
 import gov.hygs.htgl.dz.entity.DdxxMx;
@@ -19,7 +19,7 @@ import com.bstek.dorado.data.provider.Page;
 import com.gdky.restfull.dao.BaseJdbcDao;
 
 @Repository
-public class DzDao extends BaseJdbcDao {
+public class OrderDao extends BaseJdbcDao {
 
 	public Integer addDdxx(Ddxx sp) {
 		// TODO Auto-generated method stub

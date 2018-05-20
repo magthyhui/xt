@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+  <Arguments/>
+  <Context/>
+  <Model>
+    <DataType name="dtYhxx">
+      <Property name="creationType">gov.hygs.htgl.dz.entity.Yhxx</Property>
+      <PropertyDef name="id">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="kh">
+        <Property></Property>
+        <Property name="label">客户</Property>
+      </PropertyDef>
+      <PropertyDef name="dh">
+        <Property></Property>
+        <Property name="label">电话号码</Property>
+      </PropertyDef>
+      <PropertyDef name="dz">
+        <Property></Property>
+        <Property name="label">地址</Property>
+      </PropertyDef>
+      <PropertyDef name="khjc">
+        <Property></Property>
+        <Property name="label">客户简称</Property>
+      </PropertyDef>
+      <PropertyDef name="lxr">
+        <Property/>
+        <Property name="label">联系人</Property>
+      </PropertyDef>
+    </DataType>
+  </Model>
+  <View>
+    <DataSet id="dsYhxx">
+      <Property name="dataType">[dtYhxx]</Property>
+      <Property name="dataProvider">dzController#getYhxx</Property>
+      <Property name="pageSize">40</Property>
+    </DataSet>
+    <Container>
+      <GroupBox>
+        <Property name="caption">信息表</Property>
+        <Buttons/>
+        <Children>
+          <ToolBar>
+            <DataPilot>
+              <Property name="dataSet">dsYhxx</Property>
+              <Property name="itemCodes">pages</Property>
+            </DataPilot>
+            <Button>
+              <ClientEvent name="onClick">view.get(&quot;#dsYhxx&quot;).insert();&#xD;
+view.get(&quot;#dialog&quot;).show();&#xD;
+</ClientEvent>
+              <Property name="caption">增加</Property>
+              <Property name="icon"> url(>skin>common/icons.gif) -120px -0px</Property>
+            </Button>
+            <Button>
+              <ClientEvent name="onClick">var currentData = view.get(&quot;#dsYhxx&quot;).getData(&quot;#&quot;);&#xD;
+if(currentData != undefined){&#xD;
+	dorado.MessageBox.confirm(&quot;删除当前节点数据？&quot;,function(){&#xD;
+	currentData.remove();&#xD;
+	view.get(&quot;#updateAction&quot;).execute();&#xD;
+	//view.get(&quot;#dsSysprop&quot;).flush();&#xD;
+	});	&#xD;
+}&#xD;
+&#xD;
+</ClientEvent>
+              <Property name="caption">删除</Property>
+              <Property name="icon">url(>skin>common/icons.gif) -140px -0px</Property>
+            </Button>
+            <Button>
+              <ClientEvent name="onClick">view.get(&quot;#dialog&quot;).show();&#xD;
+</ClientEvent>
+              <Property name="caption">修改</Property>
+              <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
+            </Button>
+          </ToolBar>
+          <DataGrid>
+            <Property name="dataSet">dsYhxx</Property>
+            <Property name="readOnly">true</Property>
+            <DataColumn name="kh">
+              <Property name="property">kh</Property>
+            </DataColumn>
+            <DataColumn name="khjc">
+              <Property name="property">khjc</Property>
+            </DataColumn>
+            <DataColumn name="lxr">
+              <Property name="property">lxr</Property>
+            </DataColumn>
+            <DataColumn name="dh">
+              <Property name="property">dh</Property>
+            </DataColumn>
+            <DataColumn name="dz">
+              <Property name="property">dz</Property>
+            </DataColumn>
+          </DataGrid>
+        </Children>
+      </GroupBox>
+    </Container>
+    <Dialog id="dialog">
+      <Property name="width">700</Property>
+      <Property name="height">450</Property>
+      <Buttons/>
+      <Children>
+        <GroupBox layout="hbox pack:center">
+          <Property name="caption">信息</Property>
+          <Buttons>
+            <Button>
+              <ClientEvent name="onClick">view.get(&quot;#updateAction&quot;).execute(function(){&#xD;
+	view.get(&quot;#dialog&quot;).close();&#xD;
+	view.get(&quot;#dsYhxx&quot;).flush();&#xD;
+	/*var data = view.get(&quot;#dsSysprop&quot;).getData();&#xD;
+	data.each(function(entity){&#xD;
+		if(entity.get(&quot;id&quot;)==undefined){&#xD;
+			view.get(&quot;#dsSysprop&quot;).flush();&#xD;
+			view.get(&quot;#dsSysprop&quot;).getData().setCurrent(&quot;entity&quot;);&#xD;
+		}&#xD;
+	});&#xD;
+	*/&#xD;
+});&#xD;
+</ClientEvent>
+              <Property name="caption">提交</Property>
+              <Property name="icon">url(>skin>common/icons.gif) -20px -0px</Property>
+            </Button>
+            <Button>
+              <ClientEvent name="onClick">view.get(&quot;#dialog&quot;).close();&#xD;
+view.get(&quot;#dsYhxx&quot;).getData(&quot;#&quot;).cancel();&#xD;
+</ClientEvent>
+              <Property name="caption">取消</Property>
+              <Property name="icon">url(>skin>common/icons.gif) -40px -0px</Property>
+            </Button>
+          </Buttons>
+          <Children>
+            <AutoForm id="autoForm">
+              <Property name="dataSet">dsYhxx</Property>
+              <Property name="width">680</Property>
+              <Property name="cols">*</Property>
+              <Property name="labelWidth">100</Property>
+              <AutoFormElement>
+                <Property name="name">kh</Property>
+                <Property name="property">kh</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">khjc</Property>
+                <Property name="property">khjc</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">lxr</Property>
+                <Property name="property">lxr</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">dh</Property>
+                <Property name="property">dh</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">dz</Property>
+                <Property name="property">dz</Property>
+                <Editor/>
+              </AutoFormElement>
+            </AutoForm>
+          </Children>
+        </GroupBox>
+      </Children>
+      <Tools/>
+    </Dialog>
+    <UpdateAction id="updateAction">
+      <Property name="dataResolver">dzController#updateYhxx</Property>
+      <UpdateItem>
+        <Property name="dataSet">dsYhxx</Property>
+      </UpdateItem>
+    </UpdateAction>
+  </View>
+</ViewConfig>
