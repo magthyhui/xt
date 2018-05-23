@@ -222,6 +222,28 @@
       <PropertyDef name="ddh">
         <Property name="label">订单号</Property>
       </PropertyDef>
+      <PropertyDef name="ddzt">
+        <Property name="label">订单状态</Property>
+        <Property name="mapping">
+          <Property name="mapValues">
+            <Collection>
+              <Entity>
+                <Property name="key">Y</Property>
+                <Property name="value">未归档</Property>
+              </Entity>
+              <Entity>
+                <Property name="key">G</Property>
+                <Property name="value">归档</Property>
+              </Entity>
+              <Entity>
+                <Property name="key">N</Property>
+                <Property name="value">删除</Property>
+              </Entity>
+            </Collection>
+          </Property>
+        </Property>
+        <Property name="defaultValue">Y</Property>
+      </PropertyDef>
     </DataType>
   </Model>
   <View>
@@ -290,6 +312,11 @@ view.get(&quot;#dsDd&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync();
         <Property name="property">ddh</Property>
         <Editor/>
       </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">ddzt</Property>
+        <Property name="property">ddzt</Property>
+        <Editor/>
+      </AutoFormElement>
       <Button>
         <ClientEvent name="onClick">var dsCondition = view.get(&quot;#dsCondition&quot;).getData(&quot;#&quot;);&#xD;
 view.get(&quot;#dsDd&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync();&#xD;
@@ -312,18 +339,42 @@ view.get(&quot;#dialog&quot;).show();&#xD;
         <ClientEvent name="onClick">var currentData = view.get(&quot;#dsDd&quot;).getData(&quot;#&quot;);&#xD;
 var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
 if(currentData != undefined){&#xD;
-	dorado.MessageBox.confirm(&quot;删除当前节点数据？&quot;,function(){&#xD;
+	dorado.MessageBox.confirm(&quot;是否将当前订单删除？&quot;,function(){&#xD;
 	var id = currentData.get(&quot;id&quot;);&#xD;
-	dsDdxx.set(&quot;parameter&quot;,{id:id}).flush();&#xD;
-	dsDdxx.getData(&quot;#&quot;).remove();&#xD;
-	view.get(&quot;#updateAction&quot;).execute();&#xD;
+	view.get(&quot;#ajaxActionDdzt&quot;).set(&quot;parameter&quot;,{lx:&quot;N&quot;,id:id}).execute();&#xD;
+	view.get(&quot;#dsDd&quot;).flushAsync();&#xD;
+	});	&#xD;
+}</ClientEvent>
+        <Property name="caption">删除</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -140px -0px</Property>
+      </Button>
+      <Button>
+        <ClientEvent name="onClick">var currentData = view.get(&quot;#dsDd&quot;).getData(&quot;#&quot;);&#xD;
+var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
+if(currentData != undefined){&#xD;
+	dorado.MessageBox.confirm(&quot;是否将当前订单设为已完成？&quot;,function(){&#xD;
+	var id = currentData.get(&quot;id&quot;);&#xD;
+	view.get(&quot;#ajaxActionDdzt&quot;).set(&quot;parameter&quot;,{lx:&quot;G&quot;,id:id}).execute();&#xD;
 	view.get(&quot;#dsDd&quot;).flushAsync();&#xD;
 	});	&#xD;
 }&#xD;
 &#xD;
 </ClientEvent>
-        <Property name="caption">删除</Property>
-        <Property name="icon">url(>skin>common/icons.gif) -140px -0px</Property>
+        <Property name="caption">订单归档</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
+      </Button>
+      <Button>
+        <ClientEvent name="onClick">var currentData = view.get(&quot;#dsDd&quot;).getData(&quot;#&quot;);&#xD;
+var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
+if(currentData != undefined){&#xD;
+	dorado.MessageBox.confirm(&quot;是否取消当前订单归档状态？&quot;,function(){&#xD;
+	var id = currentData.get(&quot;id&quot;);&#xD;
+	view.get(&quot;#ajaxActionDdzt&quot;).set(&quot;parameter&quot;,{lx:&quot;Y&quot;,id:id}).execute();&#xD;
+	view.get(&quot;#dsDd&quot;).flushAsync();&#xD;
+	});	&#xD;
+}</ClientEvent>
+        <Property name="caption">订单取消归档</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
       </Button>
       <Button>
         <ClientEvent name="onClick">view.get(&quot;#dialog&quot;).show();&#xD;
@@ -667,5 +718,9 @@ view.get(&quot;#dialogDdxx&quot;).hide();&#xD;
       </Children>
       <Tools/>
     </Dialog>
+    <AjaxAction id="ajaxActionDdzt">
+      <Property name="service">dzController#setDdzt</Property>
+      <Property name="successMessage">提交成功</Property>
+    </AjaxAction>
   </View>
 </ViewConfig>

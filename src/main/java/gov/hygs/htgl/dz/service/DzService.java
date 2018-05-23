@@ -268,4 +268,9 @@ public class DzService {
 		// TODO Auto-generated method stub
 		return dzDao.getKh(param);
 	}
+
+	public String setDdzt(Map param) {
+		// TODO Auto-generated method stub
+		return dzDao.setDdzt(param);
+	}
 }

@@ -132,4 +132,8 @@ public class DzController {
 		return dzService.getKh(param);
 	}
 
+	@Expose
+	public String setDdzt(Map param) throws Exception {
+		return dzService.setDdzt(param);
+	}
 }

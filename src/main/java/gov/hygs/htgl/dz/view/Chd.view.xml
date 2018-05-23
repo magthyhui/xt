@@ -297,6 +297,9 @@
       <PropertyDef name="ddh">
         <Property name="label">订单号</Property>
       </PropertyDef>
+      <PropertyDef name="wlh">
+        <Property name="label">物料号</Property>
+      </PropertyDef>
     </DataType>
   </Model>
   <View>
@@ -360,6 +363,13 @@ view.get(&quot;#dsCh&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync();
         <Property name="property">ddh</Property>
         <Editor/>
       </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">wlh</Property>
+        <Property name="property">wlh</Property>
+        <Editor/>
+      </AutoFormElement>
+      <Label/>
+      <Label/>
       <Button>
         <ClientEvent name="onClick">var dsCondition = view.get(&quot;#dsCondition&quot;).getData(&quot;#&quot;);&#xD;
 view.get(&quot;#dsCh&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync();&#xD;
