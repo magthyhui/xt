@@ -4,20 +4,20 @@
   <Context/>
   <Model>
     <DataType name="dtYhxx">
-      <Property name="creationType">gov.hygs.htgl.kqgl.entity.Yhxx</Property>
+      <Property name="creationType">gov.hygs.htgl.kqgl.entity.Kqry</Property>
       <PropertyDef name="id">
         <Property name="dataType">Integer</Property>
       </PropertyDef>
       <PropertyDef name="gh">
-        <Property/>
+        <Property></Property>
         <Property name="label">工号</Property>
       </PropertyDef>
       <PropertyDef name="xm">
-        <Property/>
+        <Property></Property>
         <Property name="label">姓名</Property>
       </PropertyDef>
       <PropertyDef name="bm">
-        <Property/>
+        <Property></Property>
         <Property name="label">部门</Property>
       </PropertyDef>
     </DataType>
@@ -25,7 +25,7 @@
   <View>
     <DataSet id="dsYhxx">
       <Property name="dataType">[dtYhxx]</Property>
-      <Property name="dataProvider">kqryController#getYhxx</Property>
+      <Property name="dataProvider">kqryController#getKqry</Property>
       <Property name="pageSize">40</Property>
     </DataSet>
     <Container>
@@ -143,7 +143,7 @@ view.get(&quot;#dsYhxx&quot;).getData(&quot;#&quot;).cancel();&#xD;
       <Tools/>
     </Dialog>
     <UpdateAction id="updateAction">
-      <Property name="dataResolver">kqryController#updateYhxx</Property>
+      <Property name="dataResolver">kqryController#updateKqry</Property>
       <UpdateItem>
         <Property name="dataSet">dsYhxx</Property>
       </UpdateItem>

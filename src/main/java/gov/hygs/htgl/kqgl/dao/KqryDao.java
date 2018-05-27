@@ -21,7 +21,7 @@ public class KqryDao extends BaseJdbcDao {
 		String sqlCount = "select count(*) from xt_kqry";
 		int entityCount = this.jdbcTemplate.queryForObject(sqlCount,
 				Integer.class);
-		String sql = "select * from xt_kqry limit ?,?";
+		String sql = "select * from xt_kqry order by  cast(gh as SIGNED INTEGER) limit ?,? ";
 
 		List<Kqry> list = this.jdbcTemplate.query(sql,
 				new Object[] { page.getPageSize() * (page.getPageNo() - 1),
