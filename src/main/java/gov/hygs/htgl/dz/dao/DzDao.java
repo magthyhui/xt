@@ -206,7 +206,7 @@ public class DzDao extends BaseJdbcDao {
 				sql.append(" and b.ddbid is not null ");
 			}
 		}
-		sql.append(" and d.yxbz<>'N' and a.shrq between date_format(date(?), '%Y%m%d') and date_format(date(?), '%Y%m%d') order by a.kh,a.shrq ");
+		sql.append(" and d.yxbz<>'N' and a.shrq between date_format(date(?), '%Y%m%d') and date_format(date(?), '%Y%m%d') order by a.kh,a.shrq,a.shdh ");
 		args.add(sjq);
 		args.add(sjz);
 		return this.jdbcTemplate.queryForList(sql.toString(),args.toArray());
