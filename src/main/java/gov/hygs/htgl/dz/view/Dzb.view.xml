@@ -4,9 +4,9 @@
   <Context/>
   <Model>
     <DataType name="dtResult">
-      <PropertyDef name="shrq">
+      <PropertyDef name="shrqs">
         <Property name="label">送货日期</Property>
-        <Property name="dataType">Date</Property>
+        <Property name="dataType">String</Property>
       </PropertyDef>
       <PropertyDef name="shdh">
         <Property name="label">送货单号</Property>
@@ -113,6 +113,9 @@
       <PropertyDef name="wlh">
         <Property name="label">物料号</Property>
       </PropertyDef>
+      <PropertyDef name="wlmc">
+        <Property name="label">物料名称</Property>
+      </PropertyDef>
     </DataType>
   </Model>
   <View>
@@ -215,9 +218,10 @@ if(view.get(&quot;#dsResult.data:#&quot;)){&#xD;
       <Property name="dataSet">dsResult</Property>
       <Property name="readOnly">true</Property>
       <Property name="dynaRowHeight">true</Property>
-      <DataColumn name="shrq">
-        <Property name="property">shrq</Property>
+      <DataColumn>
+        <Property name="property">shrqs</Property>
         <Property name="width">80</Property>
+        <Property name="name">shrqs</Property>
       </DataColumn>
       <DataColumn name="shdh">
         <Property name="property">shdh</Property>
@@ -233,7 +237,7 @@ if(view.get(&quot;#dsResult.data:#&quot;)){&#xD;
       </DataColumn>
       <DataColumn name="wlmc">
         <Property name="property">wlmc</Property>
-        <Property name="width">200</Property>
+        <Property name="width">250</Property>
       </DataColumn>
       <DataColumn name="dw">
         <Property name="property">dw</Property>

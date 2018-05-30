@@ -115,6 +115,8 @@ public class DzDao extends BaseJdbcDao {
 		String kh = (String) param.get("kh");
 		String ddh = (String) param.get("ddh");
 		String ddzt = (String) param.get("ddzt");
+		String wlh = (String) param.get("wlh");
+		String wlmc = (String) param.get("wlmc");
 		List<Object> args =new ArrayList<Object>();
 		Date sjq=(Date) param.get("sjq"),sjz=(Date) param.get("sjz");
 		StringBuffer sql =new StringBuffer("select a.*,b.*,FORMAT(b.ddsl*b.dj,2) je,b.ddsl-(select sum(case when c.lx='s' then cm.sl else 0 end )-sum(case when c.lx='t' then cm.sl else 0 end ) sl from xt_dz_chd c,xt_dz_chd_mx cm where c.id=cm.chdid and cm.mxid=b.mxid) wjsl,(select sum(case when c.lx='s' then cm.sl else 0 end )-sum(case when c.lx='t' then cm.sl else 0 end ) sl from xt_dz_chd c,xt_dz_chd_mx cm where c.id=cm.chdid and cm.mxid=b.mxid) yjsl from xt_dz_ddb a  left join xt_dz_ddb_mx b on a.id=b.ddbid "); 
@@ -126,6 +128,14 @@ public class DzDao extends BaseJdbcDao {
 		if(ddh!=null){
 			sql.append(" and a.ddh like ? ");
 			args.add("%"+ddh+"%");
+		}
+		if(wlh!=null){
+			sql.append(" and b.wlh like ? ");
+			args.add("%"+wlh+"%");
+		}
+		if(wlmc!=null){
+			sql.append(" and b.wlmc like ? ");
+			args.add("%"+wlmc+"%");
 		}
 		if(sjq!=null){
 			sql.append(" and a.xdrq >= date_format(date(?), '%Y%m%d') ");
@@ -139,7 +149,7 @@ public class DzDao extends BaseJdbcDao {
 			sql.append(" and a.yxbz = ? ");
 			args.add(ddzt);
 		}
-		sql.append(" order by a.kh,a.xdrq desc");
+		sql.append(" order by a.kh,a.xdrq desc,a.ddh,b.wlh ");
 		return this.jdbcTemplate.queryForList(sql.toString(),args.toArray());
 	}
 
@@ -178,7 +188,7 @@ public class DzDao extends BaseJdbcDao {
 		String shdh = (String) param.get("shdh");
 		List<Object> args =new ArrayList<Object>();
 		Date sjq=(Date) param.get("sjq"),sjz=(Date) param.get("sjz");;
-		StringBuffer sql =new StringBuffer("select a.*,b.*,d.ddh,FORMAT(c.ddsl*c.dj,2) je,c.dj from  xt_dz_chd a left join xt_dz_chd_mx b on a.id=b.chdid left join xt_dz_ddb_mx c on b.mxid=c.mxid left join xt_dz_ddb d on  c.ddbid=d.id  where a.yxbz ='Y'  ");
+		StringBuffer sql =new StringBuffer("select DATE_FORMAT(a.shrq,'%Y/%m/%d') shrqs,a.*,b.*,d.ddh,FORMAT(c.ddsl*c.dj,2) je,c.dj from  xt_dz_chd a left join xt_dz_chd_mx b on a.id=b.chdid left join xt_dz_ddb_mx c on b.mxid=c.mxid left join xt_dz_ddb d on  c.ddbid=d.id  where a.yxbz ='Y'  ");
 		if(kh!=null){
 			sql.append(" and a.kh like ? ");
 			args.add("%"+kh+"%");
@@ -206,7 +216,7 @@ public class DzDao extends BaseJdbcDao {
 				sql.append(" and b.ddbid is not null ");
 			}
 		}
-		sql.append(" and d.yxbz<>'N' and a.shrq between date_format(date(?), '%Y%m%d') and date_format(date(?), '%Y%m%d') order by a.kh,a.shrq,a.shdh ");
+		sql.append(" and d.yxbz<>'N' and a.shrq between date_format(date(?), '%Y%m%d') and date_format(date(?), '%Y%m%d') order by a.kh,a.shrq,a.shdh,d.xdrq desc,d.ddh,c.wlh ");
 		args.add(sjq);
 		args.add(sjz);
 		return this.jdbcTemplate.queryForList(sql.toString(),args.toArray());
@@ -284,6 +294,7 @@ public class DzDao extends BaseJdbcDao {
 		sql.append("  left join xt_dz_ddb_mx c on c.mxid=b.mxid ");
 		sql.append("  where  a.id=b.chdid ");
 		sql.append(" and a.id = ? ");
+		sql.append(" order by d.xdrq desc,d.ddh,c.wlh");
 		return this.jdbcTemplate.queryForList(sql.toString(),new Object[]{id});
 	}
 

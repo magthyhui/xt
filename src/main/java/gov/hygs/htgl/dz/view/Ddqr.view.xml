@@ -251,6 +251,12 @@
         </Property>
         <Property name="defaultValue">Y</Property>
       </PropertyDef>
+      <PropertyDef name="wlh">
+        <Property name="label">物料号</Property>
+      </PropertyDef>
+      <PropertyDef name="wlmc">
+        <Property name="label">物料名称</Property>
+      </PropertyDef>
     </DataType>
     <DataType name="dtKh">
       <PropertyDef name="kh">
@@ -339,6 +345,16 @@ view.get(&quot;#dsDd&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync();
       <AutoFormElement>
         <Property name="name">ddzt</Property>
         <Property name="property">ddzt</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">wlh</Property>
+        <Property name="property">wlh</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">wlmc</Property>
+        <Property name="property">wlmc</Property>
         <Editor/>
       </AutoFormElement>
       <Button>
