@@ -202,7 +202,9 @@ public class KqglDao extends BaseJdbcDao {
 		Integer id = (Integer) para.get("id");
 		List<Object> args = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select '2' lx, id, gh,  ");
+		sql.append(" select * from xt_kq_kqhz where id = ? order by cast(gh as SIGNED INTEGER), lx ");
+		args.add(id);
+		/*sql.append(" select '2' lx, id, gh,  ");
 		sql.append("          MAX(CASE ts WHEN 1 THEN sj ELSE '' END ) '1', ");
 		sql.append("          MAX(CASE ts WHEN 2 THEN sj ELSE '' END ) '2',  ");
 		sql.append("          MAX(CASE ts WHEN 3 THEN sj ELSE '' END ) '3',  ");
@@ -387,7 +389,7 @@ public class KqglDao extends BaseJdbcDao {
 		sql.append("  order by cast(gh as SIGNED INTEGER), lx ");
 		args.add(id);
 		args.add(id);
-		args.add(id);
+		args.add(id);*/
 		return this.jdbcTemplate.queryForList(sql.toString(),args.toArray());
 	}
 
@@ -437,6 +439,12 @@ public class KqglDao extends BaseJdbcDao {
 	public void callSp() {
 		// TODO Auto-generated method stub
 		this.jdbcTemplate.execute("call kqzcsj()");
+	}
+
+	public String bulidKqhz(Map<String, Object> para) {
+		// TODO Auto-generated method stub
+		this.jdbcTemplate.execute("call kqhz()");
+		return "ok";
 	}
 
 

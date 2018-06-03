@@ -65,6 +65,12 @@ public class KqglController {
 		return kqglService.updateXg(para);
 	}
 	
+	@Transactional
+	@Expose
+	public String bulidKqhz(Map<String,Object> para){
+		return kqglService.bulidKqhz(para);
+	}
+	
 	@DataProvider
 	public List<Map<String,Object>> getKqhz(Map<String,Object> para){
 		return kqglService.getKqhz(para);

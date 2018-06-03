@@ -4,7 +4,9 @@
   <Context/>
   <Model>
     <DataType name="dtKqhz">
+      <PropertyDef name="gh"/>
       <PropertyDef name="id"/>
+      <PropertyDef name="lx"/>
       <PropertyDef name="1"/>
       <PropertyDef name="2"/>
       <PropertyDef name="3"/>
@@ -75,6 +77,14 @@
     </DataType>
   </Model>
   <View>
+    <ClientEvent name="onCreate">window.updateData = function(gh,lx,id,ts){&#xD;
+	var words = sj.split(' - ');&#xD;
+	view.get(&quot;#dsSj&quot;).setData({&#xD;
+		gh:gh,lx:lx,id:id,ts:ts,sjq:words[0],sjz:words[1],jsjq:words[0],jsjz:words[1]&#xD;
+	})&#xD;
+	view.get(&quot;#dialogSj&quot;).show();&#xD;
+}&#xD;
+</ClientEvent>
     <DataSet id="dsKqhz">
       <Property name="dataProvider">kqglController#getKqhz</Property>
       <Property name="dataType">[dtKqhz]</Property>
@@ -100,9 +110,12 @@ self.insert();&#xD;
       <Property name="property">sj</Property>
       <Property name="assignmentMap">id=id;sj=sj</Property>
     </DataSetDropDown>
+    <AjaxAction id="ajaxAction1">
+      <Property name="service">kqglController#bulidKqhz</Property>
+    </AjaxAction>
     <AutoForm>
       <Property name="dataSet">dsCondition</Property>
-      <Property name="cols">*,*,*</Property>
+      <Property name="cols">*,*,*,*</Property>
       <Property name="labelWidth">100</Property>
       <AutoFormElement>
         <Property name="name">sj</Property>
@@ -120,6 +133,9 @@ if(sj==null||sj==&quot;&quot;){&#xD;
 	view.get(&quot;#dsKqhz&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync();&#xD;
 }</ClientEvent>
         <Property name="caption">查询</Property>
+      </Button>
+      <Button>
+        <Property name="caption">生成</Property>
       </Button>
       <Button>
         <ClientEvent name="onClick">var action = view.get(&quot;#export2ReportActionResult&quot;);&#xD;
@@ -143,192 +159,160 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
       <Property name="dataSet">dsKqhz</Property>
       <Property name="readOnly">true</Property>
       <Property name="dynaRowHeight">true</Property>
-      <DataColumn>
+      <DataColumn name="1">
         <Property name="property">1</Property>
-        <Property name="readOnly">false</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="2">
         <Property name="property">2</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="3">
         <Property name="property">3</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="4">
         <Property name="property">4</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="5">
         <Property name="property">5</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="6">
         <Property name="property">6</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="7">
         <Property name="property">7</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="8">
         <Property name="property">8</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="9">
         <Property name="property">9</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="10">
         <Property name="property">10</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="11">
         <Property name="property">11</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="12">
         <Property name="property">12</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="13">
         <Property name="property">13</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="14">
         <Property name="property">14</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="15">
         <Property name="property">15</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="16">
         <Property name="property">16</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="17">
         <Property name="property">17</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="18">
         <Property name="property">18</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="19">
         <Property name="property">19</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="20">
         <Property name="property">20</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="21">
         <Property name="property">21</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="22">
         <Property name="property">22</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="23">
         <Property name="property">23</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="24">
         <Property name="property">24</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="25">
         <Property name="property">25</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="26">
         <Property name="property">26</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="27">
         <Property name="property">27</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="28">
         <Property name="property">28</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="29">
         <Property name="property">29</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="30">
         <Property name="property">30</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
-      <DataColumn>
+      <DataColumn name="31">
         <Property name="property">31</Property>
         <Property name="width">36</Property>
         <Property name="wrappable">true</Property>
-        <Editor/>
       </DataColumn>
     </DataGrid>
     <Export2ReportAction id="export2ReportActionResult">

@@ -34,19 +34,19 @@ public class KqglService {
 			Map<String, Object> kqxx = null;
 			POIFSFileSystem pfs = new POIFSFileSystem(file.getInputStream());
 			HSSFWorkbook work = new HSSFWorkbook(pfs);
-			int i = work.getSheetIndex("考勤记录");
+			int i = work.getSheetIndex("鑰冨嫟璁板綍");
 			HSSFSheet sheet = work.getSheetAt(i);
 			String kqsj = null;
 			HSSFRow row = sheet.getRow(2);
 			HSSFCell cell = row.getCell(2);
-			// 获取考勤时间
+			// 鑾峰彇鑰冨嫟鏃堕棿
 			if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 				kqsj = cell.getStringCellValue();
 			}
 			row = sheet.getRow(3);
 			int ts = 0;
 			int sjts = 0;
-			// 获取表格最后一天日期
+			// 鑾峰彇琛ㄦ牸鏈�鍚庝竴澶╂棩鏈�
 			for (; ts < row.getLastCellNum(); ts++) {
 				if (row.getCell(ts).getCellType() == HSSFCell.CELL_TYPE_BLANK) {
 					break;
@@ -55,7 +55,7 @@ public class KqglService {
 				}
 			}
 			int kqsjId = kqglDao.saveKqsj(kqsj);
-			// 遍历每个人的信息
+			// 閬嶅巻姣忎釜浜虹殑淇℃伅
 			for (int rownum = 4; rownum <= sheet.getLastRowNum(); rownum += 2) {
 				kqxx = getKqxx(rownum, sheet, sjts);
 				kqglDao.saveKqjl(kqsjId, kqxx);
@@ -85,7 +85,7 @@ public class KqglService {
 		}
 		row = sheet.getRow(rownum + 1);
 		int ts = 0;
-		// 遍历每天的打表时间
+		// 閬嶅巻姣忓ぉ鐨勬墦琛ㄦ椂闂�
 		for (int cellnum = 0; cellnum < sjts; cellnum++) {
 			cell = row.getCell(cellnum);
 			// if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
@@ -221,6 +221,11 @@ public class KqglService {
 	public List<Map<String, Object>> getKqmx(Map<String, Object> para) {
 		// TODO Auto-generated method stub
 		return kqglDao.getKqmx(para);
+	}
+
+	public String bulidKqhz(Map<String, Object> para) {
+		// TODO Auto-generated method stub
+		return kqglDao.bulidKqhz(para);
 	}
 
 }
