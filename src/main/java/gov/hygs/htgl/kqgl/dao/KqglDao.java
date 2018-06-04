@@ -443,8 +443,82 @@ public class KqglDao extends BaseJdbcDao {
 
 	public String bulidKqhz(Map<String, Object> para) {
 		// TODO Auto-generated method stub
-		this.jdbcTemplate.execute("call kqhz()");
+		Integer id = (Integer) para.get("id");
+		this.jdbcTemplate.execute("call kqhz('"+id+"')");
 		return "ok";
+	}
+
+	public void updateKqhz(Map<String, Object> sp) {
+		// TODO Auto-generated method stub
+		List<Object> args = new ArrayList<Object>();
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append(" 	update xt_kq_kqhz set 1t = ?, ");
+		sql.append(" 		2t = ?, ");
+		sql.append(" 	3t = ?, ");
+		sql.append(" 		4t = ?, ");
+		sql.append(" 5t = ?, ");
+		sql.append(" 6t = ?, ");
+		sql.append(" 7t = ?, ");
+		sql.append(" 8t = ?, ");
+		sql.append(" 	9t = ?, ");
+		sql.append(" 	10t = ?, ");
+		sql.append(" 		11t = ?, ");
+		sql.append(" 		12t = ?, ");
+		sql.append(" 		13t = ?, ");
+		sql.append(" 	14t = ?, ");
+		sql.append(" 		15t = ?, ");
+		sql.append(" 	16t = ?, ");
+		sql.append(" 	17t = ?, ");
+		sql.append(" 	18t = ?, ");
+		sql.append(" 	19t = ?, ");
+		sql.append(" 	20t = ?, ");
+		sql.append(" 	21t = ?, ");
+		sql.append(" 	22t = ?, ");
+		sql.append(" 	23t = ?, ");
+		sql.append(" 	24t = ?, ");
+		sql.append(" 	25t = ?, ");
+		sql.append(" 	26t = ?, ");
+		sql.append(" 	27t = ?, ");
+		sql.append(" 		28t = ?, ");
+		sql.append(" 	29t = ?, ");
+		sql.append(" 	30t = ?, ");
+		sql.append(" 	31t = ? where lx = ? and id =? and gh = ?  ");
+		args.add(sp.get("1t"));
+		args.add(sp.get("2t"));
+		args.add(sp.get("3t"));
+		args.add(sp.get("4t"));
+		args.add(sp.get("5t"));
+		args.add(sp.get("6t"));
+		args.add(sp.get("7t"));
+		args.add(sp.get("8t"));
+		args.add(sp.get("9t"));
+		args.add(sp.get("10t"));
+		args.add(sp.get("11t"));
+		args.add(sp.get("12t"));
+		args.add(sp.get("13t"));
+		args.add(sp.get("14t"));
+		args.add(sp.get("15t"));
+		args.add(sp.get("16t"));
+		args.add(sp.get("17t"));
+		args.add(sp.get("18t"));
+		args.add(sp.get("19t"));
+		args.add(sp.get("20t"));
+		args.add(sp.get("21t"));
+		args.add(sp.get("22t"));
+		args.add(sp.get("23t"));
+		args.add(sp.get("24t"));
+		args.add(sp.get("25t"));
+		args.add(sp.get("26t"));
+		args.add(sp.get("27t"));
+		args.add(sp.get("28t"));
+		args.add(sp.get("29t"));
+		args.add(sp.get("30t"));
+		args.add(sp.get("31t"));
+		args.add(sp.get("lx"));
+		args.add(sp.get("id"));
+		args.add(sp.get("gh"));
+		this.jdbcTemplate.update(sql.toString(), args.toArray());
 	}
 
 

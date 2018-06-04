@@ -3,7 +3,6 @@ package gov.hygs.htgl.kqgl.service;
 import gov.hygs.htgl.kqgl.dao.KqglDao;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +17,8 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.springframework.stereotype.Service;
 
+import com.bstek.dorado.data.entity.EntityState;
+import com.bstek.dorado.data.entity.EntityUtils;
 import com.bstek.dorado.uploader.UploadFile;
 
 @Service
@@ -226,6 +227,16 @@ public class KqglService {
 	public String bulidKqhz(Map<String, Object> para) {
 		// TODO Auto-generated method stub
 		return kqglDao.bulidKqhz(para);
+	}
+
+	public void updateKqhz(List<Map<String, Object>> list) {
+		// TODO Auto-generated method stub
+		for (Map<String, Object> sp : list) {
+			Integer id = null;
+			if (EntityUtils.getState(sp).equals(EntityState.MODIFIED)) {
+				kqglDao.updateKqhz(sp);
+			}
+		}
 	}
 
 }

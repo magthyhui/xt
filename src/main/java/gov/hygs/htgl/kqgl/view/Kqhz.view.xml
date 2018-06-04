@@ -7,37 +7,37 @@
       <PropertyDef name="gh"/>
       <PropertyDef name="id"/>
       <PropertyDef name="lx"/>
-      <PropertyDef name="1"/>
-      <PropertyDef name="2"/>
-      <PropertyDef name="3"/>
-      <PropertyDef name="4"/>
-      <PropertyDef name="5"/>
-      <PropertyDef name="6"/>
-      <PropertyDef name="7"/>
-      <PropertyDef name="8"/>
-      <PropertyDef name="9"/>
-      <PropertyDef name="10"/>
-      <PropertyDef name="11"/>
-      <PropertyDef name="12"/>
-      <PropertyDef name="13"/>
-      <PropertyDef name="14"/>
-      <PropertyDef name="15"/>
-      <PropertyDef name="16"/>
-      <PropertyDef name="17"/>
-      <PropertyDef name="18"/>
-      <PropertyDef name="19"/>
-      <PropertyDef name="20"/>
-      <PropertyDef name="21"/>
-      <PropertyDef name="22"/>
-      <PropertyDef name="23"/>
-      <PropertyDef name="24"/>
-      <PropertyDef name="25"/>
-      <PropertyDef name="26"/>
-      <PropertyDef name="27"/>
-      <PropertyDef name="28"/>
-      <PropertyDef name="29"/>
-      <PropertyDef name="30"/>
-      <PropertyDef name="31"/>
+      <PropertyDef name="1t"/>
+      <PropertyDef name="2t"/>
+      <PropertyDef name="3t"/>
+      <PropertyDef name="4t"/>
+      <PropertyDef name="5t"/>
+      <PropertyDef name="6t"/>
+      <PropertyDef name="7t"/>
+      <PropertyDef name="8t"/>
+      <PropertyDef name="9t"/>
+      <PropertyDef name="10t"/>
+      <PropertyDef name="11t"/>
+      <PropertyDef name="12t"/>
+      <PropertyDef name="13t"/>
+      <PropertyDef name="14t"/>
+      <PropertyDef name="15t"/>
+      <PropertyDef name="16t"/>
+      <PropertyDef name="17t"/>
+      <PropertyDef name="18t"/>
+      <PropertyDef name="19t"/>
+      <PropertyDef name="20t"/>
+      <PropertyDef name="21t"/>
+      <PropertyDef name="22t"/>
+      <PropertyDef name="23t"/>
+      <PropertyDef name="24t"/>
+      <PropertyDef name="25t"/>
+      <PropertyDef name="26t"/>
+      <PropertyDef name="27t"/>
+      <PropertyDef name="28t"/>
+      <PropertyDef name="29t"/>
+      <PropertyDef name="30t"/>
+      <PropertyDef name="31t"/>
       <PropertyDef name="hj">
         <Property name="label">合计</Property>
       </PropertyDef>
@@ -112,10 +112,11 @@ self.insert();&#xD;
     </DataSetDropDown>
     <AjaxAction id="ajaxAction1">
       <Property name="service">kqglController#bulidKqhz</Property>
+      <Property name="successMessage">执行成功</Property>
     </AjaxAction>
     <AutoForm>
       <Property name="dataSet">dsCondition</Property>
-      <Property name="cols">*,*,*,*</Property>
+      <Property name="cols">*,*,*,*,*</Property>
       <Property name="labelWidth">100</Property>
       <AutoFormElement>
         <Property name="name">sj</Property>
@@ -135,6 +136,18 @@ if(sj==null||sj==&quot;&quot;){&#xD;
         <Property name="caption">查询</Property>
       </Button>
       <Button>
+        <ClientEvent name="onClick">view.get(&quot;#dialogKqhz&quot;).show();&#xD;
+</ClientEvent>
+        <Property name="caption">修改</Property>
+      </Button>
+      <Button>
+        <ClientEvent name="onClick">var dsCondition = view.get(&quot;#dsCondition&quot;).getData(&quot;#&quot;);&#xD;
+var sj = dsCondition.get(&quot;sj&quot;);&#xD;
+if(sj==null||sj==&quot;&quot;){&#xD;
+	dorado.MessageBox.alert(&quot;时间不能为空&quot;);&#xD;
+}else{&#xD;
+	view.get(&quot;#ajaxAction1&quot;).set(&quot;parameter&quot;,dsCondition).execute();&#xD;
+}</ClientEvent>
         <Property name="caption">生成</Property>
       </Button>
       <Button>
@@ -159,160 +172,160 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
       <Property name="dataSet">dsKqhz</Property>
       <Property name="readOnly">true</Property>
       <Property name="dynaRowHeight">true</Property>
-      <DataColumn name="1">
-        <Property name="property">1</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="1t">
+        <Property name="property">1t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="2">
-        <Property name="property">2</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="2t">
+        <Property name="property">2t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="3">
-        <Property name="property">3</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="3t">
+        <Property name="property">3t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="4">
-        <Property name="property">4</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="4t">
+        <Property name="property">4t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="5">
-        <Property name="property">5</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="5t">
+        <Property name="property">5t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="6">
-        <Property name="property">6</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="6t">
+        <Property name="property">6t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="7">
-        <Property name="property">7</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="7t">
+        <Property name="property">7t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="8">
-        <Property name="property">8</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="8t">
+        <Property name="property">8t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="9">
-        <Property name="property">9</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="9t">
+        <Property name="property">9t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="10">
-        <Property name="property">10</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="10t">
+        <Property name="property">10t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="11">
-        <Property name="property">11</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="11t">
+        <Property name="property">11t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="12">
-        <Property name="property">12</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="12t">
+        <Property name="property">12t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="13">
-        <Property name="property">13</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="13t">
+        <Property name="property">13t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="14">
-        <Property name="property">14</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="14t">
+        <Property name="property">14t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="15">
-        <Property name="property">15</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="15t">
+        <Property name="property">15t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="16">
-        <Property name="property">16</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="16t">
+        <Property name="property">16t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="17">
-        <Property name="property">17</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="17t">
+        <Property name="property">17t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="18">
-        <Property name="property">18</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="18t">
+        <Property name="property">18t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="19">
-        <Property name="property">19</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="19t">
+        <Property name="property">19t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="20">
-        <Property name="property">20</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="20t">
+        <Property name="property">20t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="21">
-        <Property name="property">21</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="21t">
+        <Property name="property">21t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="22">
-        <Property name="property">22</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="22t">
+        <Property name="property">22t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="23">
-        <Property name="property">23</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="23t">
+        <Property name="property">23t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="24">
-        <Property name="property">24</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="24t">
+        <Property name="property">24t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="25">
-        <Property name="property">25</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="25t">
+        <Property name="property">25t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="26">
-        <Property name="property">26</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="26t">
+        <Property name="property">26t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="27">
-        <Property name="property">27</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="27t">
+        <Property name="property">27t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="28">
-        <Property name="property">28</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="28t">
+        <Property name="property">28t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="29">
-        <Property name="property">29</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="29t">
+        <Property name="property">29t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="30">
-        <Property name="property">30</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="30t">
+        <Property name="property">30t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
-      <DataColumn name="31">
-        <Property name="property">31</Property>
-        <Property name="width">36</Property>
+      <DataColumn name="31t">
+        <Property name="property">31t</Property>
         <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
       </DataColumn>
     </DataGrid>
     <Export2ReportAction id="export2ReportActionResult">
@@ -320,5 +333,191 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
       <Property name="template">dataGridResult</Property>
       <Property name="maxSize">10000</Property>
     </Export2ReportAction>
+    <Dialog id="dialogKqhz">
+      <Property name="width">700</Property>
+      <Property name="height">400</Property>
+      <Buttons>
+        <Button>
+          <Property name="caption">提交</Property>
+          <Property name="action">updateAction1</Property>
+        </Button>
+        <Button>
+          <ClientEvent name="onClick">view.get(&quot;#dsKqhz&quot;).getData(&quot;#&quot;).cancel();&#xD;
+view.get(&quot;#dialogKqhz&quot;).hide();&#xD;
+</ClientEvent>
+          <Property name="caption">取消</Property>
+        </Button>
+      </Buttons>
+      <Children>
+        <AutoForm>
+          <Property name="dataSet">dsKqhz</Property>
+          <Property name="cols">*,*,*,*</Property>
+          <AutoFormElement>
+            <Property name="name">1t</Property>
+            <Property name="property">1t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">2t</Property>
+            <Property name="property">2t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">3t</Property>
+            <Property name="property">3t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">4t</Property>
+            <Property name="property">4t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">5t</Property>
+            <Property name="property">5t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">6t</Property>
+            <Property name="property">6t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">7t</Property>
+            <Property name="property">7t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">8t</Property>
+            <Property name="property">8t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">9t</Property>
+            <Property name="property">9t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">10t</Property>
+            <Property name="property">10t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">11t</Property>
+            <Property name="property">11t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">12t</Property>
+            <Property name="property">12t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">13t</Property>
+            <Property name="property">13t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">14t</Property>
+            <Property name="property">14t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">15t</Property>
+            <Property name="property">15t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">16t</Property>
+            <Property name="property">16t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">17t</Property>
+            <Property name="property">17t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">18t</Property>
+            <Property name="property">18t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">19t</Property>
+            <Property name="property">19t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">20t</Property>
+            <Property name="property">20t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">21t</Property>
+            <Property name="property">21t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">22t</Property>
+            <Property name="property">22t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">23t</Property>
+            <Property name="property">23t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">24t</Property>
+            <Property name="property">24t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">25t</Property>
+            <Property name="property">25t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">26t</Property>
+            <Property name="property">26t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">27t</Property>
+            <Property name="property">27t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">28t</Property>
+            <Property name="property">28t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">29t</Property>
+            <Property name="property">29t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">30t</Property>
+            <Property name="property">30t</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">31t</Property>
+            <Property name="property">31t</Property>
+            <Editor/>
+          </AutoFormElement>
+        </AutoForm>
+      </Children>
+      <Tools/>
+    </Dialog>
+    <UpdateAction id="updateAction1">
+      <ClientEvent name="onSuccess">view.get(&quot;#dialogKqhz&quot;).hide();&#xD;
+	view.get(&quot;#dsKqhz&quot;).flushAsync();</ClientEvent>
+      <Property name="dataResolver">kqglController#updateKqhz</Property>
+      <UpdateItem>
+        <Property name="dataSet">dsKqhz</Property>
+      </UpdateItem>
+    </UpdateAction>
   </View>
 </ViewConfig>

@@ -1,5 +1,6 @@
 package gov.hygs.htgl.kqgl.controller;
 
+import gov.hygs.htgl.dz.entity.Ddxx;
 import gov.hygs.htgl.kqgl.service.KqglService;
 import gov.hygs.htgl.utils.excel.TkcjTableExcelToList;
 import gov.hygs.htgl.utils.excel.entity.TkcjTable;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bstek.dorado.annotation.DataProvider;
+import com.bstek.dorado.annotation.DataResolver;
 import com.bstek.dorado.annotation.Expose;
 import com.bstek.dorado.uploader.UploadFile;
 import com.bstek.dorado.uploader.annotation.FileResolver;
@@ -87,4 +89,9 @@ public class KqglController {
 		return kqglService.updateSj(para);
 	}
 	
+	@DataResolver
+	@Transactional
+	public void updateKqhz(List<Map<String,Object>> list) {
+		kqglService.updateKqhz(list);
+	}
 }
