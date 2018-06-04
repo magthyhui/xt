@@ -2,3 +2,5 @@ target*
 *.class
 .settings*
 src/main/webapp/WEB-INF/dorado-home/configure.properties
+*.class
+*.class

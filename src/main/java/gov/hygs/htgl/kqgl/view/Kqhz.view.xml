@@ -7,37 +7,99 @@
       <PropertyDef name="gh"/>
       <PropertyDef name="id"/>
       <PropertyDef name="lx"/>
-      <PropertyDef name="1t"/>
-      <PropertyDef name="2t"/>
-      <PropertyDef name="3t"/>
-      <PropertyDef name="4t"/>
-      <PropertyDef name="5t"/>
-      <PropertyDef name="6t"/>
-      <PropertyDef name="7t"/>
-      <PropertyDef name="8t"/>
-      <PropertyDef name="9t"/>
-      <PropertyDef name="10t"/>
-      <PropertyDef name="11t"/>
-      <PropertyDef name="12t"/>
-      <PropertyDef name="13t"/>
-      <PropertyDef name="14t"/>
-      <PropertyDef name="15t"/>
-      <PropertyDef name="16t"/>
-      <PropertyDef name="17t"/>
-      <PropertyDef name="18t"/>
-      <PropertyDef name="19t"/>
-      <PropertyDef name="20t"/>
-      <PropertyDef name="21t"/>
-      <PropertyDef name="22t"/>
-      <PropertyDef name="23t"/>
-      <PropertyDef name="24t"/>
-      <PropertyDef name="25t"/>
-      <PropertyDef name="26t"/>
-      <PropertyDef name="27t"/>
-      <PropertyDef name="28t"/>
-      <PropertyDef name="29t"/>
-      <PropertyDef name="30t"/>
-      <PropertyDef name="31t"/>
+      <PropertyDef name="1t">
+        <Property name="label">1</Property>
+      </PropertyDef>
+      <PropertyDef name="2t">
+        <Property name="label">2</Property>
+      </PropertyDef>
+      <PropertyDef name="3t">
+        <Property name="label">3</Property>
+      </PropertyDef>
+      <PropertyDef name="4t">
+        <Property name="label">4</Property>
+      </PropertyDef>
+      <PropertyDef name="5t">
+        <Property name="label">5</Property>
+      </PropertyDef>
+      <PropertyDef name="6t">
+        <Property name="label">6</Property>
+      </PropertyDef>
+      <PropertyDef name="7t">
+        <Property name="label">7</Property>
+      </PropertyDef>
+      <PropertyDef name="8t">
+        <Property name="label">8</Property>
+      </PropertyDef>
+      <PropertyDef name="9t">
+        <Property name="label">9</Property>
+      </PropertyDef>
+      <PropertyDef name="10t">
+        <Property name="label">10</Property>
+      </PropertyDef>
+      <PropertyDef name="11t">
+        <Property name="label">11</Property>
+      </PropertyDef>
+      <PropertyDef name="12t">
+        <Property name="label">12</Property>
+      </PropertyDef>
+      <PropertyDef name="13t">
+        <Property name="label">13</Property>
+      </PropertyDef>
+      <PropertyDef name="14t">
+        <Property name="label">14</Property>
+      </PropertyDef>
+      <PropertyDef name="15t">
+        <Property name="label">15</Property>
+      </PropertyDef>
+      <PropertyDef name="16t">
+        <Property name="label">16</Property>
+      </PropertyDef>
+      <PropertyDef name="17t">
+        <Property name="label">17</Property>
+      </PropertyDef>
+      <PropertyDef name="18t">
+        <Property name="label">18</Property>
+      </PropertyDef>
+      <PropertyDef name="19t">
+        <Property name="label">19</Property>
+      </PropertyDef>
+      <PropertyDef name="20t">
+        <Property name="label">20</Property>
+      </PropertyDef>
+      <PropertyDef name="21t">
+        <Property name="label">21</Property>
+      </PropertyDef>
+      <PropertyDef name="22t">
+        <Property name="label">22</Property>
+      </PropertyDef>
+      <PropertyDef name="23t">
+        <Property name="label">23</Property>
+      </PropertyDef>
+      <PropertyDef name="24t">
+        <Property name="label">24</Property>
+      </PropertyDef>
+      <PropertyDef name="25t">
+        <Property name="label">25</Property>
+      </PropertyDef>
+      <PropertyDef name="26t">
+        <Property name="label">26</Property>
+      </PropertyDef>
+      <PropertyDef name="27t">
+        <Property name="label">27</Property>
+      </PropertyDef>
+      <PropertyDef name="28t">
+        <Property name="label">28</Property>
+      </PropertyDef>
+      <PropertyDef name="29t">
+        <Property name="label">29</Property>
+      </PropertyDef>
+      <PropertyDef name="30t">
+        <Property name="label">30</Property>
+      </PropertyDef>
+      <PropertyDef name="31t">
+        <Property name="label">31</Property>
+      </PropertyDef>
       <PropertyDef name="hj">
         <Property name="label">合计</Property>
       </PropertyDef>
