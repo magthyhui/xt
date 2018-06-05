@@ -404,7 +404,7 @@ dsDdxx.set(&quot;parameter&quot;,{id:id}).flush();	&#xD;
 var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
 if(currentData != undefined){&#xD;
 	dorado.MessageBox.confirm(&quot;是否将当前订单设为已完成？&quot;,function(){&#xD;
-	var id = currentData.get(&quot;id&quot;);&#xD;
+	var id = currentData.get(&quot;mxid&quot;);&#xD;
 	view.get(&quot;#ajaxActionDdzt&quot;).set(&quot;parameter&quot;,{lx:&quot;G&quot;,id:id}).execute();&#xD;
 	view.get(&quot;#dsDd&quot;).flushAsync();&#xD;
 	});	&#xD;
@@ -419,7 +419,7 @@ if(currentData != undefined){&#xD;
 var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
 if(currentData != undefined){&#xD;
 	dorado.MessageBox.confirm(&quot;是否取消当前订单归档状态？&quot;,function(){&#xD;
-	var id = currentData.get(&quot;id&quot;);&#xD;
+	var id = currentData.get(&quot;mxid&quot;);&#xD;
 	view.get(&quot;#ajaxActionDdzt&quot;).set(&quot;parameter&quot;,{lx:&quot;Y&quot;,id:id}).execute();&#xD;
 	view.get(&quot;#dsDd&quot;).flushAsync();&#xD;
 	});	&#xD;
@@ -753,7 +753,8 @@ view.get(&quot;#dsWl&quot;).flushAsync();</ClientEvent>
                     <Property name="icon">url(>skin>common/icons.gif) -140px -0px</Property>
                   </Button>
                   <Button>
-                    <ClientEvent name="onClick">view.get(&quot;#dsChDdxx&quot;).insert();&#xD;
+                    <ClientEvent name="onClick">view.get(&quot;#dsChDd&quot;).flushAsync();&#xD;
+view.get(&quot;#dsChDdxx&quot;).insert();&#xD;
 view.get(&quot;#dialogShdDdxx&quot;).show();&#xD;
 </ClientEvent>
                     <Property name="caption">添加订单产品</Property>

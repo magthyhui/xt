@@ -116,6 +116,24 @@
       <PropertyDef name="wlmc">
         <Property name="label">物料名称</Property>
       </PropertyDef>
+      <PropertyDef name="cdbz">
+        <Property name="mapping">
+          <Property name="mapValues">
+            <Collection>
+              <Entity>
+                <Property name="key">Y</Property>
+                <Property name="value">是</Property>
+              </Entity>
+              <Entity>
+                <Property name="key">N</Property>
+                <Property name="value">否</Property>
+              </Entity>
+            </Collection>
+          </Property>
+        </Property>
+        <Property name="label">已出单</Property>
+        <Property name="defaultValue">Y</Property>
+      </PropertyDef>
     </DataType>
   </Model>
   <View>
@@ -183,7 +201,11 @@ self.insert({&#xD;
         <Property name="property">wlh</Property>
         <Editor/>
       </AutoFormElement>
-      <Label/>
+      <AutoFormElement>
+        <Property name="name">cdbz</Property>
+        <Property name="property">cdbz</Property>
+        <Editor/>
+      </AutoFormElement>
       <Label/>
       <Button>
         <ClientEvent name="onClick">var dsCondition = view.get(&quot;#dsCondition&quot;).getData(&quot;#&quot;);&#xD;

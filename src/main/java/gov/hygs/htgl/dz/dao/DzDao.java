@@ -146,7 +146,13 @@ public class DzDao extends BaseJdbcDao {
 			args.add(sjz);
 		}
 		if(ddzt!=null){
-			sql.append(" and a.yxbz = ? ");
+			if(ddzt.equals("G")){
+				sql.append(" and b.yxbz = ? ");
+			}else if(ddzt.equals("Y")){
+				sql.append(" and a.yxbz = ? and b.yxbz <>'G' ");
+			}else if(ddzt.equals("N")){
+				sql.append(" and a.yxbz = ? ");
+			}
 			args.add(ddzt);
 		}
 		sql.append(" order by a.kh,a.xdrq desc,a.ddh,b.wlh ");
@@ -186,6 +192,7 @@ public class DzDao extends BaseJdbcDao {
 		String ddh = (String) param.get("ddh");
 		String wlh = (String) param.get("wlh");
 		String shdh = (String) param.get("shdh");
+		String cdbz = (String) param.get("cdbz");
 		List<Object> args =new ArrayList<Object>();
 		Date sjq=(Date) param.get("sjq"),sjz=(Date) param.get("sjz");;
 		StringBuffer sql =new StringBuffer("select DATE_FORMAT(a.shrq,'%Y/%m/%d') shrqs,a.*,b.*,d.ddh,FORMAT(c.ddsl*c.dj,2) je,c.dj from  xt_dz_chd a left join xt_dz_chd_mx b on a.id=b.chdid left join xt_dz_ddb_mx c on b.mxid=c.mxid left join xt_dz_ddb d on  c.ddbid=d.id  where a.yxbz ='Y'  ");
@@ -196,6 +203,10 @@ public class DzDao extends BaseJdbcDao {
 		if(lx!=null){
 			sql.append(" and a.lx = ? ");
 			args.add(lx);
+		}
+		if(cdbz!=null){
+			sql.append(" and a.cdbz = ? ");
+			args.add(cdbz);
 		}
 		if(ddh!=null){
 			sql.append(" and d.ddh like ? ");
@@ -275,7 +286,7 @@ public class DzDao extends BaseJdbcDao {
 			sql.append(" and a.kh like ? ");
 			args.add("%"+kh+"%");
 		}
-		sql.append("  and a.yxbz ='Y' order by a.xdrq  ");
+		sql.append("  and a.yxbz='Y' and b.yxbz ='Y' order by a.xdrq  ");
 		return this.jdbcTemplate.queryForList(sql.toString(),args.toArray());
 	}
 
@@ -405,22 +416,22 @@ public class DzDao extends BaseJdbcDao {
 		// TODO Auto-generated method stub
 		String kh = null;
 		List<Object> args =new ArrayList<Object>();
-		StringBuffer sql = new StringBuffer("select * from xt_dz_ddb where 1 = 1 ");
+		StringBuffer sql = new StringBuffer("select * from xt_dz_ddb a where 1 = 1 ");
 		if(param!=null){
 			kh= (String)param.get("kh");
 		}
 		if(kh!=null){
-			sql.append(" and kh like ? ");
+			sql.append(" and a.kh like ? ");
 			args.add("%"+kh+"%");
 		}
-		sql.append("  and yxbz ='Y' order by kh,xdrq ");
+		sql.append("  and a.yxbz ='Y' and exists (select 1 from xt_dz_ddb_mx b where a.id=b.ddbid and b.yxbz='Y' ) order by kh,xdrq ");
 		return this.jdbcTemplate.queryForList(sql.toString(),args.toArray());
 	}
 
 	public List<Map<String, Object>> getChDdMx(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		Integer id = (Integer) param.get("id");
-		String sql = "select a.id ddbid,a.ddh,b.wlh,b.wlmc,b.dw,b.mxid from xt_dz_ddb a left join xt_dz_ddb_mx b on a.id=b.ddbid  where a.id = ? ";
+		String sql = "select a.id ddbid,a.ddh,b.wlh,b.wlmc,b.dw,b.mxid from xt_dz_ddb a left join xt_dz_ddb_mx b on a.id=b.ddbid  where b.yxbz='Y' and a.id = ? ";
 		return this.jdbcTemplate.queryForList(sql,new Object[]{id});
 	}
 
@@ -484,9 +495,17 @@ public class DzDao extends BaseJdbcDao {
 		// TODO Auto-generated method stub
 		String lx= (String)param.get("lx");
 		int id = (Integer) param.get("id");
-		String sql = "update xt_dz_ddb set yxbz = ? where id = ? ";
+		String sql = "update xt_dz_ddb_mx set yxbz = ? where mxid = ? ";
 		this.jdbcTemplate.update(sql, new Object[] {lx,id });
 		
+		return "ok";
+	}
+
+	public String setCd(Map param) {
+		// TODO Auto-generated method stub
+		Integer id = (Integer)param.get("id");
+		String sql = "update xt_dz_chd set cdbz = 'Y' where id = ? ";
+		this.jdbcTemplate.update(sql, new Object[] {id });
 		return "ok";
 	}
 

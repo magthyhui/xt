@@ -273,4 +273,9 @@ public class DzService {
 		// TODO Auto-generated method stub
 		return dzDao.setDdzt(param);
 	}
+
+	public String setCd(Map param) {
+		// TODO Auto-generated method stub
+		return dzDao.setCd(param);
+	}
 }

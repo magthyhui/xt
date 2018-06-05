@@ -444,7 +444,9 @@ if(currentData != undefined){&#xD;
       </Button>
       <Button>
         <ClientEvent name="onClick">var ajaxActionExport =view.get(&quot;#ajaxActionExport&quot;);&#xD;
+var ajaxActionCd =view.get(&quot;#ajaxActionCd&quot;);&#xD;
 var id = view.get(&quot;#dsCh&quot;).getData(&quot;#&quot;).get(&quot;id&quot;);&#xD;
+ajaxActionCd.set(&quot;parameter&quot;,{id:id}).execute();&#xD;
 ajaxActionExport.set(&quot;parameter&quot;,{id:id});&#xD;
 ajaxActionExport.execute(function(fileName){&#xD;
 	window.open($url(&quot;>/dorado/ysyk/ysykffqktjbg.display?fileName=&quot;+fileName),&quot;_self&quot;);&#xD;
@@ -713,6 +715,9 @@ view.get(&quot;#dialogShdxx&quot;).hide();&#xD;
     </AjaxAction>
     <AjaxAction id="ajaxActionZdbh">
       <Property name="service">dzController#getZdbh</Property>
+    </AjaxAction>
+    <AjaxAction id="ajaxActionCd">
+      <Property name="service">dzController#setCd</Property>
     </AjaxAction>
   </View>
 </ViewConfig>

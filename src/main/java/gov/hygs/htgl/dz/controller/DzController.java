@@ -96,6 +96,11 @@ public class DzController {
 	public String exportExcel(Map param) throws Exception {
 		return dzService.exportExcel(param);
 	}
+
+	@Expose
+	public String setCd(Map param) {
+		return dzService.setCd(param);
+	}
 	
 	@DataProvider
 	public void getYhxx(Page page, Map<String, Object> param) {
