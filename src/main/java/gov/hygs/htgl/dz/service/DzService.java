@@ -160,8 +160,12 @@ public class DzService {
 			ImportExcel importExcel = new ImportExcel();
 			Map beans=new HashMap();
 			List shd=new ArrayList();
-			String templateFile = "shd";
 			shd = dzDao.getShd(id);
+			String khjc = (String)((Map<String, Object>) shd.get(0)).get("khjc");
+			String templateFile = "shd";
+			if(khjc.equals("雄狮威")){
+				templateFile="xsw";
+			}
 			beans.put("chd", shd);
 			shd = dzDao.getShdMx(id);
 			beans.put("chdmx", shd);
