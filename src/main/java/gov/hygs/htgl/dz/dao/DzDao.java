@@ -296,20 +296,21 @@ public class DzDao extends BaseJdbcDao {
 
 	public List getShd(Integer id) {
 		// TODO Auto-generated method stub
-		String sql = "select concat('交货地址：',ifnull(b.dz,'惠州市惠台工业区和畅东六路7号')) dz,concat('客户名称：',ifnull(b.kh,'惠州市宏达五金制品有限公司')) kh,concat('联系人：',ifnull(b.lxr,'')) lxr,concat('联系电话:',ifnull(b.dh,'0752-2773399' )) dh ,concat('送货单号：',shdh) shdh,concat('送货日期：',DATE_FORMAT(shrq,'%Y年%m月%d日')) shrq from xt_dz_chd  a left join xt_dz_yhxx b on a.kh=b.khjc where a.id = ? ";
+		String sql = "select b.khjc,concat('交货地址：',ifnull(b.dz,'惠州市惠台工业区和畅东六路7号')) dz,concat('客户名称：',ifnull(b.kh,'惠州市宏达五金制品有限公司')) kh,concat('联系人：',ifnull(b.lxr,'')) lxr,concat('联系电话:',ifnull(b.dh,'0752-2773399' )) dh ,concat('送货单号：',shdh) shdh,concat('送货日期：',DATE_FORMAT(shrq,'%Y年%m月%d日')) shrq from xt_dz_chd  a left join xt_dz_yhxx b on a.kh=b.khjc where a.id = ? ";
 		return this.jdbcTemplate.queryForList(sql,new Object[]{id});
 	}
 
 	public List getShdMx(Integer id) {
 		// TODO Auto-generated method stub
-		StringBuffer sql = new StringBuffer(" select (@i:=@i+1)  xh,d.ddh,ifnull(c.wlh,b.wlh) wlh,ifnull(c.wlmc,b.wlmc) wlmc,ifnull(c.dw,b.dw) dw,b.sl,b.bz  ");
+		StringBuffer sql = new StringBuffer(" select (@i:=@i+1)  xh,d.ddh,ifnull(e.wlh,b.wlh) wlh,ifnull(e.wlmc,b.wlmc) wlmc,ifnull(e.dw,b.dw) dw,b.sl,b.bz,e.ddsl-(select sum(case when c.lx='s' then cm.sl else 0 end )-sum(case when c.lx='t' then cm.sl else 0 end ) sl "); 
+		sql.append(" from xt_dz_chd c,xt_dz_chd_mx cm where c.id=cm.chdid and cm.mxid=e.mxid) wjsl,e.ddsl dgsl  ");
 		sql.append(" from (select   @i:=0)  t2, ");
 		sql.append("  xt_dz_chd a ,xt_dz_chd_mx b ");
 		sql.append(" left join xt_dz_ddb d  on d.id=b.ddbid ");
-		sql.append("  left join xt_dz_ddb_mx c on c.mxid=b.mxid ");
+		sql.append("  left join xt_dz_ddb_mx e on e.mxid=b.mxid ");
 		sql.append("  where  a.id=b.chdid ");
 		sql.append(" and a.id = ? ");
-		sql.append(" order by d.xdrq desc,d.ddh,c.wlh");
+		sql.append(" order by d.xdrq desc,d.ddh,e.wlh");
 		return this.jdbcTemplate.queryForList(sql.toString(),new Object[]{id});
 	}
 
