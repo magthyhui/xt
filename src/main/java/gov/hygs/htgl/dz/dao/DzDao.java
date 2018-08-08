@@ -146,14 +146,18 @@ public class DzDao extends BaseJdbcDao {
 			args.add(sjz);
 		}
 		if(ddzt!=null){
-			if(ddzt.equals("G")){
-				sql.append(" and b.yxbz = ? ");
-			}else if(ddzt.equals("Y")){
-				sql.append(" and a.yxbz = ? and b.yxbz <>'G' ");
-			}else if(ddzt.equals("N")){
-				sql.append(" and a.yxbz = ? ");
+			if(ddzt.equals("A")){
+				sql.append(" and b.yxbz <> 'N' ");
+			}else{
+				if(ddzt.equals("G")){
+					sql.append(" and b.yxbz = ? ");
+				}else if(ddzt.equals("Y")){
+					sql.append(" and a.yxbz = ? and b.yxbz <>'G' ");
+				}else if(ddzt.equals("N")){
+					sql.append(" and a.yxbz = ? ");
+				}
+				args.add(ddzt);
 			}
-			args.add(ddzt);
 		}
 		sql.append(" order by a.kh,a.xdrq desc,a.ddh,b.wlh ");
 		return this.jdbcTemplate.queryForList(sql.toString(),args.toArray());
