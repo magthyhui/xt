@@ -98,7 +98,6 @@
       <PropertyDef name="kqqk">
         <Property name="label">问题时间</Property>
       </PropertyDef>
-      <PropertyDef name="bz"/>
       <PropertyDef name="qj">
         <Property name="label">请假情况</Property>
         <Property name="mapping">
@@ -179,6 +178,27 @@
       </PropertyDef>
       <PropertyDef name="xq">
         <Property name="label">星期</Property>
+      </PropertyDef>
+      <PropertyDef name="bz">
+        <Property name="mapping">
+          <Property name="mapValues">
+            <Collection>
+              <Entity>
+                <Property name="key">SQ</Property>
+                <Property name="value">上午</Property>
+              </Entity>
+              <Entity>
+                <Property name="key">XQ</Property>
+                <Property name="value">下午</Property>
+              </Entity>
+              <Entity>
+                <Property name="key">AQ</Property>
+                <Property name="value">一天</Property>
+              </Entity>
+            </Collection>
+          </Property>
+        </Property>
+        <Property name="label">请假时间</Property>
       </PropertyDef>
     </DataType>
   </Model>
@@ -324,10 +344,18 @@ if(kqbzc == &quot;0&quot;){&#xD;
             <Property name="dataSet">dsKqmx</Property>
           </DataPilot>
           <ToolBarButton>
-            <ClientEvent name="onClick">view.get(&quot;#dialogXg&quot;).show();&#xD;
+            <ClientEvent name="onClick">view.get(&quot;#qjsj&quot;).set(&quot;visible&quot;,false);&#xD;
+view.get(&quot;#dialogXg&quot;).show();&#xD;
 view.get(&quot;#dsKqmx&quot;).getData(&quot;#&quot;).set(&quot;bz&quot;,&quot;B&quot;);&#xD;
 </ClientEvent>
             <Property name="caption">补卡</Property>
+          </ToolBarButton>
+          <ToolBarButton>
+            <ClientEvent name="onClick">view.get(&quot;#qjsj&quot;).set(&quot;visible&quot;,true);&#xD;
+view.get(&quot;#dialogXg&quot;).show();&#xD;
+view.get(&quot;#dsKqmx&quot;).getData(&quot;#&quot;).set(&quot;bz&quot;,&quot;Q&quot;);&#xD;
+</ClientEvent>
+            <Property name="caption">请假</Property>
           </ToolBarButton>
           <ToolBarButton>
             <ClientEvent name="onClick">view.get(&quot;#dialogXg&quot;).show();&#xD;
@@ -370,7 +398,7 @@ view.get(&quot;#dsKqmx&quot;).getData(&quot;#&quot;).set(&quot;bz&quot;,&quot;S&
       <Tools/>
     </Dialog>
     <Dialog id="dialogXg">
-      <Property name="height">30%</Property>
+      <Property name="height">300</Property>
       <Property name="width">60%</Property>
       <Buttons>
         <Button>
@@ -435,6 +463,12 @@ view.get(&quot;#ajaxActionXg&quot;).set(&quot;parameter&quot;,dsKqmx).execute(fu
           <AutoFormElement>
             <Property name="name">ybz</Property>
             <Property name="property">ybz</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement id="qjsj">
+            <Property name="name">bz</Property>
+            <Property name="property">bz</Property>
+            <Property name="visible">false</Property>
             <Editor/>
           </AutoFormElement>
           <AutoFormElement layoutConstraint="colSpan:4">
