@@ -35,7 +35,7 @@ public class KqglService {
 			Map<String, Object> kqxx = null;
 			POIFSFileSystem pfs = new POIFSFileSystem(file.getInputStream());
 			HSSFWorkbook work = new HSSFWorkbook(pfs);
-			int i = work.getSheetIndex("鑰冨嫟璁板綍");
+			int i = work.getSheetIndex("考勤记录");
 			HSSFSheet sheet = work.getSheetAt(i);
 			String kqsj = null;
 			HSSFRow row = sheet.getRow(2);
