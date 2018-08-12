@@ -106,6 +106,27 @@
       <PropertyDef name="sj">
         <Property name="label">迟到合计（小时）</Property>
       </PropertyDef>
+      <PropertyDef name="1jb">
+        <Property name="label">a</Property>
+      </PropertyDef>
+      <PropertyDef name="2jb">
+        <Property name="label">b</Property>
+      </PropertyDef>
+      <PropertyDef name="3jb">
+        <Property name="label">c</Property>
+      </PropertyDef>
+      <PropertyDef name="sbts">
+        <Property name="label">d</Property>
+      </PropertyDef>
+      <PropertyDef name="cf">
+        <Property name="label">e</Property>
+      </PropertyDef>
+      <PropertyDef name="ybbt">
+        <Property name="label">f</Property>
+      </PropertyDef>
+      <PropertyDef name="bz">
+        <Property name="label">g</Property>
+      </PropertyDef>
     </DataType>
     <DataType name="dtCondition">
       <PropertyDef name="sfzm">
@@ -201,6 +222,7 @@ if(sj==null||sj==&quot;&quot;){&#xD;
         <ClientEvent name="onClick">view.get(&quot;#dialogKqhz&quot;).show();&#xD;
 </ClientEvent>
         <Property name="caption">修改</Property>
+        <Property name="visible">false</Property>
       </Button>
       <Button>
         <ClientEvent name="onClick">var dsCondition = view.get(&quot;#dsCondition&quot;).getData(&quot;#&quot;);&#xD;
@@ -386,6 +408,41 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
       </DataColumn>
       <DataColumn name="31t">
         <Property name="property">31t</Property>
+        <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
+      </DataColumn>
+      <DataColumn name="1jb">
+        <Property name="property">1jb</Property>
+        <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
+      </DataColumn>
+      <DataColumn name="2jb">
+        <Property name="property">2jb</Property>
+        <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
+      </DataColumn>
+      <DataColumn name="3jb">
+        <Property name="property">3jb</Property>
+        <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
+      </DataColumn>
+      <DataColumn name="sbts">
+        <Property name="property">sbts</Property>
+        <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
+      </DataColumn>
+      <DataColumn name="cf">
+        <Property name="property">cf</Property>
+        <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
+      </DataColumn>
+      <DataColumn name="ybbt">
+        <Property name="property">ybbt</Property>
+        <Property name="wrappable">true</Property>
+        <Property name="width">36</Property>
+      </DataColumn>
+      <DataColumn name="bz">
+        <Property name="property">bz</Property>
         <Property name="wrappable">true</Property>
         <Property name="width">36</Property>
       </DataColumn>

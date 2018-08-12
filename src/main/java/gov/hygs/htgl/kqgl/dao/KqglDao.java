@@ -202,7 +202,7 @@ public class KqglDao extends BaseJdbcDao {
 		Integer id = (Integer) para.get("id");
 		List<Object> args = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select * from xt_kq_kqhz where id = ? order by cast(gh as SIGNED INTEGER), lx ");
+		sql.append(" select a.* from xt_kq_kqhz a,xt_kqry b where a.gh=b.gh and a.id = ? order by b.bm,cast(b.gh as SIGNED INTEGER),a.lx ");
 		args.add(id);
 		/*sql.append(" select '2' lx, id, gh,  ");
 		sql.append("          MAX(CASE ts WHEN 1 THEN sj ELSE '' END ) '1', ");
@@ -445,6 +445,7 @@ public class KqglDao extends BaseJdbcDao {
 		// TODO Auto-generated method stub
 		Integer id = (Integer) para.get("id");
 		this.jdbcTemplate.execute("call kqhz('"+id+"')");
+		this.jdbcTemplate.execute("call kqhz_jg('"+id+"')");
 		return "ok";
 	}
 
