@@ -119,7 +119,7 @@ public class DzDao extends BaseJdbcDao {
 		String wlmc = (String) param.get("wlmc");
 		List<Object> args =new ArrayList<Object>();
 		Date sjq=(Date) param.get("sjq"),sjz=(Date) param.get("sjz");
-		StringBuffer sql =new StringBuffer("select a.*,b.*,FORMAT(b.ddsl*b.dj,2) je,b.ddsl-(select sum(case when c.lx='s' then cm.sl else 0 end )-sum(case when c.lx='t' then cm.sl else 0 end ) sl from xt_dz_chd c,xt_dz_chd_mx cm where c.id=cm.chdid and cm.mxid=b.mxid) wjsl,(select sum(case when c.lx='s' then cm.sl else 0 end )-sum(case when c.lx='t' then cm.sl else 0 end ) sl from xt_dz_chd c,xt_dz_chd_mx cm where c.id=cm.chdid and cm.mxid=b.mxid) yjsl from xt_dz_ddb a  left join xt_dz_ddb_mx b on a.id=b.ddbid "); 
+		StringBuffer sql =new StringBuffer("select 1 xh,a.*,b.*,FORMAT(b.ddsl*b.dj,2) je,b.ddsl-(select sum(case when c.lx='s' then cm.sl else 0 end )-sum(case when c.lx='t' then cm.sl else 0 end ) sl from xt_dz_chd c,xt_dz_chd_mx cm where c.id=cm.chdid and cm.mxid=b.mxid) wjsl,(select sum(case when c.lx='s' then cm.sl else 0 end )-sum(case when c.lx='t' then cm.sl else 0 end ) sl from xt_dz_chd c,xt_dz_chd_mx cm where c.id=cm.chdid and cm.mxid=b.mxid) yjsl from xt_dz_ddb a  left join xt_dz_ddb_mx b on a.id=b.ddbid "); 
 		sql.append("   where  1= 1  ");
 		if(kh!=null){
 			sql.append(" and a.kh like ? ");
@@ -159,7 +159,47 @@ public class DzDao extends BaseJdbcDao {
 				args.add(ddzt);
 			}
 		}
-		sql.append(" order by a.kh,a.xdrq desc,a.ddh,b.wlh ");
+		sql.append(" union all select 2 xh,null,'合计',null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,FORMAT(sum(b.ddsl*b.dj),2) je,null,null from xt_dz_ddb a  left join xt_dz_ddb_mx b on a.id=b.ddbid ");
+		sql.append("   where  1= 1  ");
+		if(kh!=null){
+			sql.append(" and a.kh like ? ");
+			args.add("%"+kh+"%");
+		}
+		if(ddh!=null){
+			sql.append(" and a.ddh like ? ");
+			args.add("%"+ddh+"%");
+		}
+		if(wlh!=null){
+			sql.append(" and b.wlh like ? ");
+			args.add("%"+wlh+"%");
+		}
+		if(wlmc!=null){
+			sql.append(" and b.wlmc like ? ");
+			args.add("%"+wlmc+"%");
+		}
+		if(sjq!=null){
+			sql.append(" and a.xdrq >= date_format(date(?), '%Y%m%d') ");
+			args.add(sjq);
+		}
+		if(sjz!=null){
+			sql.append(" and a.xdrq <= date_format(date(?), '%Y%m%d')");
+			args.add(sjz);
+		}
+		if(ddzt!=null){
+			if(ddzt.equals("A")){
+				sql.append(" and b.yxbz <> 'N' ");
+			}else{
+				if(ddzt.equals("G")){
+					sql.append(" and b.yxbz = ? ");
+				}else if(ddzt.equals("Y")){
+					sql.append(" and a.yxbz = ? and b.yxbz <>'G' ");
+				}else if(ddzt.equals("N")){
+					sql.append(" and a.yxbz = ? ");
+				}
+				args.add(ddzt);
+			}
+		}
+		sql.append(" order by xh,kh,xdrq desc,ddh,wlh ");
 		return this.jdbcTemplate.queryForList(sql.toString(),args.toArray());
 	}
 
