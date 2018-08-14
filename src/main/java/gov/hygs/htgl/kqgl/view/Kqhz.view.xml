@@ -199,7 +199,7 @@ self.insert();&#xD;
     </AjaxAction>
     <AutoForm>
       <Property name="dataSet">dsCondition</Property>
-      <Property name="cols">*,*,*,*,*</Property>
+      <Property name="cols">*,*,*,*,*,*</Property>
       <Property name="labelWidth">100</Property>
       <AutoFormElement>
         <Property name="name">sj</Property>
@@ -249,7 +249,36 @@ if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
 	action.execute();&#xD;
 }&#xD;
 </ClientEvent>
-        <Property name="caption">导出</Property>
+        <Property name="caption">导出表格</Property>
+      </Button>
+      <Button>
+        <ClientEvent name="onClick">/*var action = view.get(&quot;#export2ReportActionResult&quot;);&#xD;
+&#xD;
+action.doDowloadReport = function(data) {&#xD;
+		var id = data.id;&#xD;
+		var name = data.name;&#xD;
+		if (id &amp;&amp; name) {&#xD;
+			var url = $url(&quot;>dorado/bdf2/export/doDownloadFile?id=&quot; + id + &quot;&amp;name=&quot; + name);&#xD;
+			window.open(url, &quot;_blank&quot;);&#xD;
+		}&#xD;
+};&#xD;
+if(view.get(&quot;#dsKqhz.data:#&quot;)){&#xD;
+	action.execute();&#xD;
+}&#xD;
+*/&#xD;
+var ajaxActionExport =view.get(&quot;#ajaxActionExport&quot;);&#xD;
+var dsCondition = view.get(&quot;#dsCondition&quot;).getData(&quot;#&quot;);&#xD;
+var sj = dsCondition.get(&quot;sj&quot;);&#xD;
+if(sj==null||sj==&quot;&quot;){&#xD;
+	dorado.MessageBox.alert(&quot;时间不能为空&quot;);&#xD;
+}else{&#xD;
+ajaxActionExport.set(&quot;parameter&quot;,dsCondition);&#xD;
+ajaxActionExport.execute(function(fileName){&#xD;
+	window.open($url(&quot;>/dorado/ysyk/ysykffqktjbg.display?fileName=&quot;+fileName+&quot;&amp;lx=kqhz&quot;),&quot;_self&quot;);&#xD;
+});&#xD;
+}&#xD;
+</ClientEvent>
+        <Property name="caption">导出结果</Property>
       </Button>
     </AutoForm>
     <DataGrid id="dataGridResult">
@@ -638,5 +667,10 @@ view.get(&quot;#dialogKqhz&quot;).hide();&#xD;
         <Property name="dataSet">dsKqhz</Property>
       </UpdateItem>
     </UpdateAction>
+    <AjaxAction id="ajaxActionExport">
+      <Property name="service">kqglController#exportExcel</Property>
+      <Property name="executingMessage">正在执行 。。。</Property>
+      <Property name="successMessage">执行成功</Property>
+    </AjaxAction>
   </View>
 </ViewConfig>

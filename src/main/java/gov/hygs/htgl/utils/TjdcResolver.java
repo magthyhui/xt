@@ -20,11 +20,15 @@ public class TjdcResolver extends AbstractResolver {
 	protected ModelAndView doHandleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
+		String mc = "出货单";
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String lx= request.getParameter("lx");
 		String swjgJc =request.getParameter("swjgJc");
 		if(swjgJc!=null){
 			swjgJc =new String(swjgJc.getBytes("iso-8859-1"),"UTF-8");
+		}
+		if(lx!=null&&lx.equals("kqhz")){
+			mc="计算结果";
 		}
 		String fileName = request.getParameter("fileName");
 		//System.out.println(fileName);//GrCtGxz8934724564588283275.xls
@@ -35,7 +39,7 @@ public class TjdcResolver extends AbstractResolver {
 			response.setHeader("pragma", "no-cache");
 			response.setHeader("Cache-Control", "no-cache, must-revalidate");
 			response.setHeader("expires", "0");
-			response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("出货单"+sdf.format(new Date())+".xls", "UTF-8"));
+			response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(mc+sdf.format(new Date())+".xls", "UTF-8"));
 			IOUtils.copyLarge(new FileInputStream(path+File.separator+fileName), response.getOutputStream());
 			response.flushBuffer();
 			return null;

@@ -1,13 +1,17 @@
 package gov.hygs.htgl.kqgl.service;
 
 import gov.hygs.htgl.kqgl.dao.KqglDao;
+import gov.hygs.htgl.utils.excel.ImportExcel;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+
+import net.sf.jxls.exception.ParsePropertyException;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -20,6 +24,7 @@ import org.springframework.stereotype.Service;
 import com.bstek.dorado.data.entity.EntityState;
 import com.bstek.dorado.data.entity.EntityUtils;
 import com.bstek.dorado.uploader.UploadFile;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
 @Service
 public class KqglService {
@@ -166,39 +171,6 @@ public class KqglService {
 		return "no";
 	}
 
-	/*
-	 * int id = (Integer) para.get("mxid"); String bz = (String) para.get("bz");
-	 * String qj = (String) para.get("qj"); String cc = (String) para.get("cc");
-	 * String kg = (String) para.get("kg"); if (qj!=null&&qj.contains("Q")) { if
-	 * (para.get("xs") != null) { qj = qj + para.get("xs"); } return
-	 * kqglDao.updateQj(id, qj); }else if (cc!=null&&cc.contains("W")) { if
-	 * (para.get("xs") != null) { cc = cc + para.get("xs"); } return
-	 * kqglDao.updateQj(id, cc); } else if (kg!=null&&kg.contains("K")) { if
-	 * (para.get("xs") != null) { kg = kg + para.get("xs"); } return
-	 * kqglDao.updateQj(id, kg); } else { Map<String, Object> mx =
-	 * kqglDao.getKqjlmxByid(id); if (mx != null) { if (mx.get("zbq") == null ||
-	 * !((String) mx.get("zbq")).equals((String) para .get("zbq"))) { if
-	 * (para.get("zbq") != null) { mx.put("zbq", (String) para.get("zbq") ); }
-	 * 
-	 * } if (mx.get("zbz") == null || !((String) mx.get("zbz")).equals((String)
-	 * para .get("zbz"))) { if (para.get("zbz") != null) { mx.put("zbz",
-	 * (String) para.get("zbz") ); }
-	 * 
-	 * } if (mx.get("wbq") == null || !((String) mx.get("wbq")).equals((String)
-	 * para .get("wbq"))) { if (para.get("wbq") != null) { mx.put("wbq",
-	 * (String) para.get("wbq") ); } } if (mx.get("wbz") == null || !((String)
-	 * mx.get("wbz")).equals((String) para .get("wbz"))) { if (para.get("wbz")
-	 * != null) { mx.put("wbz", (String) para.get("wbz") ); }
-	 * 
-	 * } if (mx.get("ybq") == null || !((String) mx.get("ybq")).equals((String)
-	 * para .get("ybq"))) { if (para.get("ybq") != null) { mx.put("ybq",
-	 * (String) para.get("ybq") ); }
-	 * 
-	 * } if (mx.get("ybz") == null || !((String) mx.get("ybz")).equals((String)
-	 * para .get("ybz"))) { if (para.get("ybz") != null) { mx.put("ybz",
-	 * (String) para.get("ybz") ); } } mx.put("bz", bz); return
-	 * kqglDao.updateXg(mx); } } return "no";
-	 */
 	public List<Map<String, Object>> getKqAll(Map<String, Object> para) {
 		// TODO Auto-generated method stub
 		return kqglDao.getKqAll(para);
@@ -206,7 +178,7 @@ public class KqglService {
 
 	public List<Map<String, Object>> getKqhz(Map<String, Object> para) {
 		// TODO Auto-generated method stub
-		return kqglDao.getKqhz(para);
+		return kqglDao.getKqhz(para,"cx");
 	}
 
 	public List<Map<String, Object>> getKqwtsj(Map<String, Object> para) {
@@ -237,6 +209,20 @@ public class KqglService {
 				kqglDao.updateKqhz(sp);
 			}
 		}
+	}
+
+	public String exportExcel(Map param) throws InvalidFormatException, ParsePropertyException, org.apache.poi.openxml4j.exceptions.InvalidFormatException, IOException {
+		// TODO Auto-generated method stubString fileName = null;
+		String fileName = null;
+		if(param != null){
+			ImportExcel importExcel = new ImportExcel();
+			Map beans=new HashMap();
+			List kqhz=new ArrayList();
+			kqhz = kqglDao.getKqhz(param,"dc");
+			beans.put("kqhz", kqhz);
+			fileName=importExcel.importExcel(beans, "kqhz");
+		}
+		return fileName;
 	}
 
 }

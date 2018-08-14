@@ -94,4 +94,10 @@ public class KqglController {
 	public void updateKqhz(List<Map<String,Object>> list) {
 		kqglService.updateKqhz(list);
 	}
+	
+	@Expose
+	public String exportExcel(Map param) throws Exception {
+		return kqglService.exportExcel(param);
+	}
+
 }
