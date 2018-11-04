@@ -638,6 +638,10 @@ view.get(&quot;#dialogDdxx&quot;).show();&#xD;
                     <Property name="property">gg</Property>
                     <Property name="width">160</Property>
                   </DataColumn>
+                  <DataColumn name="jhrq">
+                    <Property name="property">jhrq</Property>
+                    <Property name="width">100</Property>
+                  </DataColumn>
                   <DataColumn name="ddsl">
                     <Property name="property">ddsl</Property>
                     <Property name="width">80</Property>
@@ -851,6 +855,11 @@ view.get(&quot;#dialogDdxx&quot;).hide();&#xD;
           <AutoFormElement>
             <Property name="name">gg</Property>
             <Property name="property">gg</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">jhrq</Property>
+            <Property name="property">jhrq</Property>
             <Editor/>
           </AutoFormElement>
           <AutoFormElement>

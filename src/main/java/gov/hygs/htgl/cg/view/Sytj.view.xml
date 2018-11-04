@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+  <Arguments/>
+  <Context/>
+  <Model>
+    <DataType name="dtResult">
+      <PropertyDef name="cplh">
+        <Property name="label">产品料号</Property>
+      </PropertyDef>
+      <PropertyDef name="wlmc">
+        <Property name="label">物料名称</Property>
+      </PropertyDef>
+      <PropertyDef name="sy">
+        <Property name="label">剩余数量</Property>
+      </PropertyDef>
+    </DataType>
+    <DataType name="dtCondition"/>
+  </Model>
+  <View>
+    <DataSet id="dsResult">
+      <Property name="dataProvider">cgController#getSytj</Property>
+      <Property name="dataType">[dtResult]</Property>
+      <Property name="loadMode">lazy</Property>
+    </DataSet>
+    <DataSet id="dsCondition">
+      <ClientEvent name="onReady">var now = new Date();&#xD;
+var y = now.getFullYear();&#xD;
+var m = now.getMonth();&#xD;
+var sjq = now.setFullYear(y,m,1);&#xD;
+var sjz = now.setFullYear(y,m+1,1);&#xD;
+sjz= new Date((sjz/1000-86400)*1000)&#xD;
+&#xD;
+self.insert({&#xD;
+	sjq:sjq,&#xD;
+	sjz:sjz&#xD;
+});&#xD;
+</ClientEvent>
+      <Property name="dataType">dtCondition</Property>
+    </DataSet>
+    <DataGrid id="dataGridResult">
+      <Property name="dataSet">dsResult</Property>
+      <Property name="readOnly">true</Property>
+      <Property name="dynaRowHeight">true</Property>
+      <DataColumn name="cplh">
+        <Property name="property">cplh</Property>
+      </DataColumn>
+      <DataColumn name="wlmc">
+        <Property name="property">wlmc</Property>
+      </DataColumn>
+      <DataColumn name="sy">
+        <Property name="property">sy</Property>
+      </DataColumn>
+    </DataGrid>
+  </View>
+</ViewConfig>

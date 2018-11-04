@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+  <Arguments/>
+  <Context/>
+  <Model>
+    <DataType name="dtCgd">
+      <Property name="creationType">gov.hygs.htgl.dz.entity.Cgd</Property>
+      <PropertyDef name="id">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="cgdh">
+        <Property></Property>
+        <Property name="label">采购单号</Property>
+      </PropertyDef>
+      <PropertyDef name="jhrq">
+        <Property name="dataType">Date</Property>
+        <Property name="label">交货日期</Property>
+      </PropertyDef>
+      <Reference name="cgdMxs">
+        <Property name="dataType">[dtCgdMx]</Property>
+        <Property name="parameter">
+          <Entity>
+            <Property name="id">$${this.id}</Property>
+          </Entity>
+        </Property>
+      </Reference>
+    </DataType>
+    <DataType name="dtCgdMx">
+      <Property name="creationType">gov.hygs.htgl.dz.entity.CgdMx</Property>
+      <PropertyDef name="cgmxid">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="cgxxmxid">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="cgxxid">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="cgdid">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="dddh">
+        <Property></Property>
+        <Property name="label">订单单号</Property>
+      </PropertyDef>
+      <PropertyDef name="cplh">
+        <Property></Property>
+        <Property name="label">产品料号</Property>
+      </PropertyDef>
+      <PropertyDef name="wlmc">
+        <Property></Property>
+        <Property name="label">物料名称</Property>
+      </PropertyDef>
+      <PropertyDef name="sl">
+        <Property name="dataType">Integer</Property>
+        <Property name="label">数量</Property>
+      </PropertyDef>
+      <PropertyDef name="bz">
+        <Property></Property>
+        <Property name="label">备注</Property>
+      </PropertyDef>
+    </DataType>
+    <DataType name="dtCh">
+      <PropertyDef name="id">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="cgdh">
+        <Property></Property>
+        <Property name="label">采购单号</Property>
+      </PropertyDef>
+      <PropertyDef name="jhrq">
+        <Property name="dataType">Date</Property>
+        <Property name="label">交货日期</Property>
+      </PropertyDef>
+      <PropertyDef name="cgmxid">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="cgxxmxid">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="cgxxid">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="cgdid">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="dddh">
+        <Property></Property>
+        <Property name="label">订单单号</Property>
+      </PropertyDef>
+      <PropertyDef name="cplh">
+        <Property></Property>
+        <Property name="label">产品料号</Property>
+      </PropertyDef>
+      <PropertyDef name="wlmc">
+        <Property></Property>
+        <Property name="label">物料名称</Property>
+      </PropertyDef>
+      <PropertyDef name="kh">
+        <Property name="label">客户</Property>
+      </PropertyDef>
+      <PropertyDef name="sl">
+        <Property name="dataType">Integer</Property>
+        <Property name="label">数量</Property>
+      </PropertyDef>
+      <PropertyDef name="bz">
+        <Property></Property>
+        <Property name="label">备注</Property>
+      </PropertyDef>
+    </DataType>
+    <DataType name="dtDdxx">
+      <Property name="creationType">gov.hygs.htgl.dz.entity.Ddxx</Property>
+      <PropertyDef name="id">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="kh">
+        <Property></Property>
+        <Property name="label">客户</Property>
+      </PropertyDef>
+      <PropertyDef name="ddh">
+        <Property></Property>
+        <Property name="label">订单编号</Property>
+      </PropertyDef>
+      <PropertyDef name="xdrq">
+        <Property name="dataType">Date</Property>
+        <Property name="label">下单日期</Property>
+      </PropertyDef>
+      <Reference name="ddxxMxs">
+        <Property name="dataType">[dtDdxxMx]</Property>
+        <Property name="dataProvider">dzController#getDdxxMx</Property>
+        <Property name="parameter">
+          <Entity>
+            <Property name="id">$${this.id}</Property>
+          </Entity>
+        </Property>
+      </Reference>
+      <PropertyDef name="shdh">
+        <Property name="label">送货单号</Property>
+      </PropertyDef>
+      <PropertyDef name="shrq">
+        <Property name="dataType">Date</Property>
+        <Property name="label">送货日期</Property>
+      </PropertyDef>
+      <PropertyDef name="lx"/>
+      <Reference name="chdxxMxs">
+        <Property name="dataType">[dtDdxxMx]</Property>
+        <Property name="dataProvider">dzController#getCgdMx</Property>
+        <Property name="parameter">
+          <Entity>
+            <Property name="id">$${this.id}</Property>
+          </Entity>
+        </Property>
+      </Reference>
+    </DataType>
+    <DataType name="dtDdxxMx">
+      <Property name="creationType">gov.hygs.htgl.dz.entity.DdxxMx</Property>
+      <PropertyDef name="mxid">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="ddbid">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="wlh">
+        <Property></Property>
+        <Property name="label">物料编号</Property>
+      </PropertyDef>
+      <PropertyDef name="wlmc">
+        <Property></Property>
+        <Property name="label">物料名称</Property>
+      </PropertyDef>
+      <PropertyDef name="cz">
+        <Property></Property>
+        <Property name="label">材质</Property>
+      </PropertyDef>
+      <PropertyDef name="clgg">
+        <Property></Property>
+        <Property name="label">材料规格</Property>
+      </PropertyDef>
+      <PropertyDef name="jhrq">
+        <Property></Property>
+        <Property name="label">交货日期</Property>
+      </PropertyDef>
+      <PropertyDef name="ddsl">
+        <Property name="dataType">Integer</Property>
+        <Property name="label">订单数量</Property>
+      </PropertyDef>
+      <PropertyDef name="hyjq">
+        <Property></Property>
+        <Property name="label">回应交期</Property>
+      </PropertyDef>
+      <PropertyDef name="dj">
+        <Property name="dataType">Double</Property>
+        <Property name="label">单价</Property>
+      </PropertyDef>
+      <PropertyDef name="bz">
+        <Property></Property>
+        <Property name="label">备注</Property>
+      </PropertyDef>
+      <PropertyDef name="je">
+        <Property name="dataType">String</Property>
+        <Property name="label">金额</Property>
+      </PropertyDef>
+      <PropertyDef name="dw">
+        <Property name="label">单位</Property>
+      </PropertyDef>
+      <PropertyDef name="sl">
+        <Property name="label">数量</Property>
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="ddh">
+        <Property></Property>
+        <Property name="label">订单编号</Property>
+      </PropertyDef>
+      <PropertyDef name="gg">
+        <Property></Property>
+      </PropertyDef>
+      <PropertyDef name="chmxid">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="chdid">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+    </DataType>
+    <DataType name="dtWl">
+      <PropertyDef name="id">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="ddh">
+        <Property></Property>
+        <Property name="label">订单编号</Property>
+      </PropertyDef>
+      <PropertyDef name="wlh">
+        <Property></Property>
+        <Property name="label">物料编号</Property>
+      </PropertyDef>
+      <PropertyDef name="wlmc">
+        <Property></Property>
+        <Property name="label">物料名称</Property>
+      </PropertyDef>
+      <PropertyDef name="dw">
+        <Property name="label">单位</Property>
+      </PropertyDef>
+      <PropertyDef name="sy">
+        <Property name="label">未交数量</Property>
+      </PropertyDef>
+      <PropertyDef name="mxid"/>
+    </DataType>
+    <DataType name="dtCondition">
+      <PropertyDef name="kh">
+        <Property name="label">客户</Property>
+      </PropertyDef>
+      <PropertyDef name="sjq">
+        <Property name="dataType">Date</Property>
+        <Property name="label">送货时间起</Property>
+      </PropertyDef>
+      <PropertyDef name="sjz">
+        <Property name="dataType">Date</Property>
+        <Property name="label">送货时间止</Property>
+      </PropertyDef>
+      <PropertyDef name="shdh">
+        <Property name="label">送货单号</Property>
+      </PropertyDef>
+      <PropertyDef name="ddh">
+        <Property name="label">订单号</Property>
+      </PropertyDef>
+      <PropertyDef name="wlh">
+        <Property name="label">物料号</Property>
+      </PropertyDef>
+    </DataType>
+  </Model>
+  <View>
+    <ClientEvent name="onCreate">window.showCgd = function(id){&#xD;
+	view.get(&quot;#dsCgd&quot;).set(&quot;parameter&quot;,{&#xD;
+		id:id&#xD;
+	}).flushAsync();&#xD;
+	view.get(&quot;#dialogCgd&quot;).show();&#xD;
+}</ClientEvent>
+    <DataSet id="dsCh">
+      <Property name="dataType">[dtCh]</Property>
+      <Property name="dataProvider">dzController#getCh</Property>
+      <Property name="loadMode">manual</Property>
+    </DataSet>
+    <DataSet id="dsDdxx">
+      <Property name="dataType">[dtDdxx]</Property>
+      <Property name="loadMode">manual</Property>
+      <Property name="dataProvider">dzController#getDdxx</Property>
+    </DataSet>
+    <DataSet id="dsCondition">
+      <ClientEvent name="onReady">var day2 = new Date();&#xD;
+ day2.setTime(day2.getTime());&#xD;
+console.log(day2)&#xD;
+self.insert({sjq:day2,sjz:day2});&#xD;
+var dsCondition = view.get(&quot;#dsCondition&quot;).getData(&quot;#&quot;);&#xD;
+view.get(&quot;#dsCh&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync();&#xD;
+</ClientEvent>
+      <Property name="dataType">dtCondition</Property>
+    </DataSet>
+    <DataSet id="dsWl">
+      <Property name="dataType">[dtWl]</Property>
+      <Property name="dataProvider">dzController#getWl</Property>
+      <Property name="loadMode">lazy</Property>
+    </DataSet>
+    <AutoForm>
+      <Property name="dataSet">dsCondition</Property>
+      <Property name="cols">*,*,*</Property>
+      <Property name="labelWidth">100</Property>
+      <AutoFormElement>
+        <Property name="name">kh</Property>
+        <Property name="property">kh</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">sjq</Property>
+        <Property name="property">sjq</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">sjz</Property>
+        <Property name="property">sjz</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">shdh</Property>
+        <Property name="property">shdh</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">ddh</Property>
+        <Property name="property">ddh</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">wlh</Property>
+        <Property name="property">wlh</Property>
+        <Editor/>
+      </AutoFormElement>
+      <Label/>
+      <Label/>
+      <Button>
+        <ClientEvent name="onClick">var dsCondition = view.get(&quot;#dsCondition&quot;).getData(&quot;#&quot;);&#xD;
+view.get(&quot;#dsCh&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync();&#xD;
+</ClientEvent>
+        <Property name="caption">查询</Property>
+      </Button>
+    </AutoForm>
+    <ToolBar>
+      <DataPilot>
+        <Property name="dataSet">dsCh</Property>
+      </DataPilot>
+      <Button>
+        <ClientEvent name="onClick">view.get(&quot;#dialogShd&quot;).show();&#xD;
+var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
+var ajaxActionZdbh = view.get(&quot;#ajaxActionZdbh&quot;)&#xD;
+ajaxActionZdbh.set(&quot;parameter&quot;,{lx:&quot;s&quot;});&#xD;
+ajaxActionZdbh.execute(function(returnValue){&#xD;
+	dsDdxx.insert({&#xD;
+		shdh:returnValue,&#xD;
+		lx:&quot;s&quot;&#xD;
+	});	&#xD;
+})&#xD;
+&#xD;
+</ClientEvent>
+        <Property name="caption">出货单</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
+        <Property name="ignored">true</Property>
+      </Button>
+      <Button>
+        <ClientEvent name="onClick">view.get(&quot;#dialogShd&quot;).show();&#xD;
+var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
+var ajaxActionZdbh = view.get(&quot;#ajaxActionZdbh&quot;)&#xD;
+ajaxActionZdbh.set(&quot;parameter&quot;,{lx:&quot;t&quot;});&#xD;
+ajaxActionZdbh.execute(function(returnValue){&#xD;
+	dsDdxx.insert({&#xD;
+		shdh:returnValue,&#xD;
+		lx:&quot;t&quot;&#xD;
+	});	&#xD;
+})&#xD;
+&#xD;
+</ClientEvent>
+        <Property name="caption">退货单</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
+        <Property name="ignored">true</Property>
+      </Button>
+      <Button>
+        <ClientEvent name="onClick">view.get(&quot;#dialogShd&quot;).show();&#xD;
+var currentData = view.get(&quot;#dsCh&quot;).getData(&quot;#&quot;);&#xD;
+var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
+var id = currentData.get(&quot;id&quot;);&#xD;
+dsDdxx.set(&quot;parameter&quot;,{id:id,lx:'chd'}).flush();	&#xD;
+</ClientEvent>
+        <Property name="caption">修改</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
+      </Button>
+      <Button>
+        <ClientEvent name="onClick">var currentData = view.get(&quot;#dsCh&quot;).getData(&quot;#&quot;);&#xD;
+var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
+if(currentData != undefined){&#xD;
+	dorado.MessageBox.confirm(&quot;删除当前订单数据？&quot;,function(){&#xD;
+	var id = currentData.get(&quot;id&quot;);&#xD;
+	dsDdxx.set(&quot;parameter&quot;,{id:id,lx:'chd'}).flush();&#xD;
+	dsDdxx.getData(&quot;#&quot;).remove();&#xD;
+	view.get(&quot;#updateActionShd&quot;).execute();&#xD;
+	view.get(&quot;#dsCh&quot;).flushAsync();&#xD;
+	});	&#xD;
+}&#xD;
+&#xD;
+</ClientEvent>
+        <Property name="caption">删除</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -140px -0px</Property>
+      </Button>
+      <Button>
+        <ClientEvent name="onClick">var ajaxActionExport =view.get(&quot;#ajaxActionExport&quot;);&#xD;
+var ajaxActionCd =view.get(&quot;#ajaxActionCd&quot;);&#xD;
+var id = view.get(&quot;#dsCh&quot;).getData(&quot;#&quot;).get(&quot;id&quot;);&#xD;
+ajaxActionCd.set(&quot;parameter&quot;,{id:id}).execute();&#xD;
+ajaxActionExport.set(&quot;parameter&quot;,{id:id});&#xD;
+ajaxActionExport.execute(function(fileName){&#xD;
+	window.open($url(&quot;>/dorado/ysyk/ysykffqktjbg.display?fileName=&quot;+fileName),&quot;_self&quot;);&#xD;
+});&#xD;
+</ClientEvent>
+        <Property name="caption">导出出货单</Property>
+      </Button>
+      <Button>
+        <ClientEvent name="onClick">history.go(0)&#xD;
+</ClientEvent>
+        <Property name="caption">刷新</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
+      </Button>
+    </ToolBar>
+    <DataGrid>
+      <Property name="dataSet">dsCh</Property>
+      <Property name="readOnly">true</Property>
+      <DataColumn name="shdh">
+        <Property name="property">shdh</Property>
+        <Property name="width">120</Property>
+      </DataColumn>
+      <DataColumn name="shrq">
+        <Property name="property">shrq</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="ddh">
+        <Property name="property">ddh</Property>
+        <Property name="width">140</Property>
+      </DataColumn>
+      <DataColumn name="kh">
+        <Property name="property">kh</Property>
+        <Property name="width">70</Property>
+      </DataColumn>
+      <DataColumn name="wlh">
+        <Property name="property">wlh</Property>
+        <Property name="width">150</Property>
+      </DataColumn>
+      <DataColumn name="wlmc">
+        <Property name="property">wlmc</Property>
+        <Property name="width">200</Property>
+      </DataColumn>
+      <DataColumn name="sl">
+        <Property name="property">sl</Property>
+        <Property name="width">80</Property>
+      </DataColumn>
+      <DataColumn name="bz">
+        <Property name="property">bz</Property>
+        <Property name="width">120</Property>
+      </DataColumn>
+      <DataColumn name="lx">
+        <Property name="property">lx</Property>
+        <Property name="width">120</Property>
+      </DataColumn>
+    </DataGrid>
+    <Dialog id="dialogShd">
+      <Property name="width">80%</Property>
+      <Property name="height">75%</Property>
+      <Property name="closeable">false</Property>
+      <Buttons/>
+      <Children>
+        <GroupBox layout="hbox pack:center">
+          <Property name="caption">信息</Property>
+          <Buttons>
+            <Button>
+              <ClientEvent name="onClick">var dsDdxx = view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;);&#xD;
+view.get(&quot;#updateActionShd&quot;).execute(function(){&#xD;
+	view.get(&quot;#dialogShd&quot;).hide();&#xD;
+	view.get(&quot;#dsCh&quot;).flushAsync();&#xD;
+	view.get(&quot;#dsDdxx&quot;).set(&quot;parameter&quot;,{id:0}).flushAsync();&#xD;
+});&#xD;
+</ClientEvent>
+              <Property name="caption">提交</Property>
+              <Property name="icon">url(>skin>common/icons.gif) -20px -0px</Property>
+            </Button>
+            <Button>
+              <ClientEvent name="onClick">view.get(&quot;#dialogShd&quot;).close();&#xD;
+view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).cancel();&#xD;
+</ClientEvent>
+              <Property name="caption">取消</Property>
+              <Property name="icon">url(>skin>common/icons.gif) -40px -0px</Property>
+            </Button>
+          </Buttons>
+          <Children>
+            <AutoForm id="autoForm2">
+              <Property name="dataSet">dsDdxx</Property>
+              <Property name="width">95%</Property>
+              <Property name="cols">*,*</Property>
+              <Property name="readOnly">false</Property>
+              <AutoFormElement layoutConstraint="colSpan:2">
+                <Property name="name">kh</Property>
+                <Property name="property">kh</Property>
+                <Property name="readOnly">false</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">shdh</Property>
+                <Property name="property">shdh</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">shrq</Property>
+                <Property name="property">shrq</Property>
+                <Editor/>
+              </AutoFormElement>
+              <Container layoutConstraint="colSpan:2">
+                <Property name="height">400</Property>
+                <ToolBar>
+                  <Button>
+                    <ClientEvent name="onClick">var dsDdxx = view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;);&#xD;
+dsDdxx.get(&quot;chdxxMxs&quot;).insert();&#xD;
+view.get(&quot;#dsWl&quot;).flushAsync();&#xD;
+view.get(&quot;#dialogShdxx&quot;).show();&#xD;
+</ClientEvent>
+                    <Property name="caption">增加</Property>
+                    <Property name="icon"> url(>skin>common/icons.gif) -120px -0px</Property>
+                  </Button>
+                  <Button>
+                    <ClientEvent name="onClick">view.get(&quot;#dialogShdxx&quot;).show();&#xD;
+&#xD;
+view.get(&quot;#dsWl&quot;).flushAsync();</ClientEvent>
+                    <Property name="caption">修改</Property>
+                    <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
+                  </Button>
+                  <Button>
+                    <ClientEvent name="onClick">	view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).get(&quot;chdxxMxs&quot;).remove();&#xD;
+&#xD;
+</ClientEvent>
+                    <Property name="caption">删除</Property>
+                    <Property name="icon">url(>skin>common/icons.gif) -140px -0px</Property>
+                  </Button>
+                </ToolBar>
+                <DataGrid>
+                  <Property name="dataSet">dsDdxx</Property>
+                  <Property name="dataPath">#.chdxxMxs</Property>
+                  <Property name="readOnly">false</Property>
+                  <DataColumn name="ddh">
+                    <Property name="property">ddh</Property>
+                    <Property name="editable">false</Property>
+                    <Property name="trigger">dataSetDropDown1</Property>
+                    <Property name="width">120</Property>
+                  </DataColumn>
+                  <DataColumn name="wlh">
+                    <Property name="property">wlh</Property>
+                    <Property name="width">120</Property>
+                  </DataColumn>
+                  <DataColumn name="wlmc">
+                    <Property name="property">wlmc</Property>
+                    <Property name="width">120</Property>
+                  </DataColumn>
+                  <DataColumn name="dw">
+                    <Property name="property">dw</Property>
+                    <Property name="width">120</Property>
+                  </DataColumn>
+                  <DataColumn name="sl">
+                    <Property name="property">sl</Property>
+                    <Property name="width">80</Property>
+                  </DataColumn>
+                  <DataColumn name="bz">
+                    <Property name="property">bz</Property>
+                    <Property name="width">120</Property>
+                  </DataColumn>
+                </DataGrid>
+              </Container>
+            </AutoForm>
+          </Children>
+        </GroupBox>
+      </Children>
+      <Tools/>
+    </Dialog>
+    <Dialog id="dialogShdxx">
+      <Property name="height">350</Property>
+      <Property name="width">400</Property>
+      <Property name="closeable">false</Property>
+      <Buttons>
+        <Button>
+          <ClientEvent name="onClick">view.get(&quot;#dialogShdxx&quot;).hide();&#xD;
+</ClientEvent>
+          <Property name="caption">提交</Property>
+          <Property name="icon">url(>skin>common/icons.gif) -20px -0px</Property>
+        </Button>
+        <Button>
+          <ClientEvent name="onClick">view.get(&quot;#dsDdxx&quot;).getData(&quot;#&quot;).get(&quot;chdxxMxs&quot;).remove();&#xD;
+view.get(&quot;#dialogShdxx&quot;).hide();&#xD;
+</ClientEvent>
+          <Property name="caption">取消</Property>
+          <Property name="icon">url(>skin>common/icons.gif) -40px -0px</Property>
+        </Button>
+      </Buttons>
+      <Children>
+        <AutoForm>
+          <Property name="dataSet">dsDdxx</Property>
+          <Property name="width">95%</Property>
+          <Property name="cols">*</Property>
+          <Property name="readOnly">false</Property>
+          <Property name="dataPath">#.#chdxxMxs</Property>
+          <AutoFormElement>
+            <Property name="name">ddh</Property>
+            <Property name="property">ddh</Property>
+            <Property name="editable">false</Property>
+            <Property name="trigger">dataSetDropDown1</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">wlh</Property>
+            <Property name="property">wlh</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">wlmc</Property>
+            <Property name="property">wlmc</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">dw</Property>
+            <Property name="property">dw</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">sl</Property>
+            <Property name="property">sl</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">bz</Property>
+            <Property name="property">bz</Property>
+            <Editor/>
+          </AutoFormElement>
+        </AutoForm>
+      </Children>
+      <Tools/>
+    </Dialog>
+    <UpdateAction id="updateActionShd">
+      <Property name="dataResolver">dzController#insertShd</Property>
+      <UpdateItem>
+        <Property name="dataSet">dsDdxx</Property>
+        <Property name="dataPath">!DIRTY_TREE</Property>
+      </UpdateItem>
+    </UpdateAction>
+    <DataSetDropDown id="dataSetDropDown1">
+      <Property name="dataSet">dsWl</Property>
+      <Property name="assignmentMap">ddbid=id;ddh=ddh;wlh=wlh;wlmc=wlmc;dw=dw;mxid=mxid</Property>
+      <Property name="width">450</Property>
+      <Property name="filterOnOpen">false</Property>
+      <Property name="dynaFilter">false</Property>
+      <Property name="autoOpen">false</Property>
+      <DataColumn name="ddh">
+        <Property name="property">ddh</Property>
+      </DataColumn>
+      <DataColumn name="wlh">
+        <Property name="property">wlh</Property>
+      </DataColumn>
+      <DataColumn name="wlmc">
+        <Property name="property">wlmc</Property>
+      </DataColumn>
+      <DataColumn name="dw">
+        <Property name="property">dw</Property>
+      </DataColumn>
+      <DataColumn name="sy">
+        <Property name="property">sy</Property>
+      </DataColumn>
+    </DataSetDropDown>
+    <AjaxAction id="ajaxActionExport">
+      <Property name="service">dzController#exportExcel</Property>
+      <Property name="executingMessage">正在执行 。。。</Property>
+      <Property name="successMessage">执行成功</Property>
+    </AjaxAction>
+    <AjaxAction id="ajaxActionZdbh">
+      <Property name="service">dzController#getZdbh</Property>
+    </AjaxAction>
+    <AjaxAction id="ajaxActionCd">
+      <Property name="service">dzController#setCd</Property>
+    </AjaxAction>
+  </View>
+</ViewConfig>

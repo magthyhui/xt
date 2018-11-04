@@ -30,6 +30,9 @@ public class TjdcResolver extends AbstractResolver {
 		if(lx!=null&&lx.equals("kqhz")){
 			mc="计算结果";
 		}
+		if(lx!=null&&lx.equals("cg")){
+			mc="采购单";
+		}
 		String fileName = request.getParameter("fileName");
 		//System.out.println(fileName);//GrCtGxz8934724564588283275.xls
 		File f = File.createTempFile("assa", ".xls");

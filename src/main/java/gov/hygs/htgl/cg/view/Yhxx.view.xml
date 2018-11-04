@@ -25,8 +25,12 @@
         <Property name="label">客户简称</Property>
       </PropertyDef>
       <PropertyDef name="lxr">
-        <Property/>
+        <Property></Property>
         <Property name="label">联系人</Property>
+      </PropertyDef>
+      <PropertyDef name="czhm">
+        <Property/>
+        <Property name="label">传真号码</Property>
       </PropertyDef>
     </DataType>
   </Model>
@@ -91,6 +95,9 @@ if(currentData != undefined){&#xD;
             </DataColumn>
             <DataColumn name="dz">
               <Property name="property">dz</Property>
+            </DataColumn>
+            <DataColumn name="czhm">
+              <Property name="property">czhm</Property>
             </DataColumn>
           </DataGrid>
         </Children>
@@ -158,6 +165,11 @@ view.get(&quot;#dsYhxx&quot;).getData(&quot;#&quot;).cancel();&#xD;
               <AutoFormElement>
                 <Property name="name">dz</Property>
                 <Property name="property">dz</Property>
+                <Editor/>
+              </AutoFormElement>
+              <AutoFormElement>
+                <Property name="name">czhm</Property>
+                <Property name="property">czhm</Property>
                 <Editor/>
               </AutoFormElement>
             </AutoForm>
