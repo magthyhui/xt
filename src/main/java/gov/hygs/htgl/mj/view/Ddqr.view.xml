@@ -213,14 +213,6 @@
       <PropertyDef name="ddbid">
         <Property name="dataType">Integer</Property>
       </PropertyDef>
-      <PropertyDef name="mjf">
-        <Property name="dataType">Double</Property>
-        <Property name="label">模具费</Property>
-      </PropertyDef>
-      <PropertyDef name="sbf">
-        <Property name="dataType">Double</Property>
-        <Property name="label">手板费</Property>
-      </PropertyDef>
       <PropertyDef name="fkdjsj">
         <Property name="dataType">Date</Property>
         <Property name="label">付款定金时间</Property>
@@ -557,12 +549,6 @@ ajaxActionZdbh.execute(function(returnValue){&#xD;
         <Property name="property">dw</Property>
         <Property name="width">80</Property>
       </DataColumn>
-      <DataColumn name="mjf">
-        <Property name="property">mjf</Property>
-      </DataColumn>
-      <DataColumn name="sbf">
-        <Property name="property">sbf</Property>
-      </DataColumn>
       <DataColumn name="fkdjsj">
         <Property name="property">fkdjsj</Property>
       </DataColumn>
@@ -663,12 +649,6 @@ view.get(&quot;#dialogDdxx&quot;).show();&#xD;
                   <DataColumn name="wlmc">
                     <Property name="property">wlmc</Property>
                     <Property name="width">200</Property>
-                  </DataColumn>
-                  <DataColumn name="mjf">
-                    <Property name="property">mjf</Property>
-                  </DataColumn>
-                  <DataColumn name="sbf">
-                    <Property name="property">sbf</Property>
                   </DataColumn>
                   <DataColumn name="fkdjsj">
                     <Property name="property">fkdjsj</Property>
@@ -878,16 +858,6 @@ view.get(&quot;#dialogDdxx&quot;).hide();&#xD;
           <AutoFormElement>
             <Property name="name">dw</Property>
             <Property name="property">dw</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">mjf</Property>
-            <Property name="property">mjf</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">sbf</Property>
-            <Property name="property">sbf</Property>
             <Editor/>
           </AutoFormElement>
           <AutoFormElement>
