@@ -553,18 +553,6 @@ ajaxActionZdbh.execute(function(returnValue){&#xD;
         <Property name="property">wlmc</Property>
         <Property name="width">200</Property>
       </DataColumn>
-      <DataColumn name="ddsl">
-        <Property name="property">ddsl</Property>
-        <Property name="width">80</Property>
-      </DataColumn>
-      <DataColumn name="yjsl">
-        <Property name="property">yjsl</Property>
-        <Property name="width">80</Property>
-      </DataColumn>
-      <DataColumn name="wjsl">
-        <Property name="property">wjsl</Property>
-        <Property name="width">80</Property>
-      </DataColumn>
       <DataColumn name="dw">
         <Property name="property">dw</Property>
         <Property name="width">80</Property>
@@ -675,10 +663,6 @@ view.get(&quot;#dialogDdxx&quot;).show();&#xD;
                   <DataColumn name="wlmc">
                     <Property name="property">wlmc</Property>
                     <Property name="width">200</Property>
-                  </DataColumn>
-                  <DataColumn name="ddsl">
-                    <Property name="property">ddsl</Property>
-                    <Property name="width">80</Property>
                   </DataColumn>
                   <DataColumn name="mjf">
                     <Property name="property">mjf</Property>
@@ -889,11 +873,6 @@ view.get(&quot;#dialogDdxx&quot;).hide();&#xD;
           <AutoFormElement>
             <Property name="name">wlmc</Property>
             <Property name="property">wlmc</Property>
-            <Editor/>
-          </AutoFormElement>
-          <AutoFormElement>
-            <Property name="name">ddsl</Property>
-            <Property name="property">ddsl</Property>
             <Editor/>
           </AutoFormElement>
           <AutoFormElement>
