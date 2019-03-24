@@ -457,8 +457,12 @@ public class DzDao extends BaseJdbcDao {
 		sql = "select * from  xt_dz_ddb_mx where wlh = ? and ddbid = ? ";
 		ls = this.jdbcTemplate.queryForList(sql,new Object[]{drdd.getWlbh(),id});
 		if(ls.size()==0){
-			sql = "insert into xt_dz_ddb_mx(ddbid,wlh,wlmc,cz,clgg,jhrq,ddsl,gg,dw) values(?,?,?,?,?,?,?,?,?)";
-			obj = new Object[] { id,drdd.getWlbh(),drdd.getWlmc(),drdd.getCz(),drdd.getClgg(),drdd.getJhrq(),drdd.getDdsl(),drdd.getGg(),drdd.getDw()  };
+			sql = "insert into xt_dz_ddb_mx(ddbid,wlh,wlmc,cz,clgg,jhrq,ddsl,gg,dw,dj) values(?,?,?,?,?,?,?,?,?,?)";
+			Double dj = null;
+			if(drdd.getDj()!=0.0){
+				dj=drdd.getDj();
+			}
+			obj = new Object[] { id,drdd.getWlbh(),drdd.getWlmc(),drdd.getCz(),drdd.getClgg(),drdd.getJhrq(),drdd.getDdsl(),drdd.getGg(),drdd.getDw(),dj  };
 			this.jdbcTemplate.update(sql, obj);
 		}
 	}

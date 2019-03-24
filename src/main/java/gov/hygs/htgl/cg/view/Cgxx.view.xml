@@ -10,7 +10,7 @@
       </PropertyDef>
       <PropertyDef name="kh">
         <Property></Property>
-        <Property name="label">客户</Property>
+        <Property name="label">供应商</Property>
       </PropertyDef>
       <PropertyDef name="dddh">
         <Property></Property>
@@ -118,7 +118,7 @@
       </PropertyDef>
       <PropertyDef name="kh">
         <Property></Property>
-        <Property name="label">客户</Property>
+        <Property name="label">供应商</Property>
       </PropertyDef>
       <PropertyDef name="dddh">
         <Property></Property>
@@ -251,7 +251,7 @@
         <Property name="label">备注</Property>
       </PropertyDef>
       <PropertyDef name="kh">
-        <Property name="label">客户</Property>
+        <Property name="label">供应商</Property>
       </PropertyDef>
       <PropertyDef name="lx">
         <Property name="mapping">
@@ -273,7 +273,7 @@
     </DataType>
     <DataType name="dtCondition">
       <PropertyDef name="kh">
-        <Property name="label">客户</Property>
+        <Property name="label">供应商</Property>
       </PropertyDef>
       <PropertyDef name="sjq">
         <Property name="dataType">Date</Property>
@@ -351,10 +351,10 @@
       </PropertyDef>
       <PropertyDef name="kh">
         <Property></Property>
-        <Property name="label">客户</Property>
+        <Property name="label">供应商</Property>
       </PropertyDef>
       <PropertyDef name="cgdh">
-        <Property/>
+        <Property></Property>
         <Property name="label">采购单号</Property>
       </PropertyDef>
       <PropertyDef name="jhrq">
@@ -391,11 +391,11 @@
         <Property name="label">订单单号</Property>
       </PropertyDef>
       <PropertyDef name="cplh">
-        <Property/>
+        <Property></Property>
         <Property name="label">产品料号</Property>
       </PropertyDef>
       <PropertyDef name="wlmc">
-        <Property/>
+        <Property></Property>
         <Property name="label">物料名称</Property>
       </PropertyDef>
       <PropertyDef name="dw">
@@ -406,7 +406,7 @@
         <Property name="label">数量</Property>
       </PropertyDef>
       <PropertyDef name="bz">
-        <Property/>
+        <Property></Property>
         <Property name="label">备注</Property>
       </PropertyDef>
     </DataType>
@@ -672,26 +672,11 @@ dsDdxx.set(&quot;parameter&quot;,{id:id}).flush();	&#xD;
       <DataColumn name="dddh">
         <Property name="property">dddh</Property>
       </DataColumn>
-      <DataColumn name="xdrq">
-        <Property name="property">xdrq</Property>
-      </DataColumn>
-      <DataColumn name="jhrq">
-        <Property name="property">jhrq</Property>
-      </DataColumn>
-      <DataColumn name="lx">
-        <Property name="property">lx</Property>
-      </DataColumn>
-      <DataColumn name="cplh">
-        <Property name="property">cplh</Property>
-      </DataColumn>
       <DataColumn name="wlmc">
         <Property name="property">wlmc</Property>
       </DataColumn>
       <DataColumn name="gg">
         <Property name="property">gg</Property>
-      </DataColumn>
-      <DataColumn name="cz">
-        <Property name="property">cz</Property>
       </DataColumn>
       <DataColumn name="dw">
         <Property name="property">dw</Property>
@@ -702,15 +687,6 @@ dsDdxx.set(&quot;parameter&quot;,{id:id}).flush();	&#xD;
       <DataColumn name="dj">
         <Property name="property">dj</Property>
       </DataColumn>
-      <DataColumn name="bzs">
-        <Property name="property">bzs</Property>
-      </DataColumn>
-      <DataColumn name="ms">
-        <Property name="property">ms</Property>
-      </DataColumn>
-      <DataColumn name="bz">
-        <Property name="property">bz</Property>
-      </DataColumn>
       <DataColumn name="je">
         <Property name="property">je</Property>
       </DataColumn>
@@ -719,6 +695,30 @@ dsDdxx.set(&quot;parameter&quot;,{id:id}).flush();	&#xD;
       </DataColumn>
       <DataColumn name="wjsl">
         <Property name="property">wjsl</Property>
+      </DataColumn>
+      <DataColumn name="xdrq">
+        <Property name="property">xdrq</Property>
+      </DataColumn>
+      <DataColumn name="jhrq">
+        <Property name="property">jhrq</Property>
+      </DataColumn>
+      <DataColumn name="bz">
+        <Property name="property">bz</Property>
+      </DataColumn>
+      <DataColumn name="lx">
+        <Property name="property">lx</Property>
+      </DataColumn>
+      <DataColumn name="cplh">
+        <Property name="property">cplh</Property>
+      </DataColumn>
+      <DataColumn name="cz">
+        <Property name="property">cz</Property>
+      </DataColumn>
+      <DataColumn name="ms">
+        <Property name="property">ms</Property>
+      </DataColumn>
+      <DataColumn name="bzs">
+        <Property name="property">bzs</Property>
       </DataColumn>
     </DataGrid>
     <Dialog id="dialog">

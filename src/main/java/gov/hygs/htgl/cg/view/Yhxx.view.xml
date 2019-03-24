@@ -10,7 +10,7 @@
       </PropertyDef>
       <PropertyDef name="kh">
         <Property></Property>
-        <Property name="label">客户</Property>
+        <Property name="label">供应商</Property>
       </PropertyDef>
       <PropertyDef name="dh">
         <Property></Property>
@@ -22,14 +22,14 @@
       </PropertyDef>
       <PropertyDef name="khjc">
         <Property></Property>
-        <Property name="label">客户简称</Property>
+        <Property name="label">供应商简称</Property>
       </PropertyDef>
       <PropertyDef name="lxr">
         <Property></Property>
         <Property name="label">联系人</Property>
       </PropertyDef>
       <PropertyDef name="czhm">
-        <Property/>
+        <Property></Property>
         <Property name="label">传真号码</Property>
       </PropertyDef>
     </DataType>

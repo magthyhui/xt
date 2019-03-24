@@ -549,9 +549,6 @@ ajaxActionZdbh.execute(function(returnValue){&#xD;
         <Property name="property">dw</Property>
         <Property name="width">80</Property>
       </DataColumn>
-      <DataColumn name="fkdjsj">
-        <Property name="property">fkdjsj</Property>
-      </DataColumn>
       <DataColumn name="kmdbsj">
         <Property name="property">kmdbsj</Property>
       </DataColumn>
@@ -560,6 +557,9 @@ ajaxActionZdbh.execute(function(returnValue){&#xD;
       </DataColumn>
       <DataColumn name="yjmjrq">
         <Property name="property">yjmjrq</Property>
+      </DataColumn>
+      <DataColumn name="fkdjsj">
+        <Property name="property">fkdjsj</Property>
       </DataColumn>
       <DataColumn name="bz">
         <Property name="property">bz</Property>

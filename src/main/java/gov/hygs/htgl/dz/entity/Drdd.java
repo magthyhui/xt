@@ -16,6 +16,7 @@ public class Drdd {
 	private String dw;
 	private String jhrq;
 	private Integer ddsl;
+	private double dj;
 	public String getKh() {
 		return kh;
 	}
@@ -81,6 +82,12 @@ public class Drdd {
 	}
 	public void setDw(String dw) {
 		this.dw = dw;
+	}
+	public double getDj() {
+		return dj;
+	}
+	public void setDj(double dj) {
+		this.dj = dj;
 	}
 
 	
