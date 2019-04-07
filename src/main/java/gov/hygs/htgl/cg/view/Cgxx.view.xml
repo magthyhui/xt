@@ -426,6 +426,10 @@
         <Property></Property>
         <Property name="label">物料名称</Property>
       </PropertyDef>
+      <PropertyDef name="gg">
+        <Property></Property>
+        <Property name="label">规格</Property>
+      </PropertyDef>
       <PropertyDef name="dw">
         <Property name="label">单位</Property>
       </PropertyDef>
@@ -1288,7 +1292,7 @@ view.get(&quot;#dsChDdxx&quot;).flushAsync();</ClientEvent>
     <DataSetDropDown id="dataSetDropDown1">
       <Property name="dataSet">dsWl</Property>
       <Property name="assignmentMap">dddh=dddh;cplh=cplh;wlmc=wlmc;dw=dw;cgxxmxid=cgxxmxid</Property>
-      <Property name="width">650</Property>
+      <Property name="width">700</Property>
       <DataColumn>
         <Property name="property">dddh</Property>
         <Property name="width">140</Property>
@@ -1302,6 +1306,11 @@ view.get(&quot;#dsChDdxx&quot;).flushAsync();</ClientEvent>
       <DataColumn name="wlmc">
         <Property name="property">wlmc</Property>
         <Property name="width">200</Property>
+      </DataColumn>
+      <DataColumn>
+        <Property name="property">gg</Property>
+        <Property name="width">70</Property>
+        <Property name="name">gg</Property>
       </DataColumn>
       <DataColumn name="dw">
         <Property name="property">dw</Property>

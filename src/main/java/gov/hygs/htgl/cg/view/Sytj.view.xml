@@ -13,6 +13,9 @@
       <PropertyDef name="sy">
         <Property name="label">剩余数量</Property>
       </PropertyDef>
+      <PropertyDef name="gg">
+        <Property name="label">规格</Property>
+      </PropertyDef>
     </DataType>
     <DataType name="dtCondition"/>
   </Model>
@@ -46,6 +49,9 @@ self.insert({&#xD;
       </DataColumn>
       <DataColumn name="wlmc">
         <Property name="property">wlmc</Property>
+      </DataColumn>
+      <DataColumn name="gg">
+        <Property name="property">gg</Property>
       </DataColumn>
       <DataColumn name="sy">
         <Property name="property">sy</Property>

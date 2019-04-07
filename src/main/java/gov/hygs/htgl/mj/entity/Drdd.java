@@ -21,6 +21,7 @@ public class Drdd {
 	private Date 	fkdjsj; 
 	private Date 	kmdbsj; 
 	private Date 	yjmjrq; 
+	private double dj;
 	public String getKh() {
 		return kh;
 	}
@@ -116,6 +117,12 @@ public class Drdd {
 	}
 	public void setYjmjrq(Date yjmjrq) {
 		this.yjmjrq = yjmjrq;
+	}
+	public double getDj() {
+		return dj;
+	}
+	public void setDj(double dj) {
+		this.dj = dj;
 	}
 
 	

@@ -226,6 +226,9 @@ public class MjService {
 						if(row.getCell(10)!=null&&row.getCell(10).getCellType()==HSSFCell.CELL_TYPE_NUMERIC){
 							drdd.setDdsl((int)row.getCell(10).getNumericCellValue());
 						}
+						if(row.getCell(11)!=null&&row.getCell(11).getCellType()==HSSFCell.CELL_TYPE_NUMERIC){
+							drdd.setDj(row.getCell(11).getNumericCellValue());
+						}
 						mjDao.saveDdxx(drdd);
 					}
 				

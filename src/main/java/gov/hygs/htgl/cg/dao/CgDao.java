@@ -291,7 +291,7 @@ public class CgDao extends BaseJdbcDao {
 		String kh = null;
 		List<Object> args = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer(
-				"SELECT b.cgxxmxid,a.id,a.dddh,b.cplh,b.wlmc,b.dw, (b.sl- IFNULL((SELECT SUM(cm.sl) sl FROM xt_cg_cgd c,xt_cg_cgd_mx cm WHERE c.id=cm.cgdid AND cm.cgxxmxid=b.cgxxmxid),0)) sy FROM xt_cg_cgxx a,xt_cg_cgxx_mx b WHERE a.id=b.cgxxid ");
+				"SELECT b.cgxxmxid,a.id,a.dddh,b.cplh,b.wlmc,b.dw,b.gg, (b.sl- IFNULL((SELECT SUM(cm.sl) sl FROM xt_cg_cgd c,xt_cg_cgd_mx cm WHERE c.id=cm.cgdid AND cm.cgxxmxid=b.cgxxmxid),0)) sy FROM xt_cg_cgxx a,xt_cg_cgxx_mx b WHERE a.id=b.cgxxid ");
 		if (param != null) {
 			kh = (String) param.get("kh");
 		}
@@ -387,18 +387,20 @@ public class CgDao extends BaseJdbcDao {
 	public List<Map<String, Object>> getSytj(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		StringBuffer sql = new StringBuffer("  ");
-		sql.append(" SELECT b.cplh,b.wlmc,c.sl-b.sl sy  ");
-		sql.append(" FROM  ");
-		sql.append(" (  ");
-		sql.append(" SELECT b.cplh,b.wlmc, SUM(b.sl) sl  ");
-		sql.append(" FROM   ");
-		sql.append(" 	 xt_cg_cgxx_mx b  ");
-		sql.append(" GROUP BY b.cplh,b.wlmc) b  ");
-		sql.append(" LEFT JOIN   ");
-		sql.append(" 	 (  ");
-		sql.append(" SELECT cm.cplh,cm.wlmc, SUM(cm.sl) sl  ");
-		sql.append(" FROM xt_cg_cgd_mx cm  ");
-		sql.append(" GROUP BY cm.cplh,cm.wlmc) c ON b.cplh=c.cplh AND b.wlmc = c.wlmc  ");
+		sql.append(" SELECT b.cplh,b.wlmc,b.gg,c.sl-b.sl sy   ");
+		sql.append("  FROM   ");
+		sql.append("  (   ");
+		sql.append(" SELECT b.cplh,b.wlmc,b.gg, SUM(b.sl) sl   ");
+		sql.append("  FROM    ");
+		sql.append(" 	 xt_cg_cgxx_mx b   ");
+		sql.append(" GROUP BY b.cplh,b.wlmc,b.gg) b   ");
+		sql.append("  LEFT JOIN    ");
+		sql.append("  	 (   ");
+		sql.append("  SELECT cgm.cplh,cgm.wlmc,cgm.gg, SUM(cm.sl) sl   ");
+		sql.append("  FROM xt_cg_cgd_mx cm   ");
+		sql.append(" left join xt_cg_cgxx_mx cgm on cm.cgxxmxid = cgm.cgxxmxid ");
+		sql.append("  GROUP BY cgm.cplh,cgm.wlmc,cgm.gg) c ");
+		 sql.append(" ON  b.wlmc=c.wlmc and b.gg=c.gg  ");
 		return this.jdbcTemplate.queryForList(sql.toString());
 	}
 	

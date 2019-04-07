@@ -373,8 +373,12 @@ public class MjDao extends BaseJdbcDao {
 		ls = this.jdbcTemplate.queryForList(sql,new Object[]{drdd.getWlbh(),id});
 		if(ls.size()==0){
 			//,mjf,sbf,fkdjsj,kmdbsj,yjmjrq
-			sql = "insert into xt_mj_ddb_mx(ddbid,wlh,wlmc,cz,clgg,jhrq,ddsl,gg,dw) values(?,?,?,?,?,?,?,?,?)";
-			obj = new Object[] { id,drdd.getWlbh(),drdd.getWlmc(),drdd.getCz(),drdd.getClgg(),drdd.getJhrq(),drdd.getDdsl(),drdd.getGg(),drdd.getDw()  };
+			sql = "insert into xt_mj_ddb_mx(ddbid,wlh,wlmc,cz,clgg,jhrq,ddsl,gg,dw,dj) values(?,?,?,?,?,?,?,?,?,?)";
+			Double dj = null;
+			if(drdd.getDj()!=0.0){
+				dj=drdd.getDj();
+			}
+			obj = new Object[] { id,drdd.getWlbh(),drdd.getWlmc(),drdd.getCz(),drdd.getClgg(),drdd.getJhrq(),drdd.getDdsl(),drdd.getGg(),drdd.getDw(),dj  };
 			this.jdbcTemplate.update(sql, obj);
 		}
 	}

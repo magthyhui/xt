@@ -224,10 +224,10 @@ public class CgService {
 						if(row.getCell(1)!=null&&row.getCell(1).getCellType()==HSSFCell.CELL_TYPE_NUMERIC){
 							drdd.setXdrq(row.getCell(1).getDateCellValue());
 						}
-						if(row.getCell(1)!=null&&row.getCell(2).getCellType()==HSSFCell.CELL_TYPE_NUMERIC){
+						if(row.getCell(2)!=null&&row.getCell(2).getCellType()==HSSFCell.CELL_TYPE_NUMERIC){
 							drdd.setJhrq(row.getCell(2).getDateCellValue());
 						}
-						if(row.getCell(2)!=null&&row.getCell(3).getCellType()==HSSFCell.CELL_TYPE_STRING){
+						if(row.getCell(3)!=null&&row.getCell(3).getCellType()==HSSFCell.CELL_TYPE_STRING){
 							drdd.setDddh(row.getCell(3).getStringCellValue());
 						}
 						if(drdd.getDddh()==null){
@@ -251,16 +251,16 @@ public class CgService {
 						if(row.getCell(9)!=null&&row.getCell(9).getCellType()==HSSFCell.CELL_TYPE_NUMERIC){
 							drdd.setDj(row.getCell(9).getNumericCellValue());
 						}
-						if(row.getCell(0)!=null&&row.getCell(10).getCellType()==HSSFCell.CELL_TYPE_STRING){
+						if(row.getCell(10)!=null&&row.getCell(10).getCellType()==HSSFCell.CELL_TYPE_STRING){
 							drdd.setDw(row.getCell(10).getStringCellValue());
 						}
-						if(row.getCell(1)!=null&&row.getCell(11).getCellType()==HSSFCell.CELL_TYPE_STRING){
+						if(row.getCell(11)!=null&&row.getCell(11).getCellType()==HSSFCell.CELL_TYPE_STRING){
 							drdd.setBzs(row.getCell(11).getStringCellValue());
 						}
-						if(row.getCell(1)!=null&&row.getCell(12).getCellType()==HSSFCell.CELL_TYPE_STRING){
+						if(row.getCell(12)!=null&&row.getCell(12).getCellType()==HSSFCell.CELL_TYPE_STRING){
 							drdd.setMs(row.getCell(12).getStringCellValue());
 						}
-						if(row.getCell(10)!=null&&row.getCell(13).getCellType()==HSSFCell.CELL_TYPE_NUMERIC){
+						if(row.getCell(13)!=null&&row.getCell(13).getCellType()==HSSFCell.CELL_TYPE_NUMERIC){
 							drdd.setDdsl((int)row.getCell(13).getNumericCellValue());
 						}
 						cgDao.saveDdxx(drdd);
