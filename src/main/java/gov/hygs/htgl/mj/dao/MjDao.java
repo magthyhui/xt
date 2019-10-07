@@ -148,18 +148,18 @@ public class MjDao extends BaseJdbcDao {
 		if(ddzt!=null){
 			if(ddzt.equals("A")){
 				sql.append(" and b.yxbz <> 'N' ");
-			}else{
-				if(ddzt.equals("G")){
-					sql.append(" and b.yxbz = ? ");
-				}else if(ddzt.equals("Y")){
-					sql.append(" and a.yxbz = ? and b.yxbz <>'G' ");
-				}else if(ddzt.equals("N")){
-					sql.append(" and a.yxbz = ? ");
+			} else {
+				if (ddzt.equals("G")) {
+					sql.append("  and b.yxbz  = ?");
+				} else if (ddzt.equals("Y")) {
+					sql.append("  and b.yxbz  = ? ");
+				} else if (ddzt.equals("N")) {
+					sql.append("  and b.yxbz  = ?");
 				}
 				args.add(ddzt);
 			}
 		}
-		sql.append(" union all select 2 xh,null,'合计',null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,FORMAT(sum(b.ddsl*b.dj),2) je,null,null from xt_mj_ddb a  left join xt_mj_ddb_mx b on a.id=b.ddbid ");
+		/*sql.append(" union all select 2 xh,null,'合计',null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,FORMAT(sum(b.ddsl*b.dj),2) je,null,null from xt_mj_ddb a  left join xt_mj_ddb_mx b on a.id=b.ddbid ");
 		sql.append("   where  1= 1  ");
 		if(kh!=null){
 			sql.append(" and a.kh like ? ");
@@ -188,17 +188,17 @@ public class MjDao extends BaseJdbcDao {
 		if(ddzt!=null){
 			if(ddzt.equals("A")){
 				sql.append(" and b.yxbz <> 'N' ");
-			}else{
-				if(ddzt.equals("G")){
-					sql.append(" and b.yxbz = ? ");
-				}else if(ddzt.equals("Y")){
-					sql.append(" and a.yxbz = ? and b.yxbz <>'G' ");
-				}else if(ddzt.equals("N")){
-					sql.append(" and a.yxbz = ? ");
+			} else {
+				if (ddzt.equals("G")) {
+					sql.append("  and b.yxbz  = ?");
+				} else if (ddzt.equals("Y")) {
+					sql.append("  and b.yxbz  = ? ");
+				} else if (ddzt.equals("N")) {
+					sql.append("  and b.yxbz  = ?");
 				}
 				args.add(ddzt);
 			}
-		}
+		}*/
 		sql.append(" order by xh,kh,xdrq desc,ddh,wlh ");
 		return this.jdbcTemplate.queryForList(sql.toString(),args.toArray());
 	}

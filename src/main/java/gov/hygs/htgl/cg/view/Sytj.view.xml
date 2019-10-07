@@ -12,49 +12,81 @@
       </PropertyDef>
       <PropertyDef name="sy">
         <Property name="label">剩余数量</Property>
+        <Property name="dataType">Double</Property>
       </PropertyDef>
       <PropertyDef name="gg">
         <Property name="label">规格</Property>
       </PropertyDef>
     </DataType>
-    <DataType name="dtCondition"/>
+    <DataType name="dtCondition">
+      <PropertyDef name="cplh">
+        <Property name="label">产品料号</Property>
+      </PropertyDef>
+      <PropertyDef name="wlmc">
+        <Property name="label">物料名称</Property>
+      </PropertyDef>
+      <PropertyDef name="gg">
+        <Property name="label">规格</Property>
+      </PropertyDef>
+    </DataType>
   </Model>
   <View>
     <DataSet id="dsResult">
       <Property name="dataProvider">cgController#getSytj</Property>
       <Property name="dataType">[dtResult]</Property>
-      <Property name="loadMode">lazy</Property>
+      <Property name="loadMode">manual</Property>
     </DataSet>
     <DataSet id="dsCondition">
-      <ClientEvent name="onReady">var now = new Date();&#xD;
-var y = now.getFullYear();&#xD;
-var m = now.getMonth();&#xD;
-var sjq = now.setFullYear(y,m,1);&#xD;
-var sjz = now.setFullYear(y,m+1,1);&#xD;
-sjz= new Date((sjz/1000-86400)*1000)&#xD;
-&#xD;
-self.insert({&#xD;
-	sjq:sjq,&#xD;
-	sjz:sjz&#xD;
-});&#xD;
-</ClientEvent>
+      <ClientEvent name="onReady">self.insert();&#xD;
+var dsCondition = view.get(&quot;#dsCondition&quot;).getData(&quot;#&quot;);&#xD;
+view.get(&quot;#dsResult&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync();</ClientEvent>
       <Property name="dataType">dtCondition</Property>
     </DataSet>
+    <AutoForm>
+      <Property name="dataSet">dsCondition</Property>
+      <Property name="cols">*,*</Property>
+      <Property name="labelWidth">100</Property>
+      <AutoFormElement>
+        <Property name="name">cplh</Property>
+        <Property name="property">cplh</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">wlmc</Property>
+        <Property name="property">wlmc</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">gg</Property>
+        <Property name="property">gg</Property>
+        <Editor/>
+      </AutoFormElement>
+      <Button>
+        <ClientEvent name="onClick">var dsCondition = view.get(&quot;#dsCondition&quot;).getData(&quot;#&quot;);&#xD;
+view.get(&quot;#dsResult&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync();&#xD;
+</ClientEvent>
+        <Property name="caption">查询</Property>
+      </Button>
+    </AutoForm>
     <DataGrid id="dataGridResult">
       <Property name="dataSet">dsResult</Property>
       <Property name="readOnly">true</Property>
       <Property name="dynaRowHeight">true</Property>
       <DataColumn name="cplh">
         <Property name="property">cplh</Property>
+        <Property name="width">130</Property>
       </DataColumn>
       <DataColumn name="wlmc">
         <Property name="property">wlmc</Property>
+        <Property name="width">200</Property>
       </DataColumn>
       <DataColumn name="gg">
         <Property name="property">gg</Property>
+        <Property name="width">130</Property>
       </DataColumn>
       <DataColumn name="sy">
         <Property name="property">sy</Property>
+        <Property name="width">130</Property>
       </DataColumn>
     </DataGrid>
   </View>

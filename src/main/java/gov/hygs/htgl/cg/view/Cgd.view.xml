@@ -52,7 +52,7 @@
         <Property name="label">物料名称</Property>
       </PropertyDef>
       <PropertyDef name="sl">
-        <Property name="dataType">Integer</Property>
+        <Property name="dataType">Double</Property>
         <Property name="label">数量</Property>
       </PropertyDef>
       <PropertyDef name="bz">
@@ -100,7 +100,7 @@
         <Property name="label">客户</Property>
       </PropertyDef>
       <PropertyDef name="sl">
-        <Property name="dataType">Integer</Property>
+        <Property name="dataType">Double</Property>
         <Property name="label">数量</Property>
       </PropertyDef>
       <PropertyDef name="bz">
@@ -205,7 +205,7 @@
       </PropertyDef>
       <PropertyDef name="sl">
         <Property name="label">数量</Property>
-        <Property name="dataType">Integer</Property>
+        <Property name="dataType">Double</Property>
       </PropertyDef>
       <PropertyDef name="ddh">
         <Property></Property>

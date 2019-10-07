@@ -54,11 +54,11 @@ public class CgDao extends BaseJdbcDao {
 	public void addCgxxMx(CgxxMx CgxxMx) {
 		// TODO Auto-generated method stub
 
-		String sql = "insert into xt_cg_cgxx_mx(cgxxid,cplh,wlmc,gg,cz,dw,sl,dj,bzs,ms,jhrq1,bz) values(?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into xt_cg_cgxx_mx(cgxxid,cplh,wlmc,gg,cz,dw,sl,dj,bzs,ms,jhrq1,llrq,bz) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		Object[] obj = new Object[] { CgxxMx.getCgxxid(), CgxxMx.getCplh(),
 				CgxxMx.getWlmc(), CgxxMx.getGg(), CgxxMx.getCz(),
 				CgxxMx.getDw(), CgxxMx.getSl(), CgxxMx.getDj(),
-				CgxxMx.getBzs(), CgxxMx.getMs(), CgxxMx.getJhrq1(),
+				CgxxMx.getBzs(), CgxxMx.getMs(), CgxxMx.getJhrq1(),CgxxMx.getLlrq(),
 				CgxxMx.getBz() };
 		this.jdbcTemplate.update(sql, obj);
 
@@ -66,11 +66,11 @@ public class CgDao extends BaseJdbcDao {
 
 	public void updateCgxxMx(CgxxMx CgxxMx) {
 		// TODO Auto-generated method stub
-		String sql = "update xt_cg_cgxx_mx set cgxxid = ?,cplh = ?,wlmc = ?,gg = ?,cz = ?,dw = ?,sl = ?,dj = ?,bzs = ?,ms = ?,jhrq1 = ?,bz = ? where cgxxmxid=? ";
+		String sql = "update xt_cg_cgxx_mx set cgxxid = ?,cplh = ?,wlmc = ?,gg = ?,cz = ?,dw = ?,sl = ?,dj = ?,bzs = ?,ms = ?,jhrq1 = ?,llrq = ?,bz = ? where cgxxmxid=? ";
 		Object[] obj = new Object[] { CgxxMx.getCgxxid(), CgxxMx.getCplh(),
 				CgxxMx.getWlmc(), CgxxMx.getGg(), CgxxMx.getCz(),
 				CgxxMx.getDw(), CgxxMx.getSl(), CgxxMx.getDj(),
-				CgxxMx.getBzs(), CgxxMx.getMs(), CgxxMx.getJhrq1(),
+				CgxxMx.getBzs(), CgxxMx.getMs(), CgxxMx.getJhrq1(),CgxxMx.getLlrq(),
 				CgxxMx.getBz(), CgxxMx.getCgxxmxid() };
 		this.jdbcTemplate.update(sql, obj);
 	}
@@ -144,11 +144,14 @@ public class CgDao extends BaseJdbcDao {
 		String cplh = (String) param.get("cplh");
 		String wlmc = (String) param.get("wlmc");
 		String lx = (String) param.get("lx");
+		String gg = (String) param.get("gg");
 		List<Object> args = new ArrayList<Object>();
 		Date sjq = (Date) param.get("sjq"), sjz = (Date) param.get("sjz");
-		StringBuffer sql = new StringBuffer(
-				"select 1 xh,a.*,b.*,FORMAT(b.sl*b.dj,2) je, ");
+		StringBuffer sql = new StringBuffer(" ");
+		sql.append("select 1 xh,a.*,b.*,FORMAT(b.sl*b.dj,2) je, ");
 		sql.append(" b.sl-(select sum(cm.sl) sl from xt_cg_cgd c,xt_cg_cgd_mx cm where c.id=cm.cgdid and cm.cgxxmxid=b.cgxxmxid) wjsl, ");
+		sql.append(" (CASE WHEN (SELECT SUM(cm.sl) sl FROM xt_cg_cgd c,xt_cg_cgd_mx cm WHERE c.id=cm.cgdid AND cm.cgxxmxid=b.cgxxmxid) IS NOT NULL THEN  ");
+		sql.append(" FORMAT((SELECT SUM(cm.sl) sl FROM xt_cg_cgd c,xt_cg_cgd_mx cm WHERE c.id=cm.cgdid AND cm.cgxxmxid=b.cgxxmxid)*b.dj,2) ELSE 0 END ) llje, ");
 		sql.append(" (select sum(cm.sl) sl from xt_cg_cgd c,xt_cg_cgd_mx cm where c.id=cm.cgdid and cm.cgxxmxid=b.cgxxmxid) yjsl ");
 		sql.append(" from xt_cg_cgxx a  left join xt_cg_cgxx_mx b on a.id=b.cgxxid ");
 		sql.append("   where  1= 1  ");
@@ -172,6 +175,10 @@ public class CgDao extends BaseJdbcDao {
 			sql.append(" and a.lx like ? ");
 			args.add("%" + lx + "%");
 		}
+		if (gg != null) {
+			sql.append(" and b.gg like ? ");
+			args.add("%" + gg + "%");
+		}
 		if (sjq != null) {
 			sql.append(" and a.xdrq >= date_format(date(?), '%Y%m%d') ");
 			args.add(sjq);
@@ -185,16 +192,16 @@ public class CgDao extends BaseJdbcDao {
 				sql.append(" and b.yxbz <> 'N' ");
 			} else {
 				if (ddzt.equals("G")) {
-					sql.append(" and b.yxbz = ? ");
+					sql.append("  and b.yxbz  = ?");
 				} else if (ddzt.equals("Y")) {
-					sql.append(" and a.yxbz = ? and b.yxbz <>'G' ");
+					sql.append("  and b.yxbz  = ? ");
 				} else if (ddzt.equals("N")) {
-					sql.append(" and a.yxbz = ? ");
+					sql.append("  and b.yxbz  = ?");
 				}
 				args.add(ddzt);
 			}
 		}
-		sql.append(" union all select 2 xh,null,'合计',null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,FORMAT(sum(b.sl*b.dj),2) je,null,null from xt_cg_cgxx a  left join xt_cg_cgxx_mx b on a.id=b.cgxxid ");
+		/*sql.append(" union all select 2 xh,null,'合计',null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,FORMAT(sum(b.sl*b.dj),2) je,null,null from xt_cg_cgxx a  left join xt_cg_cgxx_mx b on a.id=b.cgxxid ");
 		sql.append("   where  1= 1  ");
 		if (kh != null) {
 			sql.append(" and a.kh like ? ");
@@ -225,15 +232,15 @@ public class CgDao extends BaseJdbcDao {
 				sql.append(" and b.yxbz <> 'N' ");
 			} else {
 				if (ddzt.equals("G")) {
-					sql.append(" and b.yxbz = ? ");
+					sql.append("  and b.yxbz  = ?");
 				} else if (ddzt.equals("Y")) {
-					sql.append(" and a.yxbz = ? and b.yxbz <>'G' ");
+					sql.append("  and b.yxbz  = ? ");
 				} else if (ddzt.equals("N")) {
-					sql.append(" and a.yxbz = ? ");
+					sql.append("  and b.yxbz  = ?");
 				}
 				args.add(ddzt);
 			}
-		}
+		}*/
 		sql.append(" order by xh,kh,xdrq desc,dddh,cplh ");
 		return this.jdbcTemplate.queryForList(sql.toString(), args.toArray());
 	}
@@ -262,9 +269,21 @@ public class CgDao extends BaseJdbcDao {
 
 	public String setCgzt(Map param) {
 		String lx = (String) param.get("lx");
-		int id = (Integer) param.get("id");
-		String sql = "update xt_cg_cgxx_mx set yxbz = ? where cgxxmxid = ? ";
-		this.jdbcTemplate.update(sql, new Object[] { lx, id });
+		String idList = (String) param.get("id");
+		String[] ids = idList.split(",");
+		List<Object> args = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer("update xt_cg_cgxx_mx set yxbz = ? where cgxxmxid in ( ");
+		args.add(lx);
+		for (int i =0;i<ids.length;i++) {
+			if(i==ids.length-1){
+				sql.append("? )");
+				
+			}else{
+				sql.append("? ,");
+			}
+			args.add(ids[i]);
+		}
+		this.jdbcTemplate.update(sql.toString(), args.toArray());
 
 		return "ok";
 	}
@@ -282,7 +301,7 @@ public class CgDao extends BaseJdbcDao {
 			sql.append(" and a.kh like ? ");
 			args.add("%" + kh + "%");
 		}
-		sql.append("  and a.yxbz ='Y' and exists (select 1 from xt_cg_cgxx_mx b where a.id=b.cgxxid and b.yxbz='Y' ) order by kh,xdrq ");
+		sql.append("  and a.yxbz ='Y' and exists (select 1 from xt_cg_cgxx_mx b where a.id=b.cgxxid and b.yxbz='Y' ) order by kh,xdrq desc ");
 		return this.jdbcTemplate.queryForList(sql.toString(), args.toArray());
 	}
 
@@ -299,14 +318,14 @@ public class CgDao extends BaseJdbcDao {
 			sql.append(" and a.kh like ? ");
 			args.add("%" + kh + "%");
 		}
-		sql.append("  and a.yxbz='Y' and b.yxbz ='Y' order by a.xdrq  ");
+		sql.append("  and a.yxbz='Y' and b.yxbz ='Y' order by a.xdrq desc ");
 		return this.jdbcTemplate.queryForList(sql.toString(), args.toArray());
 	}
 
 	public List<Map<String, Object>> getChDdMx(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		Integer id = (Integer) param.get("id");
-		String sql = "select a.id cgxxid,a.dddh,b.cplh,b.wlmc,b.dw,b.cgxxmxid from xt_cg_cgxx a left join xt_cg_cgxx_mx b on a.id=b.cgxxid  where b.yxbz='Y' and a.id = ? ";
+		String sql = "select a.id cgxxid,a.dddh,b.cplh,b.wlmc,b.dw,b.cgxxmxid,b.gg from xt_cg_cgxx a left join xt_cg_cgxx_mx b on a.id=b.cgxxid  where b.yxbz='Y' and a.id = ? ";
 		return this.jdbcTemplate.queryForList(sql, new Object[] { id });
 	}
 
@@ -386,6 +405,10 @@ public class CgDao extends BaseJdbcDao {
 
 	public List<Map<String, Object>> getSytj(Map<String, Object> param) {
 		// TODO Auto-generated method stub
+		String cplh = (String) param.get("cplh");
+		String wlmc = (String) param.get("wlmc");
+		String gg = (String) param.get("gg");
+		List<Object> args = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer("  ");
 		sql.append(" SELECT b.cplh,b.wlmc,b.gg,c.sl-b.sl sy   ");
 		sql.append("  FROM   ");
@@ -400,40 +423,61 @@ public class CgDao extends BaseJdbcDao {
 		sql.append("  FROM xt_cg_cgd_mx cm   ");
 		sql.append(" left join xt_cg_cgxx_mx cgm on cm.cgxxmxid = cgm.cgxxmxid ");
 		sql.append("  GROUP BY cgm.cplh,cgm.wlmc,cgm.gg) c ");
-		 sql.append(" ON  b.wlmc=c.wlmc and b.gg=c.gg  ");
-		return this.jdbcTemplate.queryForList(sql.toString());
+		sql.append(" ON  b.wlmc=c.wlmc and b.gg=c.gg  ");
+		sql.append(" WHERE 1=1  ");
+		if (wlmc != null) {
+			sql.append(" and b.wlmc like ? ");
+			args.add("%" + wlmc + "%");
+		}
+
+		if (cplh != null) {
+			sql.append(" and b.cplh like ? ");
+			args.add("%" + cplh + "%");
+		}
+
+		if (gg != null) {
+			sql.append(" and b.gg like ? ");
+			args.add("%" + gg + "%");
+		}
+		return this.jdbcTemplate.queryForList(sql.toString(),args.toArray());
 	}
-	
+
 	public void saveDdxx(CgDrdd drdd) {
 		// TODO Auto-generated method stub
 		Object[] obj = null;
 		int id = 0;
 		String sql = "select id from  xt_cg_cgxx where dddh = ? ";
-		List<Map<String,Object>> ls = this.jdbcTemplate.queryForList(sql,new Object[]{drdd.getDddh()});
-		if(ls.size()==0){
+		List<Map<String, Object>> ls = this.jdbcTemplate.queryForList(sql,
+				new Object[] { drdd.getDddh() });
+		if (ls.size() == 0) {
 			String lx = "1";
-			if(drdd.getLx().equals("采购")){
+			if (drdd.getLx().equals("采购")) {
 				lx = "1";
-			}else if(drdd.getLx().equals("锰钢")){
+			} else if (drdd.getLx().equals("锰钢")) {
 				lx = "2";
-			}else if(drdd.getLx().equals("纸箱")){
+			} else if (drdd.getLx().equals("纸箱")) {
 				lx = "3";
-			}else if(drdd.getLx().equals("卷带")){
+			} else if (drdd.getLx().equals("卷带")) {
 				lx = "4";
 			}
 			sql = "insert into xt_cg_cgxx(kh,xdrq,jhrq,dddh,lx) values(?,?,?,?,?)";
-			obj = new Object[] { drdd.getKh(),drdd.getXdrq(),drdd.getJhrq(),drdd.getDddh(),lx };
+			obj = new Object[] { drdd.getKh(), drdd.getXdrq(), drdd.getJhrq(),
+					drdd.getDddh(), lx };
 			this.jdbcTemplate.update(sql, obj);
 			sql = "select id from xt_cg_cgxx where dddh = ? ";
-			id = this.jdbcTemplate.queryForObject(sql, new Object[]{drdd.getDddh()},Integer.class);
-		}else{
-			id = (int)(ls.get(0)).get("id");
+			id = this.jdbcTemplate.queryForObject(sql,
+					new Object[] { drdd.getDddh() }, Integer.class);
+		} else {
+			id = (int) (ls.get(0)).get("id");
 		}
 		sql = "select * from  xt_cg_cgxx_mx where cplh = ? and cgxxid = ? ";
-		ls = this.jdbcTemplate.queryForList(sql,new Object[]{drdd.getCplh(),id});
-		if(ls.size()==0){
+		ls = this.jdbcTemplate.queryForList(sql, new Object[] { drdd.getCplh(),
+				id });
+		if (ls.size() == 0) {
 			sql = "insert into xt_cg_cgxx_mx(cgxxid,cplh,wlmc,gg,cz,dw,sl,bzs,ms,dj) values(?,?,?,?,?,?,?,?,?,?)";
-			obj = new Object[] { id,drdd.getCplh(),drdd.getWlmc(),drdd.getGg(),drdd.getCz(),drdd.getDw(),drdd.getDdsl(),drdd.getBzs(),drdd.getMs() ,drdd.getDj() };
+			obj = new Object[] { id, drdd.getCplh(), drdd.getWlmc(),
+					drdd.getGg(), drdd.getCz(), drdd.getDw(), drdd.getDdsl(),
+					drdd.getBzs(), drdd.getMs(), drdd.getDj() };
 			this.jdbcTemplate.update(sql, obj);
 		}
 	}

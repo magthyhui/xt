@@ -11,11 +11,12 @@ public class CgxxMx {
 	private String gg;
 	private String cz;
 	private String dw;
-	private Integer sl;
+	private Double sl;
 	private Double 	dj; 
 	private String bzs;
 	private String ms;
 	private String jhrq1;
+	private Date llrq;
 	private String bz;
 	public Integer getCgxxmxid() {
 		return cgxxmxid;
@@ -59,10 +60,10 @@ public class CgxxMx {
 	public void setDw(String dw) {
 		this.dw = dw;
 	}
-	public Integer getSl() {
+	public Double getSl() {
 		return sl;
 	}
-	public void setSl(Integer sl) {
+	public void setSl(Double sl) {
 		this.sl = sl;
 	}
 	public Double getDj() {
@@ -95,6 +96,12 @@ public class CgxxMx {
 	}
 	public void setBz(String bz) {
 		this.bz = bz;
+	}
+	public Date getLlrq() {
+		return llrq;
+	}
+	public void setLlrq(Date llrq) {
+		this.llrq = llrq;
 	}
 
 

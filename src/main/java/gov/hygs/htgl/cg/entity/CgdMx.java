@@ -10,7 +10,7 @@ public class CgdMx {
 	private Integer cgxxmxid;
 	private String cplh;
 	private String wlmc;
-	private Integer sl;
+	private Double sl;
 	private String bz;
 	
 	public Integer getCgmxid() {
@@ -49,10 +49,10 @@ public class CgdMx {
 	public void setWlmc(String wlmc) {
 		this.wlmc = wlmc;
 	}
-	public Integer getSl() {
+	public Double getSl() {
 		return sl;
 	}
-	public void setSl(Integer sl) {
+	public void setSl(Double sl) {
 		this.sl = sl;
 	}
 	public String getBz() {

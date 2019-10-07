@@ -467,38 +467,47 @@ ajaxActionExport.execute(function(fileName){&#xD;
       <DataColumn name="shdh">
         <Property name="property">shdh</Property>
         <Property name="width">120</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="shrq">
         <Property name="property">shrq</Property>
         <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="ddh">
         <Property name="property">ddh</Property>
         <Property name="width">140</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="kh">
         <Property name="property">kh</Property>
         <Property name="width">70</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="wlh">
         <Property name="property">wlh</Property>
         <Property name="width">150</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="wlmc">
         <Property name="property">wlmc</Property>
         <Property name="width">200</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="sl">
         <Property name="property">sl</Property>
         <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="bz">
         <Property name="property">bz</Property>
         <Property name="width">120</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="lx">
         <Property name="property">lx</Property>
         <Property name="width">120</Property>
+        <Property name="align">left</Property>
       </DataColumn>
     </DataGrid>
     <Dialog id="dialogShd">

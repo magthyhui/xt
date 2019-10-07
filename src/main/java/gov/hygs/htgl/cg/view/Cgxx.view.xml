@@ -88,7 +88,7 @@
         <Property name="label">单位</Property>
       </PropertyDef>
       <PropertyDef name="sl">
-        <Property name="dataType">Integer</Property>
+        <Property name="dataType">Double</Property>
         <Property name="label">数量</Property>
       </PropertyDef>
       <PropertyDef name="dj">
@@ -110,6 +110,10 @@
       <PropertyDef name="jhrq">
         <Property></Property>
         <Property name="label">交货日期</Property>
+      </PropertyDef>
+      <PropertyDef name="llrq">
+        <Property name="dataType">Date</Property>
+        <Property name="label">实际来料日期</Property>
       </PropertyDef>
     </DataType>
     <DataType name="dtCg">
@@ -176,7 +180,7 @@
         <Property name="label">单位</Property>
       </PropertyDef>
       <PropertyDef name="sl">
-        <Property name="dataType">Integer</Property>
+        <Property name="dataType">Double</Property>
         <Property name="label">数量</Property>
       </PropertyDef>
       <PropertyDef name="dj">
@@ -205,11 +209,11 @@
       </PropertyDef>
       <PropertyDef name="yjsl">
         <Property name="label">已交数量</Property>
-        <Property name="dataType">Integer</Property>
+        <Property name="dataType">Double</Property>
       </PropertyDef>
       <PropertyDef name="wjsl">
         <Property name="label">未交数量</Property>
-        <Property name="dataType">Integer</Property>
+        <Property name="dataType">Double</Property>
       </PropertyDef>
       <PropertyDef name="cgdid">
         <Property name="dataType">Integer</Property>
@@ -223,6 +227,14 @@
       <PropertyDef name="jhrq">
         <Property name="dataType">Date</Property>
         <Property name="label">交货日期</Property>
+      </PropertyDef>
+      <PropertyDef name="llje">
+        <Property name="dataType">String</Property>
+        <Property name="label">来料金额</Property>
+      </PropertyDef>
+      <PropertyDef name="llrq">
+        <Property name="dataType">Date</Property>
+        <Property name="label">实际来料日期</Property>
       </PropertyDef>
     </DataType>
     <DataType name="dtChd">
@@ -246,6 +258,7 @@
       </PropertyDef>
       <PropertyDef name="sl">
         <Property name="label">数量</Property>
+        <Property name="dataType">Double</Property>
       </PropertyDef>
       <PropertyDef name="bz">
         <Property name="label">备注</Property>
@@ -282,6 +295,10 @@
       <PropertyDef name="sjz">
         <Property name="dataType">Date</Property>
         <Property name="label">下单时间止</Property>
+      </PropertyDef>
+      <PropertyDef name="gg">
+        <Property></Property>
+        <Property name="label">规格</Property>
       </PropertyDef>
       <PropertyDef name="dddh">
         <Property name="label">订单单号</Property>
@@ -398,11 +415,15 @@
         <Property></Property>
         <Property name="label">物料名称</Property>
       </PropertyDef>
+      <PropertyDef name="gg">
+        <Property></Property>
+        <Property name="label">规格</Property>
+      </PropertyDef>
       <PropertyDef name="dw">
         <Property name="label">单位</Property>
       </PropertyDef>
       <PropertyDef name="sl">
-        <Property name="dataType">Integer</Property>
+        <Property name="dataType">Double</Property>
         <Property name="label">数量</Property>
       </PropertyDef>
       <PropertyDef name="bz">
@@ -549,6 +570,11 @@ view.get(&quot;#dsCg&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync();
         <Property name="property">lx</Property>
         <Editor/>
       </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">gg</Property>
+        <Property name="property">gg</Property>
+        <Editor/>
+      </AutoFormElement>
       <Button>
         <ClientEvent name="onClick">var dsCondition = view.get(&quot;#dsCondition&quot;).getData(&quot;#&quot;);&#xD;
 view.get(&quot;#dsCg&quot;).set(&quot;parameter&quot;,dsCondition).flushAsync();&#xD;
@@ -570,25 +596,45 @@ view.get(&quot;#dialog&quot;).show();&#xD;
       <Button>
         <ClientEvent name="onClick">var currentData = view.get(&quot;#dsCg&quot;).getData(&quot;#&quot;);&#xD;
 var dsDdxx = view.get(&quot;#dsCgxx&quot;);&#xD;
-if(currentData != undefined){&#xD;
+var selection = view.get(&quot;#dataGrid1&quot;).get(&quot;selection&quot;);&#xD;
+&#xD;
+if(selection.length > 0){&#xD;
+	var idList =&quot;&quot;;&#xD;
+	selection.each(function(entity){&#xD;
+		idList+=entity._data.cgxxmxid+&quot;,&quot;;&#xD;
+		&#xD;
+	});	&#xD;
 	dorado.MessageBox.confirm(&quot;是否将当前订单删除？&quot;,function(){&#xD;
-	var id = currentData.get(&quot;id&quot;);&#xD;
-	view.get(&quot;#ajaxActionCgzt&quot;).set(&quot;parameter&quot;,{lx:&quot;N&quot;,id:id}).execute();&#xD;
+	var id = currentData.get(&quot;cgxxmxid&quot;);&#xD;
+	view.get(&quot;#ajaxActionCgzt&quot;).set(&quot;parameter&quot;,{lx:&quot;N&quot;,id:idList}).execute();&#xD;
 	view.get(&quot;#dsCg&quot;).flushAsync();&#xD;
 	});	&#xD;
-}</ClientEvent>
+}else{&#xD;
+	dorado.MessageBox.alert(&quot;请选择记录&quot;)&#xD;
+}&#xD;
+&#xD;
+</ClientEvent>
         <Property name="caption">删除</Property>
         <Property name="icon">url(>skin>common/icons.gif) -140px -0px</Property>
       </Button>
       <Button>
         <ClientEvent name="onClick">var currentData = view.get(&quot;#dsCg&quot;).getData(&quot;#&quot;);&#xD;
 var dsDdxx = view.get(&quot;#dsCgxx&quot;);&#xD;
-if(currentData != undefined){&#xD;
+var selection = view.get(&quot;#dataGrid1&quot;).get(&quot;selection&quot;);&#xD;
+&#xD;
+if(selection.length > 0){&#xD;
+	var idList =&quot;&quot;;&#xD;
+	selection.each(function(entity){&#xD;
+		idList+=entity._data.cgxxmxid+&quot;,&quot;;&#xD;
+		&#xD;
+	});	&#xD;
 	dorado.MessageBox.confirm(&quot;是否将当前订单设为已完成？&quot;,function(){&#xD;
-	var id = currentData.get(&quot;id&quot;);&#xD;
-	view.get(&quot;#ajaxActionCgzt&quot;).set(&quot;parameter&quot;,{lx:&quot;G&quot;,id:id}).execute();&#xD;
+	var id = currentData.get(&quot;cgxxmxid&quot;);&#xD;
+	view.get(&quot;#ajaxActionCgzt&quot;).set(&quot;parameter&quot;,{lx:&quot;G&quot;,id:idList}).execute();&#xD;
 	view.get(&quot;#dsCg&quot;).flushAsync();&#xD;
 	});	&#xD;
+}else{&#xD;
+	dorado.MessageBox.alert(&quot;请选择记录&quot;)&#xD;
 }&#xD;
 &#xD;
 </ClientEvent>
@@ -598,13 +644,23 @@ if(currentData != undefined){&#xD;
       <Button>
         <ClientEvent name="onClick">var currentData = view.get(&quot;#dsCg&quot;).getData(&quot;#&quot;);&#xD;
 var dsDdxx = view.get(&quot;#dsCgxx&quot;);&#xD;
-if(currentData != undefined){&#xD;
+var selection = view.get(&quot;#dataGrid1&quot;).get(&quot;selection&quot;);&#xD;
+&#xD;
+if(selection.length > 0){&#xD;
+	var idList =&quot;&quot;;&#xD;
+	selection.each(function(entity){&#xD;
+		idList+=entity._data.cgxxmxid+&quot;,&quot;;&#xD;
+		&#xD;
+	});	&#xD;
 	dorado.MessageBox.confirm(&quot;是否取消当前订单归档状态？&quot;,function(){&#xD;
-	var id = currentData.get(&quot;id&quot;);&#xD;
-	view.get(&quot;#ajaxActionCgzt&quot;).set(&quot;parameter&quot;,{lx:&quot;Y&quot;,id:id}).execute();&#xD;
+	var id = currentData.get(&quot;cgxxmxid&quot;);&#xD;
+	view.get(&quot;#ajaxActionCgzt&quot;).set(&quot;parameter&quot;,{lx:&quot;Y&quot;,id:idList}).execute();&#xD;
 	view.get(&quot;#dsCg&quot;).flushAsync();&#xD;
 	});	&#xD;
-}</ClientEvent>
+}else{&#xD;
+	dorado.MessageBox.alert(&quot;请选择记录&quot;)&#xD;
+}&#xD;
+</ClientEvent>
         <Property name="caption">订单取消归档</Property>
         <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
       </Button>
@@ -651,11 +707,21 @@ ajaxActionExport.execute(function(fileName){&#xD;
         <Property name="caption">导出采购单</Property>
       </Button>
       <Button>
-        <ClientEvent name="onClick">view.get(&quot;#dialog&quot;).show();&#xD;
+        <ClientEvent name="onClick">&#xD;
+var selection = view.get(&quot;#dataGrid1&quot;).get(&quot;selection&quot;);&#xD;
+&#xD;
+if(selection.length > 0){&#xD;
+	dorado.MessageBox.alert(&quot;请取消勾选，选中一条记录进行修改&quot;)&#xD;
+	&#xD;
+}else{&#xD;
+	view.get(&quot;#dialog&quot;).show();&#xD;
 var currentData = view.get(&quot;#dsCg&quot;).getData(&quot;#&quot;);&#xD;
 var dsDdxx = view.get(&quot;#dsCgxx&quot;);&#xD;
 var id = currentData.get(&quot;id&quot;);&#xD;
 dsDdxx.set(&quot;parameter&quot;,{id:id}).flush();	&#xD;
+&#xD;
+}&#xD;
+&#xD;
 </ClientEvent>
         <Property name="caption">修改</Property>
         <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
@@ -667,62 +733,109 @@ dsDdxx.set(&quot;parameter&quot;,{id:id}).flush();	&#xD;
         <Property name="icon">url(>skin>common/icons.gif) -200px -0px</Property>
       </Button>
     </ToolBar>
-    <DataGrid>
+    <DataGrid id="dataGrid1">
       <Property name="dataSet">dsCg</Property>
       <Property name="readOnly">true</Property>
+      <Property name="selectionMode">multiRows</Property>
+      <RowSelectorColumn/>
       <DataColumn name="kh">
         <Property name="property">kh</Property>
+        <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="dddh">
         <Property name="property">dddh</Property>
+        <Property name="width">150</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="wlmc">
         <Property name="property">wlmc</Property>
+        <Property name="width">120</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="gg">
         <Property name="property">gg</Property>
+        <Property name="width">100</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="dw">
         <Property name="property">dw</Property>
+        <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="sl">
         <Property name="property">sl</Property>
+        <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="dj">
         <Property name="property">dj</Property>
+        <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
-      <DataColumn name="je">
-        <Property name="property">je</Property>
+      <DataColumn name="llje">
+        <Property name="property">llje</Property>
+        <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="yjsl">
         <Property name="property">yjsl</Property>
+        <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="wjsl">
         <Property name="property">wjsl</Property>
+        <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="xdrq">
         <Property name="property">xdrq</Property>
+        <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="jhrq">
         <Property name="property">jhrq</Property>
+        <Property name="width">80</Property>
+        <Property name="align">left</Property>
+      </DataColumn>
+      <DataColumn name="llrq">
+        <Property name="property">llrq</Property>
+        <Property name="width">80</Property>
       </DataColumn>
       <DataColumn name="bz">
         <Property name="property">bz</Property>
+        <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="lx">
         <Property name="property">lx</Property>
+        <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="cplh">
         <Property name="property">cplh</Property>
+        <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="cz">
         <Property name="property">cz</Property>
+        <Property name="width">120</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="ms">
         <Property name="property">ms</Property>
+        <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="bzs">
         <Property name="property">bzs</Property>
+        <Property name="width">80</Property>
+        <Property name="align">left</Property>
+      </DataColumn>
+      <DataColumn name="je">
+        <Property name="property">je</Property>
+        <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
     </DataGrid>
     <Dialog id="dialog">
@@ -848,6 +961,10 @@ view.get(&quot;#dialogCgxx&quot;).show();</ClientEvent>
                   </DataColumn>
                   <DataColumn name="jhrq">
                     <Property name="property">jhrq</Property>
+                    <Property name="width">100</Property>
+                  </DataColumn>
+                  <DataColumn name="llrq">
+                    <Property name="property">llrq</Property>
                     <Property name="width">100</Property>
                   </DataColumn>
                   <DataColumn name="bz">
@@ -1129,6 +1246,10 @@ view.get(&quot;#dialogShdDdxx&quot;).show();&#xD;
                     <Property name="property">wlmc</Property>
                     <Property name="width">200</Property>
                   </DataColumn>
+                  <DataColumn name="gg">
+                    <Property name="property">gg</Property>
+                    <Property name="width">100</Property>
+                  </DataColumn>
                   <DataColumn name="dw">
                     <Property name="property">dw</Property>
                     <Property name="width">80</Property>
@@ -1190,6 +1311,11 @@ view.get(&quot;#dialogShdxx&quot;).hide();&#xD;
           <AutoFormElement>
             <Property name="name">wlmc</Property>
             <Property name="property">wlmc</Property>
+            <Editor/>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">gg</Property>
+            <Property name="property">gg</Property>
             <Editor/>
           </AutoFormElement>
           <AutoFormElement>
@@ -1291,7 +1417,7 @@ view.get(&quot;#dsChDdxx&quot;).flushAsync();</ClientEvent>
     </DataSetDropDown>
     <DataSetDropDown id="dataSetDropDown1">
       <Property name="dataSet">dsWl</Property>
-      <Property name="assignmentMap">dddh=dddh;cplh=cplh;wlmc=wlmc;dw=dw;cgxxmxid=cgxxmxid</Property>
+      <Property name="assignmentMap">dddh=dddh;cplh=cplh;wlmc=wlmc;dw=dw;cgxxmxid=cgxxmxid;gg=gg</Property>
       <Property name="width">700</Property>
       <DataColumn>
         <Property name="property">dddh</Property>

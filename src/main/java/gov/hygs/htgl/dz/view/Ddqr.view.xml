@@ -381,7 +381,7 @@ view.get(&quot;#dialog&quot;).show();&#xD;
 var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
 if(currentData != undefined){&#xD;
 	dorado.MessageBox.confirm(&quot;是否将当前订单删除？&quot;,function(){&#xD;
-	var id = currentData.get(&quot;id&quot;);&#xD;
+	var id = currentData.get(&quot;mxid&quot;);&#xD;
 	view.get(&quot;#ajaxActionDdzt&quot;).set(&quot;parameter&quot;,{lx:&quot;N&quot;,id:id}).execute();&#xD;
 	view.get(&quot;#dsDd&quot;).flushAsync();&#xD;
 	});	&#xD;
@@ -488,58 +488,72 @@ ajaxActionZdbh.execute(function(returnValue){&#xD;
       <DataColumn name="kh">
         <Property name="property">kh</Property>
         <Property name="width">70</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="ddh">
         <Property name="property">ddh</Property>
         <Property name="width">140</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="xdrq">
         <Property name="property">xdrq</Property>
         <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="wlh">
         <Property name="property">wlh</Property>
         <Property name="width">150</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="wlmc">
         <Property name="property">wlmc</Property>
         <Property name="width">200</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="ddsl">
         <Property name="property">ddsl</Property>
         <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="yjsl">
         <Property name="property">yjsl</Property>
         <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="wjsl">
         <Property name="property">wjsl</Property>
         <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="cz">
         <Property name="property">cz</Property>
         <Property name="width">120</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="clgg">
         <Property name="property">clgg</Property>
         <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="gg">
         <Property name="property">gg</Property>
         <Property name="width">160</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="jhrq">
         <Property name="property">jhrq</Property>
         <Property name="width">100</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="dw">
         <Property name="property">dw</Property>
         <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="bz">
         <Property name="property">bz</Property>
         <Property name="width">120</Property>
+        <Property name="align">left</Property>
       </DataColumn>
     </DataGrid>
     <Dialog id="dialog">

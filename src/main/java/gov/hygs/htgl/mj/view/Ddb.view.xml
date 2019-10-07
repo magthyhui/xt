@@ -408,7 +408,7 @@ view.get(&quot;#dialog&quot;).show();&#xD;
 var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
 if(currentData != undefined){&#xD;
 	dorado.MessageBox.confirm(&quot;是否将当前订单删除？&quot;,function(){&#xD;
-	var id = currentData.get(&quot;id&quot;);&#xD;
+	var id = currentData.get(&quot;mxid&quot;);&#xD;
 	view.get(&quot;#ajaxActionDdzt&quot;).set(&quot;parameter&quot;,{lx:&quot;N&quot;,id:id}).execute();&#xD;
 	view.get(&quot;#dsDd&quot;).flushAsync();&#xD;
 	});	&#xD;
@@ -421,7 +421,7 @@ if(currentData != undefined){&#xD;
 var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
 if(currentData != undefined){&#xD;
 	dorado.MessageBox.confirm(&quot;是否将当前订单设为已完成？&quot;,function(){&#xD;
-	var id = currentData.get(&quot;id&quot;);&#xD;
+	var id = currentData.get(&quot;mxid&quot;);&#xD;
 	view.get(&quot;#ajaxActionDdzt&quot;).set(&quot;parameter&quot;,{lx:&quot;G&quot;,id:id}).execute();&#xD;
 	view.get(&quot;#dsDd&quot;).flushAsync();&#xD;
 	});	&#xD;
@@ -436,7 +436,7 @@ if(currentData != undefined){&#xD;
 var dsDdxx = view.get(&quot;#dsDdxx&quot;);&#xD;
 if(currentData != undefined){&#xD;
 	dorado.MessageBox.confirm(&quot;是否取消当前订单归档状态？&quot;,function(){&#xD;
-	var id = currentData.get(&quot;id&quot;);&#xD;
+	var id = currentData.get(&quot;mxid&quot;);&#xD;
 	view.get(&quot;#ajaxActionDdzt&quot;).set(&quot;parameter&quot;,{lx:&quot;Y&quot;,id:id}).execute();&#xD;
 	view.get(&quot;#dsDd&quot;).flushAsync();&#xD;
 	});	&#xD;
@@ -467,66 +467,85 @@ dsDdxx.set(&quot;parameter&quot;,{id:id}).flush();	&#xD;
       <DataColumn name="kh">
         <Property name="property">kh</Property>
         <Property name="width">70</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="ddh">
         <Property name="property">ddh</Property>
         <Property name="width">140</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="xdrq">
         <Property name="property">xdrq</Property>
         <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="wlh">
         <Property name="property">wlh</Property>
         <Property name="width">150</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="wlmc">
         <Property name="property">wlmc</Property>
         <Property name="width">180</Property>
+        <Property name="align">left</Property>
+      </DataColumn>
+      <DataColumn name="mjf">
+        <Property name="property">mjf</Property>
+        <Property name="width">100</Property>
+        <Property name="summaryType">sum</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="dj">
         <Property name="property">dj</Property>
         <Property name="width">70</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="je">
         <Property name="property">je</Property>
         <Property name="width">70</Property>
-        <Property name="align">right</Property>
+        <Property name="align">left</Property>
+        <Property name="summaryType">sum</Property>
       </DataColumn>
       <DataColumn name="yjmjrq">
         <Property name="property">yjmjrq</Property>
         <Property name="width">80</Property>
-      </DataColumn>
-      <DataColumn name="mjf">
-        <Property name="property">mjf</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="sbf">
         <Property name="property">sbf</Property>
         <Property name="width">80</Property>
+        <Property name="summaryType">sum</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="fkdjsj">
         <Property name="property">fkdjsj</Property>
         <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="kmdbsj">
         <Property name="property">kmdbsj</Property>
         <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="yqjysj">
         <Property name="property">yqjysj</Property>
         <Property name="width">80</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="jhrq">
         <Property name="property">jhrq</Property>
         <Property name="width">100</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="hyjq">
         <Property name="property">hyjq</Property>
         <Property name="width">100</Property>
+        <Property name="align">left</Property>
       </DataColumn>
       <DataColumn name="bz">
         <Property name="property">bz</Property>
         <Property name="width">120</Property>
+        <Property name="align">left</Property>
       </DataColumn>
     </DataGrid>
     <Dialog id="dialog">

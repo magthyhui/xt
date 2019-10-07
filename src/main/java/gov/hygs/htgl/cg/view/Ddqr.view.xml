@@ -100,7 +100,7 @@
       </PropertyDef>
       <PropertyDef name="sl">
         <Property name="label">数量</Property>
-        <Property name="dataType">Integer</Property>
+        <Property name="dataType">Double</Property>
       </PropertyDef>
       <PropertyDef name="ddh">
         <Property></Property>
@@ -172,11 +172,11 @@
       </PropertyDef>
       <PropertyDef name="yjsl">
         <Property name="label">已交数量</Property>
-        <Property name="dataType">Integer</Property>
+        <Property name="dataType">Double</Property>
       </PropertyDef>
       <PropertyDef name="wjsl">
         <Property name="label">未交数量</Property>
-        <Property name="dataType">Integer</Property>
+        <Property name="dataType">Double</Property>
       </PropertyDef>
       <PropertyDef name="dw">
         <Property name="label">单位</Property>
@@ -185,7 +185,9 @@
         <Property></Property>
         <Property name="label">规格</Property>
       </PropertyDef>
-      <PropertyDef name="sl"/>
+      <PropertyDef name="sl">
+        <Property name="dataType">Double</Property>
+      </PropertyDef>
       <PropertyDef name="ddbid">
         <Property name="dataType">Integer</Property>
       </PropertyDef>

@@ -148,13 +148,13 @@ public class DzDao extends BaseJdbcDao {
 		if(ddzt!=null){
 			if(ddzt.equals("A")){
 				sql.append(" and b.yxbz <> 'N' ");
-			}else{
-				if(ddzt.equals("G")){
-					sql.append(" and b.yxbz = ? ");
-				}else if(ddzt.equals("Y")){
-					sql.append(" and a.yxbz = ? and b.yxbz <>'G' ");
-				}else if(ddzt.equals("N")){
-					sql.append(" and a.yxbz = ? ");
+			} else {
+				if (ddzt.equals("G")) {
+					sql.append("  and b.yxbz  = ?");
+				} else if (ddzt.equals("Y")) {
+					sql.append("  and b.yxbz  = ? ");
+				} else if (ddzt.equals("N")) {
+					sql.append("  and b.yxbz  = ?");
 				}
 				args.add(ddzt);
 			}
@@ -188,13 +188,13 @@ public class DzDao extends BaseJdbcDao {
 		if(ddzt!=null){
 			if(ddzt.equals("A")){
 				sql.append(" and b.yxbz <> 'N' ");
-			}else{
-				if(ddzt.equals("G")){
-					sql.append(" and b.yxbz = ? ");
-				}else if(ddzt.equals("Y")){
-					sql.append(" and a.yxbz = ? and b.yxbz <>'G' ");
-				}else if(ddzt.equals("N")){
-					sql.append(" and a.yxbz = ? ");
+			} else {
+				if (ddzt.equals("G")) {
+					sql.append("  and b.yxbz  = ?");
+				} else if (ddzt.equals("Y")) {
+					sql.append("  and b.yxbz  = ? ");
+				} else if (ddzt.equals("N")) {
+					sql.append("  and b.yxbz  = ?");
 				}
 				args.add(ddzt);
 			}
